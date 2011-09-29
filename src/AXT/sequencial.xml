@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?> 
+<xtemplate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xt="http://www.midiacom.uff.br/gtvd/XTemPlate30/XTemPlateENCL" id="newXTtemplate" xsi:schemaLocation="http://www.midiacom.uff.br/gtvd/XTemPlate30/XTemPlateENCL http://www.midiacom.uff.br/gtvd/XTemPlate30/profiles/XTPENCL.xsd">
+<head>
+<connectorBase>
+<importBase alias="connBase" documentURI="connBase.ncl"/>
+</connectorBase>
+</head>
+<vocabulary>
+<component xlabel="component"/>
+<connector src="connBase#onEndStartN" xlabel="startNext" minOccurs="1" maxOccurs="1"/>
+</vocabulary>
+<body>
+<port id="port" select="child::*[@xlabel='component'][position()=1]"/>
+<variable name="i" select="1"/>
+<for-each select="child::*[@xlabel='component'][position()!=last()]">
+<link xtype="startNext">
+<bind role="onEnd" select="current()"/>
+<bind role="start" select="child::*[@xlabel='component'][position()=$i+1]"/>
+</link>
+<variable name="i" select="$i+1"/>
+</for-each>
+</body>
+</xtemplate>
