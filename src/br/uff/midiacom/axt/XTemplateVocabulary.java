@@ -5,8 +5,8 @@
 
 package AXT;
 
-import AXT.Component.XTemplateComponent;
-import AXT.Connector.XTemplateConnector;
+import br.uff.midiacom.axt.component.XTemplateComponent;
+import br.uff.midiacom.axt.connector.XTemplateConnector;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
 import java.util.ArrayList;

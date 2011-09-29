@@ -5,8 +5,8 @@
 
 package AXT;
 
-import AXT.ImportBase.XTemplateConnectorBase;
-import AXT.ImportBase.XTemplateDescriptorBase;
+import br.uff.midiacom.axt.importBase.XTemplateConnectorBase;
+import br.uff.midiacom.axt.importBase.XTemplateDescriptorBase;
 import java.util.Set;
 import java.util.TreeSet;
 import org.xml.sax.XMLReader;

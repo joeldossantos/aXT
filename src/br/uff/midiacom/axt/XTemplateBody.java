@@ -5,14 +5,14 @@
 
 package AXT;
 
-import AXT.Context.XTemplateContext;
-import AXT.Iteration.ForEach;
-import AXT.Iteration.XTemplateVariable;
-import AXT.Link.XTemplateLink;
-import AXT.Media.XTemplateMedia;
-import AXT.Media.XTemplateProperty;
-import AXT.Port.XTemplatePort;
-import AXT.Switch.XTemplateSwitch;
+import br.uff.midiacom.axt.context.XTemplateContext;
+import br.uff.midiacom.axt.iteration.ForEach;
+import br.uff.midiacom.axt.iteration.XTemplateVariable;
+import br.uff.midiacom.axt.link.XTemplateLink;
+import br.uff.midiacom.axt.Media.XTemplateMedia;
+import br.uff.midiacom.axt.Media.XTemplateProperty;
+import br.uff.midiacom.axt.port.XTemplatePort;
+import br.uff.midiacom.axt.Switch.XTemplateSwitch;
 import br.uff.midiacom.ana.NCLBody;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;

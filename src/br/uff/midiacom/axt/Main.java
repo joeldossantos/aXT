@@ -2,9 +2,9 @@
 
 package AXT;
 
-import AXT.Component.XTemplateComponent;
-import AXT.Connector.XTemplateConnector;
-import AXT.Media.XTemplateMedia;
+import br.uff.midiacom.axt.component.XTemplateComponent;
+import br.uff.midiacom.axt.connector.XTemplateConnector;
+import br.uff.midiacom.axt.Media.XTemplateMedia;
 import br.uff.midiacom.ana.NCLDoc;
 import br.uff.midiacom.ana.NCLParsingException;
 import br.uff.midiacom.ana.descriptor.NCLDescriptor;
