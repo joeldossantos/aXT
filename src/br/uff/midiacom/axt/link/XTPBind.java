@@ -1,20 +1,20 @@
 
 package br.uff.midiacom.axt.link;
 
-import br.uff.midiacom.axt.component.ComponentPort;
-import br.uff.midiacom.axt.component.XTemplateComponent;
-import br.uff.midiacom.axt.context.XTemplateContext;
-import br.uff.midiacom.axt.iteration.ForEach;
-import br.uff.midiacom.axt.Media.XTemplateArea;
-import br.uff.midiacom.axt.Media.XTemplateMedia;
-import br.uff.midiacom.axt.Media.XTemplateProperty;
-import br.uff.midiacom.axt.port.XTemplatePort;
-import br.uff.midiacom.axt.Switch.XTemplateSwitch;
+import br.uff.midiacom.axt.component.XTPComponentPort;
+import br.uff.midiacom.axt.component.XTPComponent;
+import br.uff.midiacom.axt.context.XTPContext;
+import br.uff.midiacom.axt.iteration.XTPForEach;
+import br.uff.midiacom.axt.Media.XTPArea;
+import br.uff.midiacom.axt.Media.XTPMedia;
+import br.uff.midiacom.axt.Media.XTPProperty;
+import br.uff.midiacom.axt.port.XTPPort;
+import br.uff.midiacom.axt.Switch.XTPSwitch;
 import AXT.XMLElement;
-import AXT.XTemplateBody;
-import AXT.XTemplateDoc;
-import AXT.XTemplateHead;
-import AXT.XTemplateVocabulary;
+import AXT.XTPBody;
+import AXT.XTPDoc;
+import AXT.XTPHead;
+import AXT.XTPVocabulary;
 import br.uff.midiacom.ana.NCLElement;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.connector.NCLAction;
@@ -36,8 +36,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
 
-public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLNode, I extends NCLInterface, 
-        D extends NCLLayoutDescriptor, Im extends NCLImport, C extends XTemplateComponent, Cp extends ComponentPort,
+public class XTPBind<P extends NCLParam, R extends NCLRole, N extends NCLNode, I extends NCLInterface,
+        D extends NCLLayoutDescriptor, Im extends NCLImport, C extends XTPComponent, Cp extends XTPComponentPort,
         Con extends NCLCausalConnector> extends NCLBind {
 
     private String select;
@@ -47,9 +47,9 @@ public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLN
 
     //construtores
 
-    public XTemplateBind(){};
+    public XTPBind(){};
 
-    public XTemplateBind(XMLReader reader, XMLElement parent) {
+    public XTPBind(XMLReader reader, XMLElement parent) {
 
         super();
 
@@ -115,19 +115,19 @@ public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLN
     }
     private void SelectedComponentReference(){
         XMLElement root = getParent();
-        while(!(root instanceof XTemplateDoc)){
+        while(!(root instanceof XTPDoc)){
             root = root.getParent();
         }
 
         if(this.getSelectedInterfaceXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;
             }
         }
         if(this.getSelectedComponentXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;
@@ -147,9 +147,9 @@ public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLN
                     if(attributes.getLocalName(i).equals("role"))
                         setRole((R) new NCLRole(attributes.getValue(i)));
                     else if(attributes.getLocalName(i).equals("component"))
-                        setComponent((N) new XTemplateContext(attributes.getValue(i)));
+                        setComponent((N) new XTPContext(attributes.getValue(i)));
                     else if(attributes.getLocalName(i).equals("interface"))
-                        setInterface((I) new XTemplatePort(attributes.getValue(i)));
+                        setInterface((I) new XTPPort(attributes.getValue(i)));
                     else if(attributes.getLocalName(i).equals("descriptor"))
                         setDescriptorPath(attributes.getValue(i));
                 }
@@ -230,8 +230,8 @@ public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLN
             return;
         }
 
-        if(this.getParent() instanceof XTemplateLink){
-            Con connector = (Con)((XTemplateLink)(this.getParent())).getXType().getConnector();
+        if(this.getParent() instanceof XTPLink){
+            Con connector = (Con)((XTPLink)(this.getParent())).getXType().getConnector();
             if(connector == null){
                 addWarning("Could not find a connector");
                 return;
@@ -282,10 +282,10 @@ public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLN
 
         Iterable<N> nodes = null;
 
-        if(getParent().getParent() instanceof XTemplateBody)
-            nodes = ((XTemplateBody) getParent().getParent()).getNodes();
-        else if(getParent().getParent() instanceof XTemplateContext)
-            nodes = ((XTemplateContext) getParent().getParent()).getNodes();
+        if(getParent().getParent() instanceof XTPBody)
+            nodes = ((XTPBody) getParent().getParent()).getNodes();
+        else if(getParent().getParent() instanceof XTPContext)
+            nodes = ((XTPContext) getParent().getParent()).getNodes();
        
 
         for(N node : nodes){
@@ -301,14 +301,14 @@ public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLN
 
     public boolean findComponent(){
         XMLElement root = this.getParent();
-         while(!(root instanceof XTemplateDoc)){
+         while(!(root instanceof XTPDoc)){
             root = root.getParent();
          }
-         if(((XTemplateDoc) root).getVocabulary()==null){
+         if(((XTPDoc) root).getVocabulary()==null){
             addWarning("Could not find a Vocabulary");
             return false;
          }
-        Iterable<Cp> components = (((XTemplateVocabulary)((XTemplateDoc) root).getVocabulary())).getComponents();
+        Iterable<Cp> components = (((XTPVocabulary)((XTPDoc) root).getVocabulary())).getComponents();
         for(Cp comp : components){
             if(this.getComponent().getId().equals(comp.getXLabel())){
                 setComponent((N) comp);
@@ -321,56 +321,56 @@ public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLN
     private void interfaceReference() {
         //Search for the interface inside the node
         Iterable<I> ifaces;
-        if(getComponent() instanceof XTemplateMedia){
-            ifaces = ((XTemplateMedia) getComponent()).getAreas();
+        if(getComponent() instanceof XTPMedia){
+            ifaces = ((XTPMedia) getComponent()).getAreas();
             for(I iface : ifaces){
                 if(iface.getId().equals(getInterface().getId())){
                     setInterface(iface);
                     return;
                 }
-                else if((((XTemplateArea) iface).getXLabel()).equals(getInterface().getId())){
+                else if((((XTPArea) iface).getXLabel()).equals(getInterface().getId())){
                     setInterface(iface);
                     return;
                 }
             }
-            ifaces = ((XTemplateMedia) getComponent()).getProperties();
+            ifaces = ((XTPMedia) getComponent()).getProperties();
             for(I iface : ifaces){
                 if(iface.getId().equals(getInterface().getId())){
                     setInterface(iface);
                     return;
                 }
-                else if((((XTemplateProperty) iface).getXLabel()).equals(getInterface().getId())){
-                    setInterface(iface);
-                    return;
-                }
-            }
-        }
-        else if(getComponent() instanceof XTemplateContext){
-            ifaces = ((XTemplateContext) getComponent()).getPorts();
-            for(I iface : ifaces){
-                if(iface.getId().equals(getInterface().getId())){
-                    setInterface(iface);
-                    return;
-                }
-                else if((((XTemplatePort) iface).getXLabel()).equals(getInterface().getId())){
-                    setInterface(iface);
-                    return;
-                }
-            }
-            ifaces = ((XTemplateContext) getComponent()).getProperties();
-            for(I iface : ifaces){
-                if(iface.getId().equals(getInterface().getId())){
-                    setInterface(iface);
-                    return;
-                }
-                else if((((XTemplateProperty) iface).getXLabel()).equals(getInterface().getId())){
+                else if((((XTPProperty) iface).getXLabel()).equals(getInterface().getId())){
                     setInterface(iface);
                     return;
                 }
             }
         }
-        else if(getComponent() instanceof XTemplateSwitch){
-            ifaces = ((XTemplateSwitch) getComponent()).getPorts();
+        else if(getComponent() instanceof XTPContext){
+            ifaces = ((XTPContext) getComponent()).getPorts();
+            for(I iface : ifaces){
+                if(iface.getId().equals(getInterface().getId())){
+                    setInterface(iface);
+                    return;
+                }
+                else if((((XTPPort) iface).getXLabel()).equals(getInterface().getId())){
+                    setInterface(iface);
+                    return;
+                }
+            }
+            ifaces = ((XTPContext) getComponent()).getProperties();
+            for(I iface : ifaces){
+                if(iface.getId().equals(getInterface().getId())){
+                    setInterface(iface);
+                    return;
+                }
+                else if((((XTPProperty) iface).getXLabel()).equals(getInterface().getId())){
+                    setInterface(iface);
+                    return;
+                }
+            }
+        }
+        else if(getComponent() instanceof XTPSwitch){
+            ifaces = ((XTPSwitch) getComponent()).getPorts();
             for(I iface : ifaces){
                 if(iface.getId().equals(getInterface().getId())){
                     setInterface(iface);
@@ -378,10 +378,10 @@ public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLN
                 }
             }
         }
-        else if(getComponent() instanceof XTemplateComponent){
-            ifaces = ((XTemplateComponent) getComponent()).getComponentPorts();
+        else if(getComponent() instanceof XTPComponent){
+            ifaces = ((XTPComponent) getComponent()).getComponentPorts();
             for(I iface : ifaces){
-                if(((XTemplateComponent)iface).getXLabel().equals(getInterface().getId())){
+                if(((XTPComponent)iface).getXLabel().equals(getInterface().getId())){
                     setInterface(iface);
                     return;
                 }
@@ -418,7 +418,7 @@ public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLN
 
         XMLElement root = getParent();
 
-        while(!(root.getParent() instanceof XTemplateDoc)){
+        while(!(root.getParent() instanceof XTPDoc)){
             root = root.getParent();
             if(root == null){
                 addWarning("Could not find a root element");
@@ -426,12 +426,12 @@ public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLN
             }
         }
 
-        if(((XTemplateDoc) root).getHead() == null){
+        if(((XTPDoc) root).getHead() == null){
             addWarning("Could not find a head");
             return null;
         }
 
-        Iterable<I> importedConBases = ((XTemplateDoc) root).getHead().getConnectorBase().getImportBases();
+        Iterable<I> importedConBases = ((XTPDoc) root).getHead().getConnectorBase().getImportBases();
         
         for (I base : importedConBases){
 
@@ -440,7 +440,7 @@ public class XTemplateBind<P extends NCLParam, R extends NCLRole, N extends NCLN
 
     @Override
 protected P createBindParam() {
-        return (P) new XTemplateParam(NCLParamInstance.BINDPARAM, getReader(), this);
+        return (P) new XTPParam(NCLParamInstance.BINDPARAM, getReader(), this);
     }
 }
 

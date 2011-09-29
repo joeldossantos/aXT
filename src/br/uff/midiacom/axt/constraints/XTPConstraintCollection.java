@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package br.uff.midiacom.axt.constraint;
+package br.uff.midiacom.axt.constraints;
 
-import AXT.XTemplateElement;
+import AXT.XTPElement;
 import java.util.Set;
 import java.util.TreeSet;
 import org.xml.sax.Attributes;
@@ -15,18 +15,18 @@ import org.xml.sax.XMLReader;
  *
  * @author Flavia
  */
-public class XTemplateConstraintCollection extends XTemplateElement{
+public class XTPConstraintCollection extends XTPElement{
 
-     private Set<XTemplateConstraint> constraints ;
+     private Set<XTPConstraint> constraints ;
      
      
      //construtores
      
-     public XTemplateConstraintCollection(){
-        constraints = new TreeSet<XTemplateConstraint>();
+     public XTPConstraintCollection(){
+        constraints = new TreeSet<XTPConstraint>();
      }
      
-     public XTemplateConstraintCollection(XMLReader reader, XTemplateElement parent) {
+     public XTPConstraintCollection(XMLReader reader, XTPElement parent) {
         setReader(reader);
         setParent(parent);
         getReader().setContentHandler(this);
@@ -34,7 +34,7 @@ public class XTemplateConstraintCollection extends XTemplateElement{
      
     //metodos de acesso
 
-     public boolean addXTemplateConstraint(XTemplateConstraint constraint) {
+     public boolean addXTemplateConstraint(XTPConstraint constraint) {
          //Se a restrição for inserida com sucesso, entra no if
          //senão, retorna falso
          if(constraints.add(constraint)){
@@ -47,7 +47,7 @@ public class XTemplateConstraintCollection extends XTemplateElement{
         return false;
     }
 
-    public boolean removeComponentPort(XTemplateConstraint constraint) {
+    public boolean removeComponentPort(XTPConstraint constraint) {
          //Se a restrição for removida com sucesso, entra no if
          //senão, retorna falso
         if(constraints.remove(constraint)){
@@ -66,7 +66,7 @@ public class XTemplateConstraintCollection extends XTemplateElement{
 
 
 
-    public boolean hasConstraint(XTemplateConstraint constraint) {
+    public boolean hasConstraint(XTPConstraint constraint) {
         return constraints.contains(constraint);
     }
 
@@ -78,7 +78,7 @@ public class XTemplateConstraintCollection extends XTemplateElement{
 
 
 
-    public Iterable<XTemplateConstraint> getConstraints() {
+    public Iterable<XTPConstraint> getConstraints() {
         return constraints;
     }
     @Override

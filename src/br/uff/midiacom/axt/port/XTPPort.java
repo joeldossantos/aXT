@@ -5,18 +5,18 @@
 
 package br.uff.midiacom.axt.port;
 
-import br.uff.midiacom.axt.component.ComponentPort;
-import br.uff.midiacom.axt.component.XTemplateComponent;
-import br.uff.midiacom.axt.context.XTemplateContext;
-import br.uff.midiacom.axt.Media.XTemplateArea;
-import br.uff.midiacom.axt.Media.XTemplateMedia;
-import br.uff.midiacom.axt.Media.XTemplateProperty;
-import br.uff.midiacom.axt.Switch.XTemplateSwitch;
+import br.uff.midiacom.axt.component.XTPComponentPort;
+import br.uff.midiacom.axt.component.XTPComponent;
+import br.uff.midiacom.axt.context.XTPContext;
+import br.uff.midiacom.axt.Media.XTPArea;
+import br.uff.midiacom.axt.Media.XTPMedia;
+import br.uff.midiacom.axt.Media.XTPProperty;
+import br.uff.midiacom.axt.Switch.XTPSwitch;
 import AXT.XMLElement;
-import AXT.XTemplateBody;
-import AXT.XTemplateDoc;
-import AXT.XTemplateElement;
-import AXT.XTemplateVocabulary;
+import AXT.XTPBody;
+import AXT.XTPDoc;
+import AXT.XTPElement;
+import AXT.XTPVocabulary;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.ana.interfaces.NCLPort;
@@ -29,28 +29,28 @@ import org.xml.sax.XMLReader;
  *
  * @author flavia
  */
-public class XTemplatePort<N extends NCLNode, I extends NCLInterface, Cp extends XTemplateComponent> extends NCLPort {
+public class XTPPort<N extends NCLNode, I extends NCLInterface, Cp extends XTPComponent> extends NCLPort {
 
     private String xlabel;
     private String select;//tentar implementar como XPath
     private XMLElement selectedElement;
     
-    public XTemplatePort(String id) throws NCLInvalidIdentifierException{
+    public XTPPort(String id) throws NCLInvalidIdentifierException{
         super(id);
     }
-    public XTemplatePort(String id, String xlabel, String select) throws NCLInvalidIdentifierException{
+    public XTPPort(String id, String xlabel, String select) throws NCLInvalidIdentifierException{
         super(id);
         this.select = select;
         this.xlabel = xlabel;
     }
 
-    public XTemplatePort()throws NCLInvalidIdentifierException{
+    public XTPPort()throws NCLInvalidIdentifierException{
         super(null);
         this.select = null;
         this.xlabel = null;
     }
 
-     public XTemplatePort(XMLReader reader, XMLElement parent){
+     public XTPPort(XMLReader reader, XMLElement parent){
         super();
         setReader(reader);
         setParent(parent);
@@ -129,9 +129,9 @@ public class XTemplatePort<N extends NCLNode, I extends NCLInterface, Cp extends
                 else if(attributes.getLocalName(i).equals("select"))
                     setSelect(attributes.getValue(i));
                 else if(attributes.getLocalName(i).equals("component"))
-                    setComponent((N) new XTemplateContext(attributes.getValue(i)));
+                    setComponent((N) new XTPContext(attributes.getValue(i)));
                 else if(attributes.getLocalName(i).equals("interface"))
-                    setInterface((I) new XTemplatePort(attributes.getValue(i)));
+                    setInterface((I) new XTPPort(attributes.getValue(i)));
             }
         }
         catch(NCLInvalidIdentifierException ex){
@@ -154,19 +154,19 @@ public class XTemplatePort<N extends NCLNode, I extends NCLInterface, Cp extends
 
     private void SelectedComponentReference(){
         XMLElement root = getParent();
-        while(!(root instanceof XTemplateDoc)){
+        while(!(root instanceof XTPDoc)){
             root = root.getParent();
         }
 
         if(this.getSelectedInterfaceXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;
             }
         }
         if(this.getSelectedComponentXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;
@@ -186,10 +186,10 @@ public class XTemplatePort<N extends NCLNode, I extends NCLInterface, Cp extends
             Set<N> nodes;
 
 
-        if(getParent() instanceof XTemplateBody)
-            nodes = ((XTemplateBody) getParent()).getNodes();
+        if(getParent() instanceof XTPBody)
+            nodes = ((XTPBody) getParent()).getNodes();
         else
-            nodes = ((XTemplateContext) getParent()).getNodes();
+            nodes = ((XTPContext) getParent()).getNodes();
 
         for(N node : nodes){
             if(node.getId().equals(getComponent().getId())){
@@ -198,21 +198,21 @@ public class XTemplatePort<N extends NCLNode, I extends NCLInterface, Cp extends
             }
             else{
                 
-                if(node instanceof XTemplateMedia){
-                    if(((XTemplateMedia) node).getXLabel().equals(getComponent().getId())){
+                if(node instanceof XTPMedia){
+                    if(((XTPMedia) node).getXLabel().equals(getComponent().getId())){
                         setComponent(node);
                         return;
                     }
                     
                 }
-                else if(node instanceof XTemplateContext){
-                    if(((XTemplateContext) node).getXLabel().equals(getComponent().getId())){
+                else if(node instanceof XTPContext){
+                    if(((XTPContext) node).getXLabel().equals(getComponent().getId())){
                         setComponent(node);
                         return;
                     }
                 }
-                else if(node instanceof XTemplateSwitch){
-                    if(((XTemplateSwitch) node).getXLabel().equals(getComponent().getId())){
+                else if(node instanceof XTPSwitch){
+                    if(((XTPSwitch) node).getXLabel().equals(getComponent().getId())){
                         setComponent(node);
                         return;
                     }
@@ -221,8 +221,8 @@ public class XTemplatePort<N extends NCLNode, I extends NCLInterface, Cp extends
 
         }
         /* Dúvida: sei que também posso ter uma referência a um xlabel no atributo
-         * component da porta. Porém, fazer cast de N para XTemplateElement não garante
-         * que eu tenha xlabel. Porém, implementar xlabel em XTemplateElement não
+         * component da porta. Porém, fazer cast de N para XTPElement não garante
+         * que eu tenha xlabel. Porém, implementar xlabel em XTPElement não
          * faz muito sentido pois nem todos os elementos xtemplate possuem xlabel.
           */
             
@@ -234,14 +234,14 @@ public class XTemplatePort<N extends NCLNode, I extends NCLInterface, Cp extends
 
     public boolean findComponent(){
         XMLElement root = this.getParent();
-         while(!(root instanceof XTemplateDoc)){
+         while(!(root instanceof XTPDoc)){
             root = root.getParent();
          }
-         if(((XTemplateDoc) root).getVocabulary()==null){
+         if(((XTPDoc) root).getVocabulary()==null){
             addWarning("Could not find a Vocabulary");
             return false;
          }
-        Iterable<Cp> components = (((XTemplateVocabulary)((XTemplateDoc) root).getVocabulary())).getComponents();
+        Iterable<Cp> components = (((XTPVocabulary)((XTPDoc) root).getVocabulary())).getComponents();
         for(Cp comp : components){
             if(this.getComponent().getId().equals(comp.getXLabel())){
                 setComponent(comp);
@@ -255,60 +255,60 @@ public class XTemplatePort<N extends NCLNode, I extends NCLInterface, Cp extends
         //Search for the interface inside the node
         Iterable<I> ifaces;
 
-        if(getComponent() instanceof XTemplateMedia){
-            ifaces = ((XTemplateMedia) getComponent()).getAreas();
+        if(getComponent() instanceof XTPMedia){
+            ifaces = ((XTPMedia) getComponent()).getAreas();
             for(I iface : ifaces){
                 if(iface.getId().equals(getInterface().getId())){
                     setInterface(iface);
                     return;
                 }
-                else if(((XTemplateArea) iface).getXLabel().equals(getInterface().getId()))
+                else if(((XTPArea) iface).getXLabel().equals(getInterface().getId()))
                 {
                     setInterface(iface);
                     return;
                 }
             }
-            ifaces = ((XTemplateMedia) getComponent()).getProperties();
+            ifaces = ((XTPMedia) getComponent()).getProperties();
             for(I iface : ifaces){
                 if(iface.getId().equals(getInterface().getId())){
                     setInterface(iface);
                     return;
                 }
-                else if(((XTemplateProperty) iface).getXLabel().equals(getInterface().getId()))
-                {
-                    setInterface(iface);
-                    return;
-                }
-            }
-        }
-        else if(getComponent() instanceof XTemplateContext){
-            ifaces = ((XTemplateContext) getComponent()).getPorts();
-            for(I iface : ifaces){
-                if(iface.getId().equals(getInterface().getId())){
-                    setInterface(iface);
-                    return;
-                }
-                else if(((XTemplatePort) iface).getXLabel().equals(getInterface().getId()))
-                {
-                    setInterface(iface);
-                    return;
-                }
-            }
-            ifaces = ((XTemplateContext) getComponent()).getProperties();
-            for(I iface : ifaces){
-                if(iface.getId().equals(getInterface().getId())){
-                    setInterface(iface);
-                    return;
-                }
-                else if(((XTemplateProperty) iface).getXLabel().equals(getInterface().getId()))
+                else if(((XTPProperty) iface).getXLabel().equals(getInterface().getId()))
                 {
                     setInterface(iface);
                     return;
                 }
             }
         }
-        else if(getComponent() instanceof XTemplateSwitch){
-            ifaces = ((XTemplateSwitch) getComponent()).getPorts();
+        else if(getComponent() instanceof XTPContext){
+            ifaces = ((XTPContext) getComponent()).getPorts();
+            for(I iface : ifaces){
+                if(iface.getId().equals(getInterface().getId())){
+                    setInterface(iface);
+                    return;
+                }
+                else if(((XTPPort) iface).getXLabel().equals(getInterface().getId()))
+                {
+                    setInterface(iface);
+                    return;
+                }
+            }
+            ifaces = ((XTPContext) getComponent()).getProperties();
+            for(I iface : ifaces){
+                if(iface.getId().equals(getInterface().getId())){
+                    setInterface(iface);
+                    return;
+                }
+                else if(((XTPProperty) iface).getXLabel().equals(getInterface().getId()))
+                {
+                    setInterface(iface);
+                    return;
+                }
+            }
+        }
+        else if(getComponent() instanceof XTPSwitch){
+            ifaces = ((XTPSwitch) getComponent()).getPorts();
             for(I iface : ifaces){
                 if(iface.getId().equals(getInterface().getId())){
                     setInterface(iface);
@@ -317,17 +317,17 @@ public class XTemplatePort<N extends NCLNode, I extends NCLInterface, Cp extends
 
             }
         }
-        else if(getComponent() instanceof XTemplateComponent){
-            ifaces = ((XTemplateComponent) getComponent()).getComponentPorts();
+        else if(getComponent() instanceof XTPComponent){
+            ifaces = ((XTPComponent) getComponent()).getComponentPorts();
             for(I iface : ifaces){
-                if(((ComponentPort)iface).getXLabel().equals(getInterface().getId())){
+                if(((XTPComponentPort)iface).getXLabel().equals(getInterface().getId())){
                     setInterface(iface);
                     return;
                 }
             }
         }
         addWarning("Could not find interface with id: " + getInterface().getId());
-        addWarning("Could not find interface with xlabel: " + ((XTemplateElement)getInterface()).getXLabel());
+        addWarning("Could not find interface with xlabel: " + ((XTPElement)getInterface()).getXLabel());
     }
 
     @Override

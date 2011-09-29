@@ -6,7 +6,7 @@ package AXT;
  *
  * @author Flavia
  */
-public  abstract class XTemplateValues {
+public  abstract class XTPValues {
 
 
     public enum XTemplateNamespace {

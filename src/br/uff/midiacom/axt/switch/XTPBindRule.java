@@ -2,12 +2,12 @@
 
 package br.uff.midiacom.axt.Switch;
 
-import br.uff.midiacom.axt.component.XTemplateComponent;
-import br.uff.midiacom.axt.context.XTemplateContext;
-import br.uff.midiacom.axt.Media.XTemplateMedia;
+import br.uff.midiacom.axt.component.XTPComponent;
+import br.uff.midiacom.axt.context.XTPContext;
+import br.uff.midiacom.axt.Media.XTPMedia;
 import AXT.XMLElement;
-import AXT.XTemplateDoc;
-import AXT.XTemplateVocabulary;
+import AXT.XTPDoc;
+import AXT.XTPVocabulary;
 import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.ana.node.NCLSwitchBindRule;
 import br.uff.midiacom.ana.rule.NCLRule;
@@ -17,15 +17,15 @@ import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
 
-public class XTemplateBindRule<R extends NCLRule, N extends NCLNode, Cp extends XTemplateComponent> extends NCLSwitchBindRule{
+public class XTPBindRule<R extends NCLRule, N extends NCLNode, Cp extends XTPComponent> extends NCLSwitchBindRule{
 
     private String select;
     private String rulePath;
     private XMLElement selectedElement;
 
-    public XTemplateBindRule(){}
+    public XTPBindRule(){}
 
-    public XTemplateBindRule(XMLReader reader, XMLElement parent) {
+    public XTPBindRule(XMLReader reader, XMLElement parent) {
         setReader(reader);
         setParent(parent);
 
@@ -90,19 +90,19 @@ public class XTemplateBindRule<R extends NCLRule, N extends NCLNode, Cp extends 
     }
     private void SelectedComponentReference(){
         XMLElement root = getParent();
-        while(!(root instanceof XTemplateDoc)){
+        while(!(root instanceof XTPDoc)){
             root = root.getParent();
         }
 
         if(this.getSelectedInterfaceXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;
             }
         }
         if(this.getSelectedComponentXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;
@@ -122,7 +122,7 @@ public class XTemplateBindRule<R extends NCLRule, N extends NCLNode, Cp extends 
                 else if(attributes.getLocalName(i).equals("rule"))
                     setRulePath(attributes.getValue(i));
                 else if(attributes.getLocalName(i).equals("constituent"))
-                    setConstituent((N) new XTemplateContext(attributes.getValue(i)));
+                    setConstituent((N) new XTPContext(attributes.getValue(i)));
             }
         }
         catch(Exception ex){
@@ -151,14 +151,14 @@ public class XTemplateBindRule<R extends NCLRule, N extends NCLNode, Cp extends 
     private void constituentReference() {
 
         XMLElement root = this.getParent();
-         while(!(root instanceof XTemplateDoc)){
+         while(!(root instanceof XTPDoc)){
             root = root.getParent();
          }
          
-        if(((XTemplateDoc) root).getVocabulary()!=null){
+        if(((XTPDoc) root).getVocabulary()!=null){
             
          
-            Iterable<Cp> components = (((XTemplateVocabulary)((XTemplateDoc) root).getVocabulary())).getComponents();
+            Iterable<Cp> components = (((XTPVocabulary)((XTPDoc) root).getVocabulary())).getComponents();
             if(findConstituent(components)!=null){
                 setConstituent(findConstituent(components));
                 return;
@@ -167,7 +167,7 @@ public class XTemplateBindRule<R extends NCLRule, N extends NCLNode, Cp extends 
         }
         
         else{
-        Set<N> nodes = ((XTemplateSwitch) getParent()).getNodes();
+        Set<N> nodes = ((XTPSwitch) getParent()).getNodes();
 
         for(N node : nodes){
             if(node.getId().equals(getConstituent().getId())){
@@ -175,21 +175,21 @@ public class XTemplateBindRule<R extends NCLRule, N extends NCLNode, Cp extends 
                 return;
             }
             else{
-            if(node instanceof XTemplateMedia){
-                    if(((XTemplateMedia) node).getXLabel().equals(getConstituent().getId())){
+            if(node instanceof XTPMedia){
+                    if(((XTPMedia) node).getXLabel().equals(getConstituent().getId())){
                         setConstituent(node);
                         return;
                     }
 
                 }
-                else if(node instanceof XTemplateContext){
-                    if(((XTemplateContext) node).getXLabel().equals(getConstituent().getId())){
+                else if(node instanceof XTPContext){
+                    if(((XTPContext) node).getXLabel().equals(getConstituent().getId())){
                         setConstituent(node);
                         return;
                     }
                 }
-                else if(node instanceof XTemplateSwitch){
-                    if(((XTemplateSwitch) node).getXLabel().equals(getConstituent().getId())){
+                else if(node instanceof XTPSwitch){
+                    if(((XTPSwitch) node).getXLabel().equals(getConstituent().getId())){
                         setConstituent(node);
                         return;
                     }

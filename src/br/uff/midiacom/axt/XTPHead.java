@@ -5,8 +5,8 @@
 
 package AXT;
 
-import br.uff.midiacom.axt.importBase.XTemplateConnectorBase;
-import br.uff.midiacom.axt.importBase.XTemplateDescriptorBase;
+import br.uff.midiacom.axt.importBase.XTPConnectorBase;
+import br.uff.midiacom.axt.importBase.XTPDescriptorBase;
 import java.util.Set;
 import java.util.TreeSet;
 import org.xml.sax.XMLReader;
@@ -16,13 +16,13 @@ import org.xml.sax.Attributes;
  *
  * @author Flavia
  */
-public class XTemplateHead<DB extends XTemplateDescriptorBase, CB extends XTemplateConnectorBase, E extends XTemplateExtends> extends XTemplateElement {
+public class XTPHead<DB extends XTPDescriptorBase, CB extends XTPConnectorBase, E extends XTPExtends> extends XTPElement {
 
     private DB descriptorBase;
     private CB connectorBase;
     private Set<E> xtextends = new TreeSet<E>();
 
-     public XTemplateHead(XMLReader reader, XMLElement parent) {
+     public XTPHead(XMLReader reader, XMLElement parent) {
         setReader(reader);
         setParent(parent);
 
@@ -169,17 +169,17 @@ public class XTemplateHead<DB extends XTemplateDescriptorBase, CB extends XTempl
     }
 
      protected DB createDescriptorBase() {
-        return (DB) new XTemplateDescriptorBase(getReader(), this);
+        return (DB) new XTPDescriptorBase(getReader(), this);
     }
 
 
 
     protected CB createConnectorBase() {
-        return (CB) new XTemplateConnectorBase(getReader(), this);
+        return (CB) new XTPConnectorBase(getReader(), this);
     }
 
      protected E createExtend() {
-        return (E) new XTemplateExtends(getReader(), this);
+        return (E) new XTPExtends(getReader(), this);
     }
 
 

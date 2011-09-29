@@ -5,10 +5,10 @@
 
 package br.uff.midiacom.axt.Media;
 
-import br.uff.midiacom.axt.context.XTemplateContext;
-import br.uff.midiacom.axt.Switch.XTemplateSwitch;
+import br.uff.midiacom.axt.context.XTPContext;
+import br.uff.midiacom.axt.Switch.XTPSwitch;
 import AXT.XMLElement;
-import AXT.XTemplateBody;
+import AXT.XTPBody;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.datatype.NCLInstanceType;
 import br.uff.midiacom.ana.datatype.NCLMimeType;
@@ -31,21 +31,21 @@ import org.xml.sax.XMLReader;
  *
  * @author flavia
  */
-public class XTemplateMedia<A extends NCLArea, P extends NCLProperty, D extends NCLLayoutDescriptor,M extends NCLMedia,N extends NCLNode> extends NCLMedia{
+public class XTPMedia<A extends NCLArea, P extends NCLProperty, D extends NCLLayoutDescriptor,M extends NCLMedia,N extends NCLNode> extends NCLMedia{
 
     private String xlabel;
    
 
-    public XTemplateMedia()throws NCLInvalidIdentifierException{
+    public XTPMedia()throws NCLInvalidIdentifierException{
         super("unidentified");
     }
 
-    public XTemplateMedia(String id, String xlabel) throws NCLInvalidIdentifierException{
+    public XTPMedia(String id, String xlabel) throws NCLInvalidIdentifierException{
         super(id);
         this.xlabel = xlabel;
     }
 
-    public XTemplateMedia(XMLReader reader, XMLElement parent){
+    public XTPMedia(XMLReader reader, XMLElement parent){
         super();
         setReader(reader);
         setParent(parent);
@@ -97,7 +97,7 @@ public class XTemplateMedia<A extends NCLArea, P extends NCLProperty, D extends 
                     else if(attributes.getLocalName(i).equals("descriptor"))
                         setDescriptor((D) new NCLDescriptor(attributes.getValue(i)));
                     else if(attributes.getLocalName(i).equals("refer"))
-                        setRefer((M) new XTemplateMedia(attributes.getValue(i),"unknown"));
+                        setRefer((M) new XTPMedia(attributes.getValue(i),"unknown"));
                     else if(attributes.getLocalName(i).equals("instance")){
                         for(NCLInstanceType in : NCLInstanceType.values()){
                             if(in.toString().equals(attributes.getValue(i)))
@@ -153,7 +153,7 @@ public class XTemplateMedia<A extends NCLArea, P extends NCLProperty, D extends 
         //Search for the interface inside the node
         XMLElement body = getParent();
 
-        while(!(body instanceof XTemplateBody)){
+        while(!(body instanceof XTPBody)){
             body = body.getParent();
             if(body == null){
                 addWarning("Could not find a body");
@@ -161,26 +161,26 @@ public class XTemplateMedia<A extends NCLArea, P extends NCLProperty, D extends 
             }
         }
 
-        setRefer(findMedia(((XTemplateBody) body).getNodes()));
+        setRefer(findMedia(((XTPBody) body).getNodes()));
     }
 
     private M findMedia(Set<N> nodes) {
         for(N n : nodes){
-            if(n instanceof XTemplateMedia){
+            if(n instanceof XTPMedia){
                 if(n.getId().equals(getRefer().getId()))
                     return (M) n;
             }
-            else if(n instanceof XTemplateContext){
-                if( ((XTemplateContext) n).hasNode()){
-                    Set<N> cnodes = ((XTemplateContext) n).getNodes();
+            else if(n instanceof XTPContext){
+                if( ((XTPContext) n).hasNode()){
+                    Set<N> cnodes = ((XTPContext) n).getNodes();
                     M m = findMedia(cnodes);
                     if(m != null)
                         return (M) m;
                 }
             }
-            else if(n instanceof XTemplateSwitch){
-                if( ((XTemplateSwitch) n).hasNode()){
-                    Set<N> snodes = ((XTemplateSwitch) n).getNodes();
+            else if(n instanceof XTPSwitch){
+                if( ((XTPSwitch) n).hasNode()){
+                    Set<N> snodes = ((XTPSwitch) n).getNodes();
                     M m = findMedia(snodes);
                     if(m != null)
                         return (M) m;
@@ -218,13 +218,13 @@ public class XTemplateMedia<A extends NCLArea, P extends NCLProperty, D extends 
    
     protected A createXTemplateArea(){
        //um construtor vazio foi adicionado a ana (NCLArea)
-        return (A) new XTemplateArea(getReader(), this);
+        return (A) new XTPArea(getReader(), this);
     }
 
 
     protected P createXTemplateProperty(){
         //um construtor vazio foi adicionadoa ana (NCLProperty)
-        return (P) new XTemplateProperty(getReader(), this);
+        return (P) new XTPProperty(getReader(), this);
     }
 
 }

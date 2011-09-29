@@ -2,9 +2,9 @@
 
 package br.uff.midiacom.axt.link;
 
-import br.uff.midiacom.axt.connector.XTemplateConnector;
+import br.uff.midiacom.axt.connector.XTPConnector;
 import AXT.XMLElement;
-import AXT.XTemplateDoc;
+import AXT.XTPDoc;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.datatype.NCLParamInstance;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
@@ -14,18 +14,18 @@ import br.uff.midiacom.ana.link.NCLParam;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
-public class XTemplateLink<B extends NCLBind, P extends NCLParam, Cn extends XTemplateConnector,
+public class XTPLink<B extends NCLBind, P extends NCLParam, Cn extends XTPConnector,
         D extends NCLLayoutDescriptor, C extends NCLCausalConnector> extends NCLLink{
 
-    private XTemplateConnector xtype;
+    private XTPConnector xtype;
 
     
 
     //construtores
 
-     public XTemplateLink(){};
+     public XTPLink(){};
 
-     public XTemplateLink(XMLReader reader, XMLElement parent) {
+     public XTPLink(XMLReader reader, XMLElement parent) {
         super();
         setReader(reader);
         setParent(parent);
@@ -35,11 +35,11 @@ public class XTemplateLink<B extends NCLBind, P extends NCLParam, Cn extends XTe
 
      //metodos de acesso
 
-    public XTemplateConnector getXType(){
+    public XTPConnector getXType(){
         return this.xtype;
     }
 
-    public void setXType(XTemplateConnector xtype){
+    public void setXType(XTPConnector xtype){
         this.xtype = xtype;
     }
 
@@ -59,7 +59,7 @@ public class XTemplateLink<B extends NCLBind, P extends NCLParam, Cn extends XTe
                         //não é esperado achar um connector não declarado num link de xtemplate
                     // permitir a definição de elos com conectores não declarados?
                     else if(attributes.getLocalName(i).equals("xtype"))
-                        setXType( new XTemplateConnector(attributes.getValue(i)));
+                        setXType( new XTPConnector(attributes.getValue(i)));
                 }
             }
             else if(localName.equals("linkParam")){
@@ -108,7 +108,7 @@ public class XTemplateLink<B extends NCLBind, P extends NCLParam, Cn extends XTe
     private Iterable<Cn> getConnectors() {
         XMLElement root = (XMLElement) getParent();
 
-        while(!(root instanceof XTemplateDoc)){
+        while(!(root instanceof XTPDoc)){
             root = (XMLElement) root.getParent();
             if(root == null){
                 addWarning("Could not find a root element");
@@ -116,11 +116,11 @@ public class XTemplateLink<B extends NCLBind, P extends NCLParam, Cn extends XTe
             }
         }
 
-        if(((XTemplateDoc) root).getVocabulary() == null){
+        if(((XTPDoc) root).getVocabulary() == null){
             addWarning("Could not find a vocabulary");
             return null;
         }
-        return ((XTemplateDoc) root).getVocabulary().getConnectors();
+        return ((XTPDoc) root).getVocabulary().getConnectors();
     }
 
 
@@ -147,25 +147,25 @@ public class XTemplateLink<B extends NCLBind, P extends NCLParam, Cn extends XTe
         if(this.hasBind()){
         Iterable<B> binds = this.getBinds();
         for(B bind: binds){
-          ((XTemplateBind) bind).bindSearch(descriptors);
+          ((XTPBind) bind).bindSearch(descriptors);
         }
         }
         if(this.hasLinkParam()){
         Iterable<P> params = this.getLinkParams();
         for(P param: params){
-            ((XTemplateParam)param).paramSearch();
+            ((XTPParam)param).paramSearch();
         }
         }
     }
 
     @Override
     protected P createLinkParam() {
-        return (P) new XTemplateParam(NCLParamInstance.LINKPARAM, getReader(), this);
+        return (P) new XTPParam(NCLParamInstance.LINKPARAM, getReader(), this);
     }
 
     @Override
     protected B createBind() {
-        return (B) new XTemplateBind(getReader(), this);
+        return (B) new XTPBind(getReader(), this);
     }
     @Override
     public String parse(int ident) {return null;}

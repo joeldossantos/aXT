@@ -5,8 +5,8 @@
 
 package AXT;
 
-import br.uff.midiacom.axt.component.XTemplateComponent;
-import br.uff.midiacom.axt.connector.XTemplateConnector;
+import br.uff.midiacom.axt.component.XTPComponent;
+import br.uff.midiacom.axt.connector.XTPConnector;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
 import java.util.ArrayList;
@@ -21,15 +21,15 @@ import org.xml.sax.XMLReader;
  *
  * @author Flavia
  */
-public class XTemplateVocabulary<Cp extends XTemplateComponent, Conn extends XTemplateConnector,
-        D extends NCLLayoutDescriptor, C extends NCLCausalConnector> extends XTemplateElement {
+public class XTPVocabulary<Cp extends XTPComponent, Conn extends XTPConnector,
+        D extends NCLLayoutDescriptor, C extends NCLCausalConnector> extends XTPElement {
 
     private List<Cp> components = new ArrayList<Cp>();
     private List<Conn> xtconnectors = new ArrayList<Conn>();
 
-    public XTemplateVocabulary(){}
+    public XTPVocabulary(){}
 
-     public XTemplateVocabulary(XMLReader reader, XMLElement parent) {
+     public XTPVocabulary(XMLReader reader, XMLElement parent) {
         setReader(reader);
         setParent(parent);
 
@@ -183,11 +183,11 @@ public class XTemplateVocabulary<Cp extends XTemplateComponent, Conn extends XTe
     }
 
      protected Cp createComponent() {
-        return (Cp) new XTemplateComponent(getReader(), this);
+        return (Cp) new XTPComponent(getReader(), this);
     }
 
     protected Conn createConnector() {
-        return (Conn) new XTemplateConnector(getReader(), this);
+        return (Conn) new XTPConnector(getReader(), this);
     }
     
 }

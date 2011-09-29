@@ -12,7 +12,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
-public abstract class XTemplateElement extends XMLElement {
+public abstract class XTPElement extends XMLElement {
     private String xlabel;
 
 

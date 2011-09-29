@@ -2,12 +2,12 @@
 package br.uff.midiacom.axt.iteration;
 
 import AXT.XMLElement;
-import AXT.XTemplateElement;
+import AXT.XTPElement;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
 
-public class XTemplateVariable extends XTemplateElement {
+public class XTPVariable extends XTPElement {
 
     private String name;
     private String select;
@@ -15,14 +15,14 @@ public class XTemplateVariable extends XTemplateElement {
 
     //construtores
 
-     public XTemplateVariable(){};
+     public XTPVariable(){};
 
-     public XTemplateVariable(String name, String select){
+     public XTPVariable(String name, String select){
         this.name = name;
         this.select = select;
      }
 
-     public XTemplateVariable(XMLReader reader, XMLElement parent) {
+     public XTPVariable(XMLReader reader, XMLElement parent) {
         setReader(reader);
         setParent(parent);
         getReader().setContentHandler(this);

@@ -5,16 +5,16 @@
 
 package br.uff.midiacom.axt.iteration;
 
-import br.uff.midiacom.axt.context.XTemplateContext;
-import br.uff.midiacom.axt.link.XTemplateLink;
-import br.uff.midiacom.axt.Media.XTemplateArea;
-import br.uff.midiacom.axt.Media.XTemplateProperty;
-import br.uff.midiacom.axt.port.XTemplatePort;
-import br.uff.midiacom.axt.Switch.XTemplateSwitch;
+import br.uff.midiacom.axt.context.XTPContext;
+import br.uff.midiacom.axt.link.XTPLink;
+import br.uff.midiacom.axt.Media.XTPArea;
+import br.uff.midiacom.axt.Media.XTPProperty;
+import br.uff.midiacom.axt.port.XTPPort;
+import br.uff.midiacom.axt.Switch.XTPSwitch;
 import AXT.XMLElement;
-import AXT.XTemplateBody;
-import AXT.XTemplateDoc;
-import AXT.XTemplateElement;
+import AXT.XTPBody;
+import AXT.XTPDoc;
+import AXT.XTPElement;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
 import br.uff.midiacom.ana.interfaces.NCLArea;
@@ -33,9 +33,9 @@ import org.xml.sax.XMLReader;
  *
  * @author flavia
  */
-public class ForEach<L extends NCLLink,Pt extends NCLPort, A extends NCLArea, Pp extends NCLProperty, 
-        S extends NCLSwitch, V extends XTemplateVariable, D extends NCLLayoutDescriptor,
-        Cn extends NCLCausalConnector, R extends NCLRule> extends XTemplateElement{
+public class XTPForEach<L extends NCLLink,Pt extends NCLPort, A extends NCLArea, Pp extends NCLProperty,
+        S extends NCLSwitch, V extends XTPVariable, D extends NCLLayoutDescriptor,
+        Cn extends NCLCausalConnector, R extends NCLRule> extends XTPElement{
     
     private String select;
     private XMLElement selectedElement;
@@ -49,13 +49,13 @@ public class ForEach<L extends NCLLink,Pt extends NCLPort, A extends NCLArea, Pp
 
     //construtores
 
-    public ForEach(){}
+    public XTPForEach(){}
 
-    public ForEach(String select){
+    public XTPForEach(String select){
         this.select = select;
     }
 
-    public ForEach(XMLReader reader, XMLElement parent) {
+    public XTPForEach(XMLReader reader, XMLElement parent) {
         setReader(reader);
         setParent(parent);
         getReader().setContentHandler(this);
@@ -327,19 +327,19 @@ public class ForEach<L extends NCLLink,Pt extends NCLPort, A extends NCLArea, Pp
     }
     private void SelectedComponentReference(){
         XMLElement root = getParent();
-        while(!(root instanceof XTemplateDoc)){
+        while(!(root instanceof XTPDoc)){
             root = root.getParent();
         }
 
         if(this.getSelectedInterfaceXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;
             }
         }
         if(this.getSelectedComponentXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;
@@ -461,10 +461,10 @@ public class ForEach<L extends NCLLink,Pt extends NCLPort, A extends NCLArea, Pp
 
         Iterable<V> exVariables = null;
 
-        if(getParent() instanceof XTemplateBody)
-            exVariables = ((XTemplateBody) getParent()).getVariables();
-        else if(getParent() instanceof XTemplateContext)
-            exVariables = ((XTemplateContext) getParent()).getNodes();
+        if(getParent() instanceof XTPBody)
+            exVariables = ((XTPBody) getParent()).getVariables();
+        else if(getParent() instanceof XTPContext)
+            exVariables = ((XTPContext) getParent()).getNodes();
 
         if(exVariables!=null){
             String name1;
@@ -490,7 +490,7 @@ public class ForEach<L extends NCLLink,Pt extends NCLPort, A extends NCLArea, Pp
     public void searchForEach(Iterable<D> descriptors, Iterable<Cn> connectors, Iterable<R> rules){
         if(this.hasXTSwitch()){
             for(S xtswitch: switches){
-               ((XTemplateSwitch) xtswitch).searchSwitch(descriptors, connectors, rules);
+               ((XTPSwitch) xtswitch).searchSwitch(descriptors, connectors, rules);
             }
         }
 
@@ -498,7 +498,7 @@ public class ForEach<L extends NCLLink,Pt extends NCLPort, A extends NCLArea, Pp
         if(this.hasXTLink()){
 
             for(L link: links ){
-                ((XTemplateLink)link).searchLink(descriptors, connectors);
+                ((XTPLink)link).searchLink(descriptors, connectors);
             }
         }
     }
@@ -513,26 +513,26 @@ public class ForEach<L extends NCLLink,Pt extends NCLPort, A extends NCLArea, Pp
     }
 
     protected A createArea(){
-        return  (A) new  XTemplateArea(getReader(), this);
+        return  (A) new  XTPArea(getReader(), this);
     }
 
     protected Pp createProperty(){
-        return  (Pp) new  XTemplateProperty(getReader(), this);
+        return  (Pp) new  XTPProperty(getReader(), this);
     }
 
     protected Pt createPort(){
-        return  (Pt) new  XTemplatePort(getReader(), this);
+        return  (Pt) new  XTPPort(getReader(), this);
     }
 
     protected L createLink(){
-        return  (L) new  XTemplateLink(getReader(), this);
+        return  (L) new  XTPLink(getReader(), this);
     }
 
     protected S createSwitch(){
-        return  (S) new  XTemplateSwitch(getReader(), this);
+        return  (S) new  XTPSwitch(getReader(), this);
     }
 
     protected V createVariable(){
-        return  (V) new  XTemplateVariable(getReader(), this);
+        return  (V) new  XTPVariable(getReader(), this);
     }
 }

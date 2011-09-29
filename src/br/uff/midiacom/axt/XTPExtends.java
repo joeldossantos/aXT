@@ -14,12 +14,12 @@ import org.xml.sax.XMLReader;
  *
  * @author Flavia
  */
-public class XTemplateExtends<XT extends XTemplateDoc> extends XTemplateElement {
+public class XTPExtends<XT extends XTPDoc> extends XTPElement {
     
     private XT xtemplate;
     private boolean overwriteConstraints;
 
-    public XTemplateExtends(XMLReader reader, XMLElement parent) {
+    public XTPExtends(XMLReader reader, XMLElement parent) {
         setReader(reader);
         setParent(parent);
 
@@ -77,7 +77,7 @@ public class XTemplateExtends<XT extends XTemplateDoc> extends XTemplateElement 
     }
 
     protected XT createXTemplate(){
-        return (XT) new XTemplateDoc();
+        return (XT) new XTPDoc();
     }
 
     }

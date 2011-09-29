@@ -18,21 +18,21 @@ import org.xml.sax.Attributes;
  *
  * @author flavia
  */
-public class XTemplateArea extends NCLArea {
+public class XTPArea extends NCLArea {
 
     private String xlabel;
 
     //construtores
-    public XTemplateArea()throws NCLInvalidIdentifierException{
+    public XTPArea()throws NCLInvalidIdentifierException{
         super("unidentified");
     }
 
-    public XTemplateArea(String id, String xlabel)throws NCLInvalidIdentifierException{
+    public XTPArea(String id, String xlabel)throws NCLInvalidIdentifierException{
         super(id);
         this.xlabel = xlabel;
     }
 
-    public XTemplateArea(XMLReader reader, XMLElement parent){
+    public XTPArea(XMLReader reader, XMLElement parent){
 
         super();
         setReader(reader);

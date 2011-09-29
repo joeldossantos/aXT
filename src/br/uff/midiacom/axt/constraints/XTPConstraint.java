@@ -1,15 +1,15 @@
 
 
-package br.uff.midiacom.axt.constraint;
+package br.uff.midiacom.axt.constraints;
 
 import AXT.XMLElement;
-import AXT.XTemplateDoc;
-import AXT.XTemplateElement;
+import AXT.XTPDoc;
+import AXT.XTPElement;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
 
-public class XTemplateConstraint extends XTemplateElement{
+public class XTPConstraint extends XTPElement{
 
     private String select;//tentar implementar como xpath
     private String description;
@@ -17,17 +17,17 @@ public class XTemplateConstraint extends XTemplateElement{
 
     //construtores
 
-    public XTemplateConstraint(){
+    public XTPConstraint(){
         this.select = null;
         this.description = null;
     }
 
-    public XTemplateConstraint(String select, String description){
+    public XTPConstraint(String select, String description){
         this. select = select;
         this.description = description;
     }
 
-     public XTemplateConstraint (XMLReader reader, XTemplateElement parent){
+     public XTPConstraint (XMLReader reader, XTPElement parent){
 
         setReader(reader);
         setParent(parent);
@@ -92,19 +92,19 @@ public class XTemplateConstraint extends XTemplateElement{
     }
     private void SelectedComponentReference(){
         XMLElement root = getParent();
-        while(!(root instanceof XTemplateDoc)){
+        while(!(root instanceof XTPDoc)){
             root = root.getParent();
         }
 
         if(this.getSelectedInterfaceXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;
             }
         }
         if(this.getSelectedComponentXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;

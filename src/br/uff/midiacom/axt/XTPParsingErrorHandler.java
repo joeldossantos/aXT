@@ -14,12 +14,12 @@ import org.xml.sax.XMLReader;
  *
  * @author Flavia
  */
-public class XTemplateParsingErrorHandler implements ErrorHandler {
+public class XTPParsingErrorHandler implements ErrorHandler {
 
     private XMLReader reader;
 
 
-    public XTemplateParsingErrorHandler(XMLReader reader) {
+    public XTPParsingErrorHandler(XMLReader reader) {
         this.reader = reader;
     }
     public void warning(SAXParseException exception) throws SAXException {

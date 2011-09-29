@@ -5,7 +5,7 @@ package br.uff.midiacom.axt.link;
 import br.uff.midiacom.ana.link.NCLParam;
 import org.xml.sax.XMLReader;
 import AXT.XMLElement;
-import AXT.XTemplateDoc;
+import AXT.XTPDoc;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.connector.NCLConnectorParam;
 import br.uff.midiacom.ana.datatype.NCLParamInstance;
@@ -13,18 +13,18 @@ import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
 import org.xml.sax.Attributes;
 
 
-public class XTemplateParam <C extends NCLConnectorParam, Con extends NCLCausalConnector, D extends NCLLayoutDescriptor> extends NCLParam {
+public class XTPParam <C extends NCLConnectorParam, Con extends NCLCausalConnector, D extends NCLLayoutDescriptor> extends NCLParam {
 
     private String select;
     private XMLElement selectedElement;
     //construtores
 
-    public XTemplateParam(NCLParamInstance paramType){
+    public XTPParam(NCLParamInstance paramType){
     super(paramType);
     this.select = null;
     }
 
-      public XTemplateParam(NCLParamInstance paramType, XMLReader reader, XMLElement parent) throws NullPointerException {
+      public XTPParam(NCLParamInstance paramType, XMLReader reader, XMLElement parent) throws NullPointerException {
 
         super(paramType);
 
@@ -84,19 +84,19 @@ public class XTemplateParam <C extends NCLConnectorParam, Con extends NCLCausalC
     }
     private void SelectedComponentReference(){
         XMLElement root = getParent();
-        while(!(root instanceof XTemplateDoc)){
+        while(!(root instanceof XTPDoc)){
             root = root.getParent();
         }
 
         if(this.getSelectedInterfaceXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedInterfaceXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;
             }
         }
         if(this.getSelectedComponentXLabel(select)!=null){
-            XMLElement component = ((XTemplateDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
+            XMLElement component = ((XTPDoc)root).getVocabulary().findComponent(getSelectedComponentXLabel(select));
             if(component!=null){
                 setSelectedElement(component);
                 return;
@@ -143,7 +143,7 @@ public class XTemplateParam <C extends NCLConnectorParam, Con extends NCLCausalC
         
         XMLElement link = this.getParent();
         
-        while(!(link instanceof XTemplateLink)){
+        while(!(link instanceof XTPLink)){
             link = (XMLElement) link.getParent();
                 if(link == null){
                     addWarning("Could not find a parent link");
@@ -152,8 +152,8 @@ public class XTemplateParam <C extends NCLConnectorParam, Con extends NCLCausalC
             
         }
         
-        if(this.getParent() instanceof XTemplateLink){
-            Con connector = (Con) ((XTemplateLink)(this.getParent())).getXType().getConnector();
+        if(this.getParent() instanceof XTPLink){
+            Con connector = (Con) ((XTPLink)(this.getParent())).getXType().getConnector();
             if(connector == null){
                 addWarning("Could not find a connector");
                 return;

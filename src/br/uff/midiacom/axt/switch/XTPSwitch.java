@@ -6,13 +6,13 @@
 package br.uff.midiacom.axt.Switch;
 
 
-import br.uff.midiacom.axt.component.XTemplateComponent;
-import br.uff.midiacom.axt.context.XTemplateContext;
-import br.uff.midiacom.axt.Media.XTemplateMedia;
+import br.uff.midiacom.axt.component.XTPComponent;
+import br.uff.midiacom.axt.context.XTPContext;
+import br.uff.midiacom.axt.Media.XTPMedia;
 import AXT.XMLElement;
-import AXT.XTemplateBody;
-import AXT.XTemplateDoc;
-import AXT.XTemplateVocabulary;
+import AXT.XTPBody;
+import AXT.XTPDoc;
+import AXT.XTPVocabulary;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
@@ -31,21 +31,21 @@ import org.xml.sax.XMLReader;
  *
  * @author flavia
  */
-public class XTemplateSwitch<S extends NCLSwitch, B extends NCLSwitchBindRule, N extends NCLNode, P extends NCLSwitchPort,
-        Cp extends XTemplateComponent, D extends NCLLayoutDescriptor, Cn extends NCLCausalConnector, R extends NCLRule> extends NCLSwitch{
+public class XTPSwitch<S extends NCLSwitch, B extends NCLSwitchBindRule, N extends NCLNode, P extends NCLSwitchPort,
+        Cp extends XTPComponent, D extends NCLLayoutDescriptor, Cn extends NCLCausalConnector, R extends NCLRule> extends NCLSwitch{
 
     private String xlabel;
     private boolean insideSwitchFlag;
     
 
     //construtores
-    public XTemplateSwitch(){}
+    public XTPSwitch(){}
 
-    public XTemplateSwitch(String id) throws NCLInvalidIdentifierException{
+    public XTPSwitch(String id) throws NCLInvalidIdentifierException{
         super(id);
     }
 
-    public XTemplateSwitch(XMLReader reader, XMLElement parent) {
+    public XTPSwitch(XMLReader reader, XMLElement parent) {
         super();
         setReader(reader);
         setParent(parent);
@@ -80,7 +80,7 @@ public class XTemplateSwitch<S extends NCLSwitch, B extends NCLSwitchBindRule, N
                     else if(attributes.getLocalName(i).equals("xlabel"))
                         setXLabel(attributes.getValue(i));
                     else if(attributes.getLocalName(i).equals("refer"))
-                        setRefer((S) new XTemplateSwitch(attributes.getValue(i)));
+                        setRefer((S) new XTPSwitch(attributes.getValue(i)));
                 }
             }
             else if(localName.equals("bindRule")){
@@ -160,7 +160,7 @@ public class XTemplateSwitch<S extends NCLSwitch, B extends NCLSwitchBindRule, N
         //Search for the interface inside the node
         XMLElement body = (XMLElement) getParent();
 
-        while(!(body instanceof XTemplateBody)){
+        while(!(body instanceof XTPBody)){
             body = (XMLElement) body.getParent();
             if(body == null){
                 addWarning("Could not find a body");
@@ -168,25 +168,25 @@ public class XTemplateSwitch<S extends NCLSwitch, B extends NCLSwitchBindRule, N
             }
         }
 
-        setRefer(findSwitch(((XTemplateBody) body).getNodes()));
+        setRefer(findSwitch(((XTPBody) body).getNodes()));
     }
 
 
     private S findSwitch(Set<N> nodes) {
         for(N n : nodes){
-            if(n instanceof XTemplateContext){
-                if( ((XTemplateContext) n).hasNode()){
-                    Set<N> cnodes = ((XTemplateContext) n).getNodes();
+            if(n instanceof XTPContext){
+                if( ((XTPContext) n).hasNode()){
+                    Set<N> cnodes = ((XTPContext) n).getNodes();
                         S s = findSwitch(cnodes);
                         if(s != null)
                             return (S) s;
                 }
             }
-            else if(n instanceof XTemplateSwitch){
+            else if(n instanceof XTPSwitch){
                 if(n.getId().equals(getRefer().getId()))
                     return (S) n;
-                else if( ((XTemplateSwitch) n).hasNode()){
-                    Set<N> snodes = ((XTemplateSwitch) n).getNodes();
+                else if( ((XTPSwitch) n).hasNode()){
+                    Set<N> snodes = ((XTPSwitch) n).getNodes();
                     S s = findSwitch(snodes);
                     if(s != null)
                         return (S) s;
@@ -211,14 +211,14 @@ public class XTemplateSwitch<S extends NCLSwitch, B extends NCLSwitchBindRule, N
         }
         
         XMLElement root = this.getParent();
-         while(!(root instanceof XTemplateDoc)){
+         while(!(root instanceof XTPDoc)){
             root = root.getParent();
          }
          
-        if(((XTemplateDoc) root).getVocabulary()!=null){
+        if(((XTPDoc) root).getVocabulary()!=null){
             
          
-            Iterable<Cp> components = (((XTemplateVocabulary)((XTemplateDoc) root).getVocabulary())).getComponents();
+            Iterable<Cp> components = (((XTPVocabulary)((XTPDoc) root).getVocabulary())).getComponents();
             if(findDefaultComponent(components)!=null){
                 setDefaultComponent(findDefaultComponent(components));
                 return;
@@ -249,14 +249,14 @@ public class XTemplateSwitch<S extends NCLSwitch, B extends NCLSwitchBindRule, N
         return null;
     }
     public void searchNodes(Iterable<D> descriptors, Iterable<Cn> connectors, Iterable<R> rules, N nodeS ){
-        Iterable<N> nodes = ((XTemplateContext)nodeS).getNodes();
+        Iterable<N> nodes = ((XTPContext)nodeS).getNodes();
         for(N node : nodes){
-            if(node instanceof XTemplateMedia)
-                ((XTemplateMedia)node).searchMedia(descriptors);
-            else if(node instanceof XTemplateContext)
-                ((XTemplateContext) node).searchContext(descriptors, connectors, rules);
-             else if (node instanceof XTemplateSwitch)
-                ((XTemplateSwitch)node).searchSwitch(descriptors, connectors, rules);
+            if(node instanceof XTPMedia)
+                ((XTPMedia)node).searchMedia(descriptors);
+            else if(node instanceof XTPContext)
+                ((XTPContext) node).searchContext(descriptors, connectors, rules);
+             else if (node instanceof XTPSwitch)
+                ((XTPSwitch)node).searchSwitch(descriptors, connectors, rules);
 
 
     }
@@ -270,7 +270,7 @@ public class XTemplateSwitch<S extends NCLSwitch, B extends NCLSwitchBindRule, N
         if(this.hasBind()){
             Iterable<B> binds = this.getBinds();
             for(B bind: binds){
-                ((XTemplateBindRule)bind).searchBindRule(rules);
+                ((XTPBindRule)bind).searchBindRule(rules);
             }
         }
 
@@ -279,7 +279,7 @@ public class XTemplateSwitch<S extends NCLSwitch, B extends NCLSwitchBindRule, N
 
     @Override
     protected B createBindRule() {
-        return (B) new XTemplateBindRule(getReader(), this);
+        return (B) new XTPBindRule(getReader(), this);
     }
 
     @Override
@@ -289,12 +289,12 @@ public class XTemplateSwitch<S extends NCLSwitch, B extends NCLSwitchBindRule, N
 
     @Override
     protected N createMedia() {
-        return (N) new XTemplateMedia(getReader(), this);
+        return (N) new XTPMedia(getReader(), this);
     }
 
     @Override
     protected N createContext() {
-        return (N) new XTemplateContext(getReader(), this);
+        return (N) new XTPContext(getReader(), this);
     }
 
     @Override

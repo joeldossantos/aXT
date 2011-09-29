@@ -5,14 +5,14 @@
 
 package AXT;
 
-import br.uff.midiacom.axt.context.XTemplateContext;
-import br.uff.midiacom.axt.iteration.ForEach;
-import br.uff.midiacom.axt.iteration.XTemplateVariable;
-import br.uff.midiacom.axt.link.XTemplateLink;
-import br.uff.midiacom.axt.Media.XTemplateMedia;
-import br.uff.midiacom.axt.Media.XTemplateProperty;
-import br.uff.midiacom.axt.port.XTemplatePort;
-import br.uff.midiacom.axt.Switch.XTemplateSwitch;
+import br.uff.midiacom.axt.context.XTPContext;
+import br.uff.midiacom.axt.iteration.XTPForEach;
+import br.uff.midiacom.axt.iteration.XTPVariable;
+import br.uff.midiacom.axt.link.XTPLink;
+import br.uff.midiacom.axt.Media.XTPMedia;
+import br.uff.midiacom.axt.Media.XTPProperty;
+import br.uff.midiacom.axt.port.XTPPort;
+import br.uff.midiacom.axt.Switch.XTPSwitch;
 import br.uff.midiacom.ana.NCLBody;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
@@ -33,7 +33,7 @@ import org.xml.sax.XMLReader;
  *
  * @author Flavia
  */
-public class XTemplateBody<FE extends ForEach, V extends XTemplateVariable, N extends NCLNode, Pt extends NCLPort,
+public class XTPBody<FE extends XTPForEach, V extends XTPVariable, N extends NCLNode, Pt extends NCLPort,
         M extends NCLMeta, MT extends NCLMetadata, Pp extends NCLProperty, L extends NCLLink,
         D extends NCLLayoutDescriptor, C extends NCLCausalConnector, R extends NCLRule>  extends NCLBody {
 
@@ -42,9 +42,9 @@ public class XTemplateBody<FE extends ForEach, V extends XTemplateVariable, N ex
     private Set<FE> forEachs = new TreeSet<FE>();
     private Set<V> variables = new TreeSet<V>();
     
-    public XTemplateBody (){};
+    public XTPBody (){};
 
-    public XTemplateBody(XMLReader reader, XMLElement parent) {
+    public XTPBody(XMLReader reader, XMLElement parent) {
         setReader(reader);
         setParent(parent);
 
@@ -266,12 +266,12 @@ public class XTemplateBody<FE extends ForEach, V extends XTemplateVariable, N ex
 
     public void searchNodes(Iterable<D> descriptors, Iterable<C> connectors, Iterable<R> rules, Iterable<N> nodes){
        for(N node : nodes){
-            if(node instanceof XTemplateMedia)
-                ((XTemplateMedia)node).searchMedia(descriptors);
-            else if(node instanceof XTemplateContext)
-                ((XTemplateContext) node).searchContext(descriptors, connectors, rules);
-             else if (node instanceof XTemplateSwitch)
-               ((XTemplateSwitch) node).searchSwitch(descriptors, connectors, rules);
+            if(node instanceof XTPMedia)
+                ((XTPMedia)node).searchMedia(descriptors);
+            else if(node instanceof XTPContext)
+                ((XTPContext) node).searchContext(descriptors, connectors, rules);
+             else if (node instanceof XTPSwitch)
+               ((XTPSwitch) node).searchSwitch(descriptors, connectors, rules);
 
 
     }
@@ -282,7 +282,7 @@ public class XTemplateBody<FE extends ForEach, V extends XTemplateVariable, N ex
         searchNodes(descriptors, connectors, rules, nodes);
         Iterable<L> links = this.getLinks();
         for(L  link : links ){
-            ((XTemplateLink)link).searchLink(descriptors, connectors);
+            ((XTPLink)link).searchLink(descriptors, connectors);
         }
         for(FE forEach : forEachs){
             forEach.searchForEach(descriptors, connectors, rules);
@@ -302,39 +302,39 @@ public class XTemplateBody<FE extends ForEach, V extends XTemplateVariable, N ex
     }
 
     protected N createXTemplateMedia()throws NCLInvalidIdentifierException {
-        return  (N) new  XTemplateMedia(getReader(), this);
+        return  (N) new  XTPMedia(getReader(), this);
     }
 
     protected Pt createXTemplatePort() {
-        return (Pt) new XTemplatePort(getReader(), this);
+        return (Pt) new XTPPort(getReader(), this);
         //adicionei um construtor vazio na ana (nclport)
     }
 
      protected Pp createXTemplateProperty() {
-        return (Pp) new XTemplateProperty(getReader(), this);
+        return (Pp) new XTPProperty(getReader(), this);
     }
 
      protected N createXTemplateContext() {
-        return (N) new XTemplateContext(getReader(), this);
+        return (N) new XTPContext(getReader(), this);
         //adicionei um construtor vazio na ana (nclcontext)
     }
 
      protected N createXTemplateSwitch() {
-        return (N) new XTemplateSwitch(getReader(), this);
+        return (N) new XTPSwitch(getReader(), this);
         //adicionei um construtor vazio na ana (nclswitch)
     }
 
     protected L createXTemplateLink() {
-        return (L) new XTemplateLink(getReader(), this);
+        return (L) new XTPLink(getReader(), this);
         //adicionei um construtor vazio na ana (nclswitch)
     }
 
     protected V createXTemplateVariable() {
-        return (V) new XTemplateVariable(getReader(), this);
+        return (V) new XTPVariable(getReader(), this);
         //adicionei um construtor vazio na ana (nclswitch)
     }
     protected FE createForEach() {
-        return (FE) new ForEach(getReader(), this);
+        return (FE) new XTPForEach(getReader(), this);
         //adicionei um construtor vazio na ana (nclswitch)
     }
 }

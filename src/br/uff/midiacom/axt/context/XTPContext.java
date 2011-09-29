@@ -1,15 +1,15 @@
 
 package br.uff.midiacom.axt.context;
 
-import br.uff.midiacom.axt.iteration.ForEach;
-import br.uff.midiacom.axt.iteration.XTemplateVariable;
-import br.uff.midiacom.axt.link.XTemplateLink;
-import br.uff.midiacom.axt.Media.XTemplateMedia;
-import br.uff.midiacom.axt.Media.XTemplateProperty;
-import br.uff.midiacom.axt.port.XTemplatePort;
-import br.uff.midiacom.axt.Switch.XTemplateSwitch;
+import br.uff.midiacom.axt.iteration.XTPForEach;
+import br.uff.midiacom.axt.iteration.XTPVariable;
+import br.uff.midiacom.axt.link.XTPLink;
+import br.uff.midiacom.axt.Media.XTPMedia;
+import br.uff.midiacom.axt.Media.XTPProperty;
+import br.uff.midiacom.axt.port.XTPPort;
+import br.uff.midiacom.axt.Switch.XTPSwitch;
 import AXT.XMLElement;
-import AXT.XTemplateBody;
+import AXT.XTPBody;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
@@ -31,8 +31,8 @@ import org.xml.sax.XMLReader;
  *
  * @author flavia
  */
-public class XTemplateContext<C extends NCLContext, M extends NCLMeta, MT extends NCLMetadata, Pt extends NCLPort,
-        Pp extends NCLProperty, N extends NCLNode, L extends NCLLink, FE extends ForEach, V extends XTemplateVariable,
+public class XTPContext<C extends NCLContext, M extends NCLMeta, MT extends NCLMetadata, Pt extends NCLPort,
+        Pp extends NCLProperty, N extends NCLNode, L extends NCLLink, FE extends XTPForEach, V extends XTPVariable,
         Cn extends NCLCausalConnector, D extends NCLLayoutDescriptor, R extends NCLRule> extends NCLContext  {
 
 
@@ -43,11 +43,11 @@ public class XTemplateContext<C extends NCLContext, M extends NCLMeta, MT extend
 
     //construtores
 
-    public XTemplateContext(String id) throws NCLInvalidIdentifierException{
+    public XTPContext(String id) throws NCLInvalidIdentifierException{
         super(id);
     }
 
-    public XTemplateContext(XMLReader reader, XMLElement parent){
+    public XTPContext(XMLReader reader, XMLElement parent){
         super();
         setReader(reader);
         setParent(parent);
@@ -151,7 +151,7 @@ public class XTemplateContext<C extends NCLContext, M extends NCLMeta, MT extend
                     else if(attributes.getLocalName(i).equals("xlabel"))
                         setXLabel(attributes.getValue(i));
                     else if(attributes.getLocalName(i).equals("refer"))
-                        setRefer((C) new XTemplateContext(attributes.getValue(i)));//cast retirado na correcao das referencias
+                        setRefer((C) new XTPContext(attributes.getValue(i)));//cast retirado na correcao das referencias
                 }
             }
             else if(localName.equals("meta")){
@@ -285,7 +285,7 @@ public class XTemplateContext<C extends NCLContext, M extends NCLMeta, MT extend
         //Search for the interface inside the node
         XMLElement body = (XMLElement) getParent();
 
-        while(!(body instanceof XTemplateBody)){
+        while(!(body instanceof XTPBody)){
             body = (XMLElement) body.getParent();
             if(body == null){
                 addWarning("Could not find a body");
@@ -293,13 +293,13 @@ public class XTemplateContext<C extends NCLContext, M extends NCLMeta, MT extend
             }
         }
 
-        setRefer(findContext(((XTemplateBody) body).getNodes()));
+        setRefer(findContext(((XTPBody) body).getNodes()));
     }
 
 
     private C findContext(Set<N> nodes) {
         for(N n : nodes){
-            if(n instanceof XTemplateContext){
+            if(n instanceof XTPContext){
                 if(n.getId().equals(getRefer().getId()))
                     return (C) n;
                 else if( ((NCLContext) n).hasNode()){
@@ -309,9 +309,9 @@ public class XTemplateContext<C extends NCLContext, M extends NCLMeta, MT extend
                         return (C) c;
                 }
             }
-            else if(n instanceof XTemplateSwitch){
-                if( ((XTemplateSwitch) n).hasNode()){
-                    Set<N> snodes = ((XTemplateSwitch) n).getNodes();
+            else if(n instanceof XTPSwitch){
+                if( ((XTPSwitch) n).hasNode()){
+                    Set<N> snodes = ((XTPSwitch) n).getNodes();
                     C c = findContext(snodes);
                     if(c != null)
                         return (C) c;
@@ -323,14 +323,14 @@ public class XTemplateContext<C extends NCLContext, M extends NCLMeta, MT extend
         return null;
     }
     public void searchNodes(Iterable<D> descriptors, Iterable<Cn> connectors, Iterable<R> rules, N nodeS ){
-        Iterable<N> nodes = ((XTemplateContext)nodeS).getNodes();
+        Iterable<N> nodes = ((XTPContext)nodeS).getNodes();
         for(N node : nodes){
-            if(node instanceof XTemplateMedia)
-                ((XTemplateMedia)node).searchMedia(descriptors);
-            else if(node instanceof XTemplateContext)
-                ((XTemplateContext)node).searchContext(descriptors, connectors, rules);
-             else if (node instanceof XTemplateSwitch)
-                ((XTemplateSwitch)node).searchSwitch(descriptors, connectors, rules);
+            if(node instanceof XTPMedia)
+                ((XTPMedia)node).searchMedia(descriptors);
+            else if(node instanceof XTPContext)
+                ((XTPContext)node).searchContext(descriptors, connectors, rules);
+             else if (node instanceof XTPSwitch)
+                ((XTPSwitch)node).searchSwitch(descriptors, connectors, rules);
 
               
     }
@@ -343,7 +343,7 @@ public class XTemplateContext<C extends NCLContext, M extends NCLMeta, MT extend
         if(this.hasLink()){
             Iterable<L> links = this.getLinks();
             for(L link: links ){
-                ((XTemplateLink)link).searchLink(descriptors, connectors);
+                ((XTPLink)link).searchLink(descriptors, connectors);
             }
         }
 
@@ -356,42 +356,42 @@ public class XTemplateContext<C extends NCLContext, M extends NCLMeta, MT extend
 
     @Override
     protected Pt createPort() {
-        return (Pt) new XTemplatePort(getReader(), this);
+        return (Pt) new XTPPort(getReader(), this);
     }
 
     @Override
     protected Pp createProperty() {
-        return (Pp) new XTemplateProperty(getReader(), this);
+        return (Pp) new XTPProperty(getReader(), this);
     }
 
     @Override
     protected N createMedia() {
         //adicionei construtor vazio na aNa (NCLMedia)
-        return (N) new XTemplateMedia(getReader(), this);
+        return (N) new XTPMedia(getReader(), this);
     }
 
     @Override
     protected N createContext() {
-        return (N) new XTemplateContext(getReader(), this);
+        return (N) new XTPContext(getReader(), this);
     }
 
     @Override
     protected N createSwitch() {
-        return (N) new XTemplateSwitch(getReader(), this);
+        return (N) new XTPSwitch(getReader(), this);
     }
 
     @Override
     protected L createLink() {
-        return (L) new XTemplateLink(getReader(), this);
+        return (L) new XTPLink(getReader(), this);
     }
 
     protected FE createForEach() {
-        return (FE) new ForEach(getReader(), this);
+        return (FE) new XTPForEach(getReader(), this);
     }
 
 
     protected V createVariable() {
-        return (V) new XTemplateVariable(getReader(), this);
+        return (V) new XTPVariable(getReader(), this);
     }
 
     @Override

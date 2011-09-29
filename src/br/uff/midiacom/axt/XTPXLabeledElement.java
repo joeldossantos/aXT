@@ -9,7 +9,7 @@ package AXT;
  *
  * @author Flavia
  */
-public abstract class XTemplateXLabeledElement extends XTemplateElement{
+public abstract class XTPXLabeledElement extends XTPElement{
 
     
     private String xlabel;

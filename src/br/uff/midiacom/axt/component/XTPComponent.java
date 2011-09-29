@@ -2,13 +2,13 @@
 
 package br.uff.midiacom.axt.component;
 
-import br.uff.midiacom.axt.importBase.XTemplateDescriptorBase;
+import br.uff.midiacom.axt.importBase.XTPDescriptorBase;
 import AXT.XMLElement;
-import AXT.XTemplateDoc;
-import AXT.XTemplateElement;
-import AXT.XTemplateHead;
-import AXT.XTemplateValues.XTemplateXType;
-import AXT.XTemplateXLabeledElement;
+import AXT.XTPDoc;
+import AXT.XTPElement;
+import AXT.XTPHead;
+import AXT.XTPValues.XTemplateXType;
+import AXT.XTPXLabeledElement;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.NCLParsingException;
 import br.uff.midiacom.ana.descriptor.NCLDescriptor;
@@ -24,14 +24,14 @@ import org.xml.sax.XMLReader;
 
 
 
-public class XTemplateComponent<P extends ComponentPort, C extends XTemplateComponent, D extends NCLLayoutDescriptor, I extends NCLImport>
-        extends XTemplateElement implements NCLNode{
+public class XTPComponent<P extends XTPComponentPort, C extends XTPComponent, D extends NCLLayoutDescriptor, I extends NCLImport>
+        extends XTPElement implements NCLNode{
 
     private String xlabel;
     private static final int unbounded = 1000000000;
     private int maxOccurs;
     private int minOccurs;
-    private XTemplateXType xtype;//implementar como enum em XTemplateValues
+    private XTemplateXType xtype;//implementar como enum em XTPValues
     private String descriptorPath;//referencia ao descritor de uma base importada
     private D descriptor;
     private List<P> interfaces = new ArrayList<P>();
@@ -41,7 +41,7 @@ public class XTemplateComponent<P extends ComponentPort, C extends XTemplateComp
 
 
 
-    public XTemplateComponent(){
+    public XTPComponent(){
         this.maxOccurs = unbounded;
         this.minOccurs = 0;
         this.xtype= null;
@@ -50,7 +50,7 @@ public class XTemplateComponent<P extends ComponentPort, C extends XTemplateComp
         this.setXLabel(null);
     }
 
-    public XTemplateComponent(int maxOccurs, int minOccurs, XTemplateXType xtype, String descriptor, String xlabel){
+    public XTPComponent(int maxOccurs, int minOccurs, XTemplateXType xtype, String descriptor, String xlabel){
         this.maxOccurs = maxOccurs;
         this.minOccurs = minOccurs;
         this.xtype= xtype;
@@ -58,7 +58,7 @@ public class XTemplateComponent<P extends ComponentPort, C extends XTemplateComp
         this.xlabel = xlabel;
     }
 
-    public XTemplateComponent(XMLReader reader, XTemplateElement parent) {
+    public XTPComponent(XMLReader reader, XTPElement parent) {
         setReader(reader);
         setParent(parent);
         getReader().setContentHandler(this);
@@ -157,7 +157,7 @@ public class XTemplateComponent<P extends ComponentPort, C extends XTemplateComp
 
 
     public boolean hasComponentPort(String xlabel) {
-        for(ComponentPort port : interfaces){
+        for(XTPComponentPort port : interfaces){
             if(port.getXLabel().equals(xlabel))
                 return true;
         }
@@ -380,11 +380,11 @@ public class XTemplateComponent<P extends ComponentPort, C extends XTemplateComp
     }
 
     protected P createComponentPort() {
-        return (P) new ComponentPort(getReader(), this);
+        return (P) new XTPComponentPort(getReader(), this);
     }
 
     protected C createComponent() {
-        return (C) new XTemplateComponent(getReader(), this);
+        return (C) new XTPComponent(getReader(), this);
     }
 
     public int compareTo(Object o) {

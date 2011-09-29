@@ -2,9 +2,9 @@
 package br.uff.midiacom.axt.connector;
 
 import AXT.XMLElement;
-import AXT.XTemplateDoc;
-import AXT.XTemplateElement;
-import AXT.XTemplateXLabeledElement;
+import AXT.XTPDoc;
+import AXT.XTPElement;
+import AXT.XTPXLabeledElement;
 import br.uff.midiacom.ana.NCLParsingException;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.reuse.NCLImport;
@@ -17,7 +17,7 @@ import org.xml.sax.XMLReader;
  *
  * @author flavia
  */
-public class XTemplateConnector<C extends NCLCausalConnector, I extends NCLImport> extends XTemplateElement {
+public class XTPConnector<C extends NCLCausalConnector, I extends NCLImport> extends XTPElement {
 
     private String xlabel;
     private String src;
@@ -26,22 +26,22 @@ public class XTemplateConnector<C extends NCLCausalConnector, I extends NCLImpor
     private static final int unbounded = 1000000000;
     private C nclConnector;
 
-    public XTemplateConnector(){}
+    public XTPConnector(){}
 
-     public XTemplateConnector(String xlabel){
+     public XTPConnector(String xlabel){
         this.maxOccurs = unbounded;
         this.minOccurs = 0;
         this.setXLabel(xlabel);
     }
 
-    public XTemplateConnector(int maxOccurs, int minOccurs, String src, String xlabel){
+    public XTPConnector(int maxOccurs, int minOccurs, String src, String xlabel){
         this.maxOccurs = maxOccurs;
         this.minOccurs = minOccurs;
         this.src= src;
         this.setXLabel(xlabel);
     }
 
-     public XTemplateConnector(XMLReader reader, XTemplateElement parent) {
+     public XTPConnector(XMLReader reader, XTPElement parent) {
         setReader(reader);
         setParent(parent);
         getReader().setContentHandler(this);
