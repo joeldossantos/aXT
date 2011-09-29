@@ -1,5 +1,5 @@
 
-package AXT.Iteration;
+package br.uff.midiacom.axt.iteration;
 
 import AXT.XMLElement;
 import AXT.XTemplateElement;

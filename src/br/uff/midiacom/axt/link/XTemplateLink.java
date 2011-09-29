@@ -1,8 +1,8 @@
 
 
-package AXT.Link;
+package br.uff.midiacom.axt.link;
 
-import AXT.Connector.XTemplateConnector;
+import br.uff.midiacom.axt.connector.XTemplateConnector;
 import AXT.XMLElement;
 import AXT.XTemplateDoc;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;

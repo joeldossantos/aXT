@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package AXT.Media;
+package br.uff.midiacom.axt.Media;
 
 import AXT.XMLElement;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;

@@ -1,42 +1,56 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-
-package AXT.Constraint;
+package br.uff.midiacom.axt.Media;
 
 import AXT.XMLElement;
 import AXT.XTemplateDoc;
-import AXT.XTemplateElement;
+import br.uff.midiacom.ana.NCLInvalidIdentifierException;
+import br.uff.midiacom.ana.interfaces.NCLProperty;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
+/**
+ *
+ * @author flavia
+ */
+public class XTemplateProperty extends NCLProperty{
 
-public class XTemplateConstraint extends XTemplateElement{
-
-    private String select;//tentar implementar como xpath
-    private String description;
+    private String xlabel;
+    private String select;
     private XMLElement selectedElement;
-
     //construtores
 
-    public XTemplateConstraint(){
-        this.select = null;
-        this.description = null;
+    public XTemplateProperty(){}
+
+    public XTemplateProperty(String name, String xlabel, String select) throws NCLInvalidIdentifierException{
+        super(name);
+        this.xlabel = xlabel;
+        this.select = select;
     }
 
-    public XTemplateConstraint(String select, String description){
-        this. select = select;
-        this.description = description;
-    }
-
-     public XTemplateConstraint (XMLReader reader, XTemplateElement parent){
-
+    public XTemplateProperty(XMLReader reader, XMLElement parent) {
+        super();
         setReader(reader);
         setParent(parent);
 
         getReader().setContentHandler(this);
     }
 
-    //metodos de acessso
-    public String getSelect(){
+        
+    //metodos de acesso
+
+    public String getXLabel(){
+        return this.xlabel;
+    }
+
+    public void setXLabel(String xlabel){
+        this.xlabel = xlabel;
+    }
+
+     public String getSelect(){
         return this.select;
     }
 
@@ -44,12 +58,12 @@ public class XTemplateConstraint extends XTemplateElement{
         this.select = select;
     }
 
-    public String getDescription(){
-        return this.description;
+    public XMLElement getSelectedElement(){
+        return this.selectedElement;
     }
 
-    public void setDescription(String description){
-        this.description = description;
+    public void setSelectedElement(XMLElement element){
+        this.selectedElement = element;
     }
 
     public String getSelectedComponentXLabel(String select){
@@ -82,13 +96,32 @@ public class XTemplateConstraint extends XTemplateElement{
                     }
                     return null;
     }
-
-    public XMLElement getSelectedElement(){
-        return this.selectedElement;
+   
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
+        try{
+            cleanWarnings();
+            cleanErrors();
+            for(int i = 0; i < attributes.getLength(); i++){
+                if(attributes.getLocalName(i).equals("name"))
+                    setName(attributes.getValue(i));
+                else if(attributes.getLocalName(i).equals("value"))
+                    setValue(attributes.getValue(i));
+                else if(attributes.getLocalName(i).equals("xlabel"))
+                    setXLabel(attributes.getValue(i));
+                else if(attributes.getLocalName(i).equals("select"))
+                    setSelect(attributes.getValue(i));
+            }
+        }
+        catch(Exception ex){
+            addError(ex.getMessage());
+        }
     }
 
-    public void setSelectedElement(XMLElement element){
-        this.selectedElement = element;
+    @Override
+    public void endDocument(){
+        if(getSelect()!=null)
+            SelectedComponentReference();
     }
     private void SelectedComponentReference(){
         XMLElement root = getParent();
@@ -115,18 +148,12 @@ public class XTemplateConstraint extends XTemplateElement{
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public String parse(int ident) {return null;}
+    
+    public boolean validate() {return true;}
 
     @Override
-    public String parse(int ident) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void addWarning(String warning) {}
 
     
-    public boolean validate() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 }

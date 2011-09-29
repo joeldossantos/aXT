@@ -3,42 +3,39 @@
  * and open the template in the editor.
  */
 
-package AXT.ImportBase;
+package br.uff.midiacom.axt.importBase;
 
 import AXT.XMLElement;
 import AXT.XTemplateElement;
 import br.uff.midiacom.ana.NCLDoc;
-import br.uff.midiacom.ana.NCLHead;
 import br.uff.midiacom.ana.NCLParsingException;
 import br.uff.midiacom.ana.datatype.NCLImportType;
-import br.uff.midiacom.ana.descriptor.NCLDescriptor;
-import br.uff.midiacom.ana.descriptor.NCLDescriptorBase;
-import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
+import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.reuse.NCLImport;
-import br.uff.midiacom.ana.rule.NCLRule;
+import java.io.File;
 import java.util.Set;
 import java.util.TreeSet;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
-import java.io.File;
 
 /**
  *
  * @author flavia
  */
-public class XTemplateDescriptorBase<I extends NCLImport, D extends NCLLayoutDescriptor, R extends NCLRule> extends XTemplateElement {
+public class XTemplateConnectorBase<I extends NCLImport, C extends NCLCausalConnector> extends XTemplateElement {
 
     private String id;
     private Set<I> imports = new TreeSet<I>();
 
-    public XTemplateDescriptorBase() {}
+    public XTemplateConnectorBase() {}
 
-    public XTemplateDescriptorBase(XMLReader reader, XMLElement parent) {
+    public XTemplateConnectorBase(XMLReader reader, XMLElement parent) {
         setReader(reader);
         setParent(parent);
 
         getReader().setContentHandler(this);
     }
+
 
     public void setId(String id){
         this.id=id;
@@ -47,6 +44,7 @@ public class XTemplateDescriptorBase<I extends NCLImport, D extends NCLLayoutDes
     public String getId(){
         return id;
     }
+
     public boolean addImportBase(I importBase) {
         if(imports.add(importBase)){
             //Se importBase existe, atribui este como seu parente
@@ -77,14 +75,6 @@ public class XTemplateDescriptorBase<I extends NCLImport, D extends NCLLayoutDes
         return imports.contains(importBase);
     }
 
-    public boolean hasImportBase(String alias){
-        for(I importBase: imports){
-            if(importBase.getAlias().equals(alias)){
-                    return true;
-            }
-        }
-          return false;
-    }
 
 
     public boolean hasImportBase() {
@@ -93,12 +83,11 @@ public class XTemplateDescriptorBase<I extends NCLImport, D extends NCLLayoutDes
 
 
 
-    public Set<I> getImportBases() {
+    public Iterable<I> getImportBases() {
         return imports;
     }
 
-
-   public NCLHead getImportedHead(String uri) throws NCLParsingException {
+    public Iterable<C> getImportedConnectors(String uri) throws NCLParsingException {
             System.out.println(uri);
             NCLDoc doc = new NCLDoc();
             System.out.println("antes do load");
@@ -106,61 +95,48 @@ public class XTemplateDescriptorBase<I extends NCLImport, D extends NCLLayoutDes
             doc.loadXML(nclFile, doc);
 
             System.out.println("depois do load");
-            
-            return doc.getHead();
+            return doc.getHead().getConnectorBase().getCausalConnectors();
 
     }
 
-    public Iterable<D> getAllDescriptors() throws NCLParsingException{
 
-            Set<D> descriptors = new TreeSet<D>();
+    public Iterable<C> getAllConnectors() throws NCLParsingException{
+
+            Set<C> connectors = new TreeSet<C>();
             for(I importBase : imports){
-                Iterable<D> importedDescriptors = getImportedHead(importBase.getDocumentURI()).getDescriptorBase().getDescriptors();
-                for(D descriptor : importedDescriptors ){
-                descriptors.add(descriptor);
+                for(C connector : getImportedConnectors(importBase.getDocumentURI().toString())){
+                connectors.add(connector);
                 }
         }
-            return descriptors;
-        }     
-    
-    public Iterable<R> getAllRules() throws NCLParsingException{
-        Set<R> rules = new TreeSet<R>();
-            for(I importBase : imports){
-                Iterable<R> importedRules = getImportedHead(importBase.getDocumentURI()).getRuleBase().getRules();
-                for(R rule : importedRules ){
-                rules.add(rule);
-                }
-        }
-        return rules;
+            return connectors;
         }
 
- 
+    @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         try{
-            if(localName.equals("descriptorBase")){
+            if(localName.equals("connectorBase")){
                 cleanWarnings();
                 cleanErrors();
                 for(int i = 0; i < attributes.getLength(); i++){
                     if(attributes.getLocalName(i).equals("id"))
                         setId(attributes.getValue(i));
-                        System.out.println(getId());
                 }
             }
             else if(localName.equals("importBase")){
                 I child = createImportBase();
-                
                 child.startElement(uri, localName, qName, attributes);
                 addImportBase(child);
-                
             }
+
         }
         catch(/*NCLInvalidIdentifierException*/Exception ex){
             addError(ex.getMessage());
         }
     }
 
+
     @Override
-   public void endDocument() {
+    public void endDocument() {
         if(hasImportBase()){
             for(I imp : imports){
                 imp.endDocument();
@@ -168,19 +144,17 @@ public class XTemplateDescriptorBase<I extends NCLImport, D extends NCLLayoutDes
                 addError(imp.getErrors());
             }
         }
-
-    }
-    public String parse(int ident) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
-    
-    public boolean validate() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public String parse(int ident) {return null;}
+
+    public boolean validate() {return true;}
+
+    @Override
+    public void addWarning(String warning) {}
 
     protected I createImportBase() {
         return (I) new NCLImport(NCLImportType.BASE, getReader(), this);
     }
-
 }

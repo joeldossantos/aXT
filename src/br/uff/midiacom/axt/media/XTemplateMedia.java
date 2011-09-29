@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 
-package AXT.Media;
+package br.uff.midiacom.axt.Media;
 
-import AXT.Context.XTemplateContext;
-import AXT.Switch.XTemplateSwitch;
+import br.uff.midiacom.axt.context.XTemplateContext;
+import br.uff.midiacom.axt.Switch.XTemplateSwitch;
 import AXT.XMLElement;
 import AXT.XTemplateBody;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;

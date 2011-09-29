@@ -1,15 +1,15 @@
 
-package AXT.Link;
+package br.uff.midiacom.axt.link;
 
-import AXT.Component.ComponentPort;
-import AXT.Component.XTemplateComponent;
-import AXT.Context.XTemplateContext;
-import AXT.Iteration.ForEach;
-import AXT.Media.XTemplateArea;
-import AXT.Media.XTemplateMedia;
-import AXT.Media.XTemplateProperty;
-import AXT.Port.XTemplatePort;
-import AXT.Switch.XTemplateSwitch;
+import br.uff.midiacom.axt.component.ComponentPort;
+import br.uff.midiacom.axt.component.XTemplateComponent;
+import br.uff.midiacom.axt.context.XTemplateContext;
+import br.uff.midiacom.axt.iteration.ForEach;
+import br.uff.midiacom.axt.Media.XTemplateArea;
+import br.uff.midiacom.axt.Media.XTemplateMedia;
+import br.uff.midiacom.axt.Media.XTemplateProperty;
+import br.uff.midiacom.axt.port.XTemplatePort;
+import br.uff.midiacom.axt.Switch.XTemplateSwitch;
 import AXT.XMLElement;
 import AXT.XTemplateBody;
 import AXT.XTemplateDoc;

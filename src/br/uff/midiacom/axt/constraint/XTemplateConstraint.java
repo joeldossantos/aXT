@@ -1,56 +1,42 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-package AXT.Media;
+
+package br.uff.midiacom.axt.constraint;
 
 import AXT.XMLElement;
 import AXT.XTemplateDoc;
-import br.uff.midiacom.ana.NCLInvalidIdentifierException;
-import br.uff.midiacom.ana.interfaces.NCLProperty;
+import AXT.XTemplateElement;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
-/**
- *
- * @author flavia
- */
-public class XTemplateProperty extends NCLProperty{
 
-    private String xlabel;
-    private String select;
+public class XTemplateConstraint extends XTemplateElement{
+
+    private String select;//tentar implementar como xpath
+    private String description;
     private XMLElement selectedElement;
+
     //construtores
 
-    public XTemplateProperty(){}
-
-    public XTemplateProperty(String name, String xlabel, String select) throws NCLInvalidIdentifierException{
-        super(name);
-        this.xlabel = xlabel;
-        this.select = select;
+    public XTemplateConstraint(){
+        this.select = null;
+        this.description = null;
     }
 
-    public XTemplateProperty(XMLReader reader, XMLElement parent) {
-        super();
+    public XTemplateConstraint(String select, String description){
+        this. select = select;
+        this.description = description;
+    }
+
+     public XTemplateConstraint (XMLReader reader, XTemplateElement parent){
+
         setReader(reader);
         setParent(parent);
 
         getReader().setContentHandler(this);
     }
 
-        
-    //metodos de acesso
-
-    public String getXLabel(){
-        return this.xlabel;
-    }
-
-    public void setXLabel(String xlabel){
-        this.xlabel = xlabel;
-    }
-
-     public String getSelect(){
+    //metodos de acessso
+    public String getSelect(){
         return this.select;
     }
 
@@ -58,12 +44,12 @@ public class XTemplateProperty extends NCLProperty{
         this.select = select;
     }
 
-    public XMLElement getSelectedElement(){
-        return this.selectedElement;
+    public String getDescription(){
+        return this.description;
     }
 
-    public void setSelectedElement(XMLElement element){
-        this.selectedElement = element;
+    public void setDescription(String description){
+        this.description = description;
     }
 
     public String getSelectedComponentXLabel(String select){
@@ -96,32 +82,13 @@ public class XTemplateProperty extends NCLProperty{
                     }
                     return null;
     }
-   
-    @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) {
-        try{
-            cleanWarnings();
-            cleanErrors();
-            for(int i = 0; i < attributes.getLength(); i++){
-                if(attributes.getLocalName(i).equals("name"))
-                    setName(attributes.getValue(i));
-                else if(attributes.getLocalName(i).equals("value"))
-                    setValue(attributes.getValue(i));
-                else if(attributes.getLocalName(i).equals("xlabel"))
-                    setXLabel(attributes.getValue(i));
-                else if(attributes.getLocalName(i).equals("select"))
-                    setSelect(attributes.getValue(i));
-            }
-        }
-        catch(Exception ex){
-            addError(ex.getMessage());
-        }
+
+    public XMLElement getSelectedElement(){
+        return this.selectedElement;
     }
 
-    @Override
-    public void endDocument(){
-        if(getSelect()!=null)
-            SelectedComponentReference();
+    public void setSelectedElement(XMLElement element){
+        this.selectedElement = element;
     }
     private void SelectedComponentReference(){
         XMLElement root = getParent();
@@ -148,12 +115,18 @@ public class XTemplateProperty extends NCLProperty{
     }
 
     @Override
-    public String parse(int ident) {return null;}
-    
-    public boolean validate() {return true;}
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
     @Override
-    public void addWarning(String warning) {}
+    public String parse(int ident) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
     
+    public boolean validate() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

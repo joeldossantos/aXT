@@ -1,5 +1,5 @@
 
-package AXT.Component;
+package br.uff.midiacom.axt.component;
 
 import AXT.XTemplateElement;
 import AXT.XTemplateXLabeledElement;

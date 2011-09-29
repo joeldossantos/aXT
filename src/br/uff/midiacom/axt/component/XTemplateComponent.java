@@ -1,8 +1,8 @@
 
 
-package AXT.Component;
+package br.uff.midiacom.axt.component;
 
-import AXT.ImportBase.XTemplateDescriptorBase;
+import br.uff.midiacom.axt.importBase.XTemplateDescriptorBase;
 import AXT.XMLElement;
 import AXT.XTemplateDoc;
 import AXT.XTemplateElement;

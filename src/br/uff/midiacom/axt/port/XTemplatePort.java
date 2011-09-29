@@ -3,15 +3,15 @@
  * and open the template in the editor.
  */
 
-package AXT.Port;
+package br.uff.midiacom.axt.port;
 
-import AXT.Component.ComponentPort;
-import AXT.Component.XTemplateComponent;
-import AXT.Context.XTemplateContext;
-import AXT.Media.XTemplateArea;
-import AXT.Media.XTemplateMedia;
-import AXT.Media.XTemplateProperty;
-import AXT.Switch.XTemplateSwitch;
+import br.uff.midiacom.axt.component.ComponentPort;
+import br.uff.midiacom.axt.component.XTemplateComponent;
+import br.uff.midiacom.axt.context.XTemplateContext;
+import br.uff.midiacom.axt.Media.XTemplateArea;
+import br.uff.midiacom.axt.Media.XTemplateMedia;
+import br.uff.midiacom.axt.Media.XTemplateProperty;
+import br.uff.midiacom.axt.Switch.XTemplateSwitch;
 import AXT.XMLElement;
 import AXT.XTemplateBody;
 import AXT.XTemplateDoc;

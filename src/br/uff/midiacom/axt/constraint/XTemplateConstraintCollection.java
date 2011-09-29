@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package AXT.Constraint;
+package br.uff.midiacom.axt.constraint;
 
 import AXT.XTemplateElement;
 import java.util.Set;

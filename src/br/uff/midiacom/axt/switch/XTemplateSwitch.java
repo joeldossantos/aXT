@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package AXT.Switch;
+package br.uff.midiacom.axt.Switch;
 
 
-import AXT.Component.XTemplateComponent;
-import AXT.Context.XTemplateContext;
-import AXT.Media.XTemplateMedia;
+import br.uff.midiacom.axt.component.XTemplateComponent;
+import br.uff.midiacom.axt.context.XTemplateContext;
+import br.uff.midiacom.axt.Media.XTemplateMedia;
 import AXT.XMLElement;
 import AXT.XTemplateBody;
 import AXT.XTemplateDoc;

@@ -1,5 +1,5 @@
 
-package AXT.Connector;
+package br.uff.midiacom.axt.connector;
 
 import AXT.XMLElement;
 import AXT.XTemplateDoc;

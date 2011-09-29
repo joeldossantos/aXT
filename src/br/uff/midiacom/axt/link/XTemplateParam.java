@@ -1,6 +1,6 @@
 
 
-package AXT.Link;
+package br.uff.midiacom.axt.link;
 
 import br.uff.midiacom.ana.link.NCLParam;
 import org.xml.sax.XMLReader;

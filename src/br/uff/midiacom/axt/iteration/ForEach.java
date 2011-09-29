@@ -3,14 +3,14 @@
  * and open the template in the editor.
  */
 
-package AXT.Iteration;
+package br.uff.midiacom.axt.iteration;
 
-import AXT.Context.XTemplateContext;
-import AXT.Link.XTemplateLink;
-import AXT.Media.XTemplateArea;
-import AXT.Media.XTemplateProperty;
-import AXT.Port.XTemplatePort;
-import AXT.Switch.XTemplateSwitch;
+import br.uff.midiacom.axt.context.XTemplateContext;
+import br.uff.midiacom.axt.link.XTemplateLink;
+import br.uff.midiacom.axt.Media.XTemplateArea;
+import br.uff.midiacom.axt.Media.XTemplateProperty;
+import br.uff.midiacom.axt.port.XTemplatePort;
+import br.uff.midiacom.axt.Switch.XTemplateSwitch;
 import AXT.XMLElement;
 import AXT.XTemplateBody;
 import AXT.XTemplateDoc;
