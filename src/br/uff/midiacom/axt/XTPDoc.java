@@ -1,5 +1,6 @@
 package br.uff.midiacom.axt;
 
+import br.uff.midiacom.axt.vocabulary.XTPVocabulary;
 import br.uff.midiacom.axt.constraints.XTPConstraints;
 import AXT.XTPValues.XTemplateNamespace;
 import br.uff.midiacom.ana.NCLParsingException;

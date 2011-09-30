@@ -1,6 +1,6 @@
 package br.uff.midiacom.axt.link;
 
-import br.uff.midiacom.axt.connector.XTPConnector;
+import br.uff.midiacom.axt.vocabulary.XTPConnector;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.datatype.NCLParamInstance;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;

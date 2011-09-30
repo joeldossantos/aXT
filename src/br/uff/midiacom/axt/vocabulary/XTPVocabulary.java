@@ -1,9 +1,9 @@
-package br.uff.midiacom.axt;
+package br.uff.midiacom.axt.vocabulary;
 
-import br.uff.midiacom.axt.component.XTPComponent;
-import br.uff.midiacom.axt.connector.XTPConnector;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
+import br.uff.midiacom.axt.XMLElement;
+import br.uff.midiacom.axt.XTPElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;

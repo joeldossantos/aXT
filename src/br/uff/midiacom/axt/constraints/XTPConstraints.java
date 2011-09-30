@@ -1,31 +1,50 @@
 package br.uff.midiacom.axt.constraints;
 
 import br.uff.midiacom.axt.XTPElement;
-import org.xml.sax.Attributes;
-import org.xml.sax.XMLReader;
+import br.uff.midiacom.xml.elementList.ElementList;
 
 
-public class XTPConstraints extends XTPElement {
+public class XTPConstraints<C extends XTPConstraint, T extends XTPConstraints> extends XTPElement<T> {
 
-    public XTPConstraints(XMLReader reader, XMLElement parent) {
-        setReader(reader);
-        setParent(parent);
+    private ElementList<C> constraints;
 
-        getReader().setContentHandler(this);
+
+    public boolean addConstraint(C constraint) {
+        //If the constraint was inserted, set its parent
+        if(constraints.add(constraint)){
+            constraint.setParent(this);
+            return true;
+        }
+        return false;
     }
-    @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) {
+
+
+    public boolean removeConstraint(C constraint) {
+        //If the constraint was removed, remove its parent
+        if(constraints.remove(constraint)){
+            constraint.setParent(null);
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean hasConstraint(C constraint) {
+        return constraints.contains(constraint);
+    }
+
+
+    public boolean hasConstraints() {
+        return !constraints.isEmpty();
+    }
+
+
+    public ElementList<C> getConstraints() {
+        return constraints;
+    }
+
+
+    public boolean compare(T other) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    @Override
-    public String parse(int ident) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-
-    public boolean validate() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 }

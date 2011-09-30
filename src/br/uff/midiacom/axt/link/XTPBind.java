@@ -1,7 +1,7 @@
 package br.uff.midiacom.axt.link;
 
-import br.uff.midiacom.axt.component.XTPComponentPort;
-import br.uff.midiacom.axt.component.XTPComponent;
+import br.uff.midiacom.axt.vocabulary.XTPComponentPort;
+import br.uff.midiacom.axt.vocabulary.XTPComponent;
 import br.uff.midiacom.axt.context.XTPContext;
 import br.uff.midiacom.axt.iteration.XTPForEach;
 import br.uff.midiacom.axt.Media.XTPArea;

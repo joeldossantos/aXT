@@ -1,4 +1,4 @@
-package br.uff.midiacom.axt.connector;
+package br.uff.midiacom.axt.vocabulary;
 
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.reuse.NCLImport;

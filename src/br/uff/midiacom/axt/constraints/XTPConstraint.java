@@ -1,13 +1,11 @@
 package br.uff.midiacom.axt.constraints;
 
 import br.uff.midiacom.axt.XTPElement;
-import br.uff.midiacom.axt.datatype.OptionalStringType;
-import br.uff.midiacom.axt.datatype.RequiredStringType;
-import org.xml.sax.Attributes;
-import org.xml.sax.XMLReader;
+import br.uff.midiacom.xml.string.OptionalStringType;
+import br.uff.midiacom.xml.string.RequiredStringType;
 
 
-public class XTPConstraint extends XTPElement {
+public class XTPConstraint<T extends XTPConstraint> extends XTPElement<T> {
 
     private RequiredStringType select;
     private OptionalStringType description;
@@ -18,12 +16,12 @@ public class XTPConstraint extends XTPElement {
     }
     
     
-    public XTPConstraint(XMLReader reader, XTPElement parent) {
-        setReader(reader);
-        setParent(parent);
-
-        getReader().setContentHandler(this);
-    }
+//    public XTPConstraint(XMLReader reader, XTPElement parent) {
+//        setReader(reader);
+//        setParent(parent);
+//
+//        getReader().setContentHandler(this);
+//    }
     
     
     public void setSelect(String select) throws NullPointerException, IllegalArgumentException {
@@ -43,6 +41,11 @@ public class XTPConstraint extends XTPElement {
     
     public String getDescription() {
         return this.description.getValue();
+    }
+
+
+    public boolean compare(T other) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     

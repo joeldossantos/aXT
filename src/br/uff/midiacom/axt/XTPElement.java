@@ -1,6 +1,6 @@
 package br.uff.midiacom.axt;
 
 
-public abstract class XTPElement extends XMLElement {
+public abstract class XTPElement<T extends XTPElement> extends br.uff.midiacom.xml.XMLElement<T> {
 }
 

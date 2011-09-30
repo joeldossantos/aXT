@@ -1,4 +1,4 @@
-package br.uff.midiacom.axt.component;
+package br.uff.midiacom.axt.vocabulary;
 
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.interfaces.NCLInterface;
