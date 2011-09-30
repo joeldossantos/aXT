@@ -1,11 +1,7 @@
-
-
 package br.uff.midiacom.axt.link;
 
 import br.uff.midiacom.ana.link.NCLParam;
 import org.xml.sax.XMLReader;
-import AXT.XMLElement;
-import AXT.XTPDoc;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.connector.NCLConnectorParam;
 import br.uff.midiacom.ana.datatype.NCLParamInstance;

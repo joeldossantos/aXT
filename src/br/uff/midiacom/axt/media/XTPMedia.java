@@ -1,14 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package br.uff.midiacom.axt.Media;
+package br.uff.midiacom.axt.media;
 
 import br.uff.midiacom.axt.context.XTPContext;
 import br.uff.midiacom.axt.Switch.XTPSwitch;
-import AXT.XMLElement;
-import AXT.XTPBody;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.datatype.NCLInstanceType;
 import br.uff.midiacom.ana.datatype.NCLMimeType;

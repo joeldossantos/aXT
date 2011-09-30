@@ -1,9 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package AXT;
+package br.uff.midiacom.axt;
 
 import java.util.Set;
 import java.util.TreeSet;

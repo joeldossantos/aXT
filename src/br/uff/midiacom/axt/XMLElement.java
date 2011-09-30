@@ -1,22 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package br.uff.midiacom.axt;
 
-package AXT;
-
-/**
- *
- * @author Flavia
- */
 import java.util.ArrayList;
 import java.util.List;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.XMLReader;
-import br.uff.midiacom.ana.Element;
 
-public abstract class XMLElement extends DefaultHandler implements Element {
+
+public abstract class XMLElement extends DefaultHandler {
 
     private XMLElement parent;
     private XMLReader reader;
@@ -93,7 +84,7 @@ public abstract class XMLElement extends DefaultHandler implements Element {
      * @return
      *          String contendo o código XML do elemento.
      */
-    public abstract String parse(int ident);
+    //public abstract String parse(int ident);
 
 
     /**
@@ -195,7 +186,7 @@ public abstract class XMLElement extends DefaultHandler implements Element {
     /**
      * Implementa o método startElement do parser SAX para a recuperação dos objetos
      * representativos dos elementos NCL a partir de um arquivo XML.
-     */
+     *
     @Override
     public abstract void startElement(String uri, String localName, String qName, Attributes attributes);
 
@@ -203,7 +194,7 @@ public abstract class XMLElement extends DefaultHandler implements Element {
     /**
      * Implementa o método endElement do parser SAX para a recuperação dos objetos
      * representativos dos elementos NCL a partir de um arquivo XML.
-     */
+     *
     @Override
     public void endElement(String uri, String localName, String qName) {
         if(getParent() != null)
@@ -214,10 +205,10 @@ public abstract class XMLElement extends DefaultHandler implements Element {
     /**
      * Implementa o método endDocument do parser SAX para a recuperação dos objetos
      * representativos dos elementos NCL a partir de um arquivo XML.
-     */
+     *
     @Override
     public void endDocument() {}
 
-
+*/
 
 }

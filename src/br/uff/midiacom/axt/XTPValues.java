@@ -1,6 +1,4 @@
-
-
-package AXT;
+package br.uff.midiacom.axt;
 
 /**
  *

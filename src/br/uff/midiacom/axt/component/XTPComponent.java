@@ -1,31 +1,19 @@
-
-
 package br.uff.midiacom.axt.component;
 
-import br.uff.midiacom.axt.importBase.XTPDescriptorBase;
-import AXT.XMLElement;
-import AXT.XTPDoc;
-import AXT.XTPElement;
-import AXT.XTPHead;
-import AXT.XTPValues.XTemplateXType;
-import AXT.XTPXLabeledElement;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
-import br.uff.midiacom.ana.NCLParsingException;
-import br.uff.midiacom.ana.descriptor.NCLDescriptor;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
 import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.ana.reuse.NCLImport;
+import br.uff.midiacom.axt.XTPElement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
 
 
 public class XTPComponent<P extends XTPComponentPort, C extends XTPComponent, D extends NCLLayoutDescriptor, I extends NCLImport>
-        extends XTPElement implements NCLNode{
+        extends XTPElement {
 
     private String xlabel;
     private static final int unbounded = 1000000000;

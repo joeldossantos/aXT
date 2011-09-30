@@ -1,15 +1,11 @@
-
-
 package br.uff.midiacom.axt.constraints;
 
+import br.uff.midiacom.axt.XTPElement;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
-/**
- *
- * @author Flavia
- */
-public class XTPConstraints extends XTemplateElement{
+
+public class XTPConstraints extends XTPElement {
 
     public XTPConstraints(XMLReader reader, XMLElement parent) {
         setReader(reader);

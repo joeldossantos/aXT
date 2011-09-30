@@ -1,21 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package br.uff.midiacom.axt;
 
-package AXT;
 
-/**
- *
- * @author Flavia
- */
-public abstract class XTPXLabeledElement extends XTPElement{
+public abstract class XTPXLabeledElement extends XTPElement {
 
-    
     private String xlabel;
-
-
-    public String getXLabel(){
+    
+    
+    public String getXLabel() {
         return this.xlabel;
     }
 

@@ -1,13 +1,8 @@
-
-
 package br.uff.midiacom.axt.Switch;
 
 import br.uff.midiacom.axt.component.XTPComponent;
 import br.uff.midiacom.axt.context.XTPContext;
 import br.uff.midiacom.axt.Media.XTPMedia;
-import AXT.XMLElement;
-import AXT.XTPDoc;
-import AXT.XTPVocabulary;
 import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.ana.node.NCLSwitchBindRule;
 import br.uff.midiacom.ana.rule.NCLRule;

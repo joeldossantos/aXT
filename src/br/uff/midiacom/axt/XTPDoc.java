@@ -1,23 +1,13 @@
-
-
-package AXT;
+package br.uff.midiacom.axt;
 
 import br.uff.midiacom.axt.constraints.XTPConstraints;
 import AXT.XTPValues.XTemplateNamespace;
-import br.uff.midiacom.ana.NCLDoc;
 import br.uff.midiacom.ana.NCLParsingException;
-import br.uff.midiacom.ana.connector.NCLCausalConnector;
-import br.uff.midiacom.ana.descriptor.NCLDescriptor;
-import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
-import br.uff.midiacom.ana.reuse.NCLImport;
-import br.uff.midiacom.ana.rule.NCLRule;
-import java.io.File;
+import br.uff.midiacom.axt.datatype.OptionalStringType;
+import br.uff.midiacom.axt.datatype.RequiredStringType;
 import java.io.FileReader;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.XMLReaderFactory;
@@ -27,74 +17,51 @@ import org.xml.sax.helpers.XMLReaderFactory;
  * @author Flavia
  */
 
-public class XTPDoc<V extends XTPVocabulary, H extends XTPHead,
-        B extends XTPBody, C extends XTPConstraints, I extends NCLImport,
-        Cn extends NCLCausalConnector, D extends NCLLayoutDescriptor, R extends NCLRule> extends XTPElement {
+public class XTPDoc<H extends XTPHead, V extends XTPVocabulary,B extends XTPBody, C extends XTPConstraints> extends XTPElement {
 
-
-
-    private String id;
-    private String name;
-    private String description;
-    private XTemplateNamespace xsi;
-    private XTemplateNamespace xt;
-    private XTemplateNamespace schemaLocation;
-    
+    private RequiredStringType id;
+    private OptionalStringType name;
+    private OptionalStringType description;
     private H head;
     private B body;
     private V vocabulary;
-    
     private C constraints;
     
-   public void setId(String id){
-        this.id = id;
+    
+    public XTPDoc(String id) throws NullPointerException, IllegalArgumentException {
+        setId(id);
     }
+    
+    
+    public void setId(String id) throws NullPointerException, IllegalArgumentException {
+        this.id = new RequiredStringType(id);
+    }
+
     
     public String getId() {
-        return id;
+        return id.getValue();
     }
-    
-    public void setName(String name){
-        this.name = name;
+
+
+    public void setName(String name) throws IllegalArgumentException {
+        this.name = new OptionalStringType(name);
     }
 
 
     public String getName() {
-        return name;
+        return name.getValue();
     }
 
-    public void setDescription(String description){
-        this.description = description;
+
+    public void setDescription(String description) throws IllegalArgumentException {
+        this.description = new OptionalStringType(description);
     }
 
 
     public String getDescription() {
-        return description;
+        return description.getValue();
     }
 
-    public void setXsi(XTemplateNamespace xsi) {
-        this.xsi = xsi;
-    }
-
-    public XTemplateNamespace getXsi() {
-        return xsi;
-    }
-
-    public void setXt(XTemplateNamespace xt) {
-        this.xt = xt;
-    }
-
-    public XTemplateNamespace getXt() {
-        return xt;
-    }
-
-    public void setSchemaLocation(XTemplateNamespace schemaLocation) {
-        this.schemaLocation = schemaLocation;
-    }
-
-    public XTemplateNamespace getSchemaLocation() {
-        return schemaLocation;
-    }
 
     public void setHead(H head) {
         //Retira o parentesco do head atual
@@ -102,25 +69,30 @@ public class XTPDoc<V extends XTPVocabulary, H extends XTPHead,
             this.head.setParent(null);
 
         this.head = head;
+
         //Se head existe, atribui este como seu parente
         if(this.head != null)
             this.head.setParent(this);
     }
 
+
     public H getHead() {
         return head;
     }
-
-     public void setVocabulary(V vocabulary) {
+    
+    
+    public void setVocabulary(V vocabulary) {
         //Retira o parentesco do head atual
         if(this.vocabulary != null)
             this.vocabulary.setParent(null);
 
         this.vocabulary = vocabulary;
+
         //Se head existe, atribui este como seu parente
         if(this.vocabulary != null)
             this.vocabulary.setParent(this);
     }
+
 
     public V getVocabulary() {
         return vocabulary;
@@ -133,14 +105,17 @@ public class XTPDoc<V extends XTPVocabulary, H extends XTPHead,
             this.body.setParent(null);
 
         this.body = body;
+
         //Se body existe, atribui este como seu parente
         if(this.body != null)
             this.body.setParent(this);
     }
 
+
     public B getBody(){
         return body;
     }
+
 
     public void setConstraints(C constraints) {
         //Retira o parentesco do body atual
@@ -148,14 +123,17 @@ public class XTPDoc<V extends XTPVocabulary, H extends XTPHead,
             this.constraints.setParent(null);
 
         this.constraints = constraints;
+
         //Se body existe, atribui este como seu parente
         if(this.constraints != null)
             this.constraints.setParent(this);
     }
 
+
     public C getConstraints(){
         return constraints;
     }
+    
 
     public void loadXML(String path) throws /*NCLParsingException*/ Exception {
         try{

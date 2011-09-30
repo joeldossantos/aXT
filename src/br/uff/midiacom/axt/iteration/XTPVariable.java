@@ -1,8 +1,6 @@
-
 package br.uff.midiacom.axt.iteration;
 
-import AXT.XMLElement;
-import AXT.XTPElement;
+import br.uff.midiacom.axt.XTPElement;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 

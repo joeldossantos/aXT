@@ -1,10 +1,8 @@
-
 package br.uff.midiacom.axt.component;
 
-import AXT.XTPElement;
-import AXT.XTPXLabeledElement;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.interfaces.NCLInterface;
+import br.uff.midiacom.axt.XTPElement;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
@@ -14,7 +12,7 @@ import org.xml.sax.XMLReader;
  *Este elemento define pontos de interface de um elemento component em XTemplate.
  * @author flavia
  */
-public class XTPComponentPort extends XTPElement implements NCLInterface{
+public class XTPComponentPort extends XTPElement {
 
     private String xlabel;
     private static final int unbounded = 1000000000;

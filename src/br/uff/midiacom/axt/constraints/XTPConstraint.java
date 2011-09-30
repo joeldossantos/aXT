@@ -1,57 +1,52 @@
-
-
 package br.uff.midiacom.axt.constraints;
 
-import AXT.XMLElement;
-import AXT.XTPDoc;
-import AXT.XTPElement;
+import br.uff.midiacom.axt.XTPElement;
+import br.uff.midiacom.axt.datatype.OptionalStringType;
+import br.uff.midiacom.axt.datatype.RequiredStringType;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
 
-public class XTPConstraint extends XTPElement{
+public class XTPConstraint extends XTPElement {
 
-    private String select;//tentar implementar como xpath
-    private String description;
-    private XMLElement selectedElement;
-
-    //construtores
-
-    public XTPConstraint(){
-        this.select = null;
-        this.description = null;
+    private RequiredStringType select;
+    private OptionalStringType description;
+    
+    
+    public XTPConstraint(String select) throws NullPointerException, IllegalArgumentException {
+        setSelect(select);
     }
-
-    public XTPConstraint(String select, String description){
-        this. select = select;
-        this.description = description;
-    }
-
-     public XTPConstraint (XMLReader reader, XTPElement parent){
-
+    
+    
+    public XTPConstraint(XMLReader reader, XTPElement parent) {
         setReader(reader);
         setParent(parent);
 
         getReader().setContentHandler(this);
     }
-
-    //metodos de acessso
-    public String getSelect(){
-        return this.select;
+    
+    
+    public void setSelect(String select) throws NullPointerException, IllegalArgumentException {
+        this.select = new RequiredStringType(select);
+    }
+    
+    
+    public String getSelect() {
+        return this.select.getValue();
+    }
+    
+    
+    public void setDescription(String description) throws IllegalArgumentException {
+        this.description = new OptionalStringType(description);
+    }
+    
+    
+    public String getDescription() {
+        return this.description.getValue();
     }
 
-    public void setSelect(String select){
-        this.select = select;
-    }
-
-    public String getDescription(){
-        return this.description;
-    }
-
-    public void setDescription(String description){
-        this.description = description;
-    }
-
+    
+/*
     public String getSelectedComponentXLabel(String select){
                     String pxlabel;
                     if(select.contains("@xlabel")){
@@ -128,5 +123,5 @@ public class XTPConstraint extends XTPElement{
     public boolean validate() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+*/
 }

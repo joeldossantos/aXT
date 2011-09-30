@@ -8,8 +8,6 @@ import br.uff.midiacom.axt.Media.XTPMedia;
 import br.uff.midiacom.axt.Media.XTPProperty;
 import br.uff.midiacom.axt.port.XTPPort;
 import br.uff.midiacom.axt.Switch.XTPSwitch;
-import AXT.XMLElement;
-import AXT.XTPBody;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;

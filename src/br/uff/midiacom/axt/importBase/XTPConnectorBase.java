@@ -1,17 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.uff.midiacom.axt.importBase;
 
-import AXT.XMLElement;
-import AXT.XTPElement;
 import br.uff.midiacom.ana.NCLDoc;
 import br.uff.midiacom.ana.NCLParsingException;
 import br.uff.midiacom.ana.datatype.NCLImportType;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.reuse.NCLImport;
+import br.uff.midiacom.axt.XTPElement;
 import java.io.File;
 import java.util.Set;
 import java.util.TreeSet;

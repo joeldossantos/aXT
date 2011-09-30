@@ -1,4 +1,3 @@
-
 package br.uff.midiacom.axt.link;
 
 import br.uff.midiacom.axt.component.XTPComponentPort;
@@ -10,11 +9,6 @@ import br.uff.midiacom.axt.Media.XTPMedia;
 import br.uff.midiacom.axt.Media.XTPProperty;
 import br.uff.midiacom.axt.port.XTPPort;
 import br.uff.midiacom.axt.Switch.XTPSwitch;
-import AXT.XMLElement;
-import AXT.XTPBody;
-import AXT.XTPDoc;
-import AXT.XTPHead;
-import AXT.XTPVocabulary;
 import br.uff.midiacom.ana.NCLElement;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.connector.NCLAction;

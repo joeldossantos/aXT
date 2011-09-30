@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.uff.midiacom.axt.port;
 
 import br.uff.midiacom.axt.component.XTPComponentPort;
@@ -12,11 +7,6 @@ import br.uff.midiacom.axt.Media.XTPArea;
 import br.uff.midiacom.axt.Media.XTPMedia;
 import br.uff.midiacom.axt.Media.XTPProperty;
 import br.uff.midiacom.axt.Switch.XTPSwitch;
-import AXT.XMLElement;
-import AXT.XTPBody;
-import AXT.XTPDoc;
-import AXT.XTPElement;
-import AXT.XTPVocabulary;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.ana.interfaces.NCLPort;

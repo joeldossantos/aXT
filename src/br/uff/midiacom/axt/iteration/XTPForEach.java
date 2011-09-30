@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.uff.midiacom.axt.iteration;
 
 import br.uff.midiacom.axt.context.XTPContext;
@@ -11,10 +6,6 @@ import br.uff.midiacom.axt.Media.XTPArea;
 import br.uff.midiacom.axt.Media.XTPProperty;
 import br.uff.midiacom.axt.port.XTPPort;
 import br.uff.midiacom.axt.Switch.XTPSwitch;
-import AXT.XMLElement;
-import AXT.XTPBody;
-import AXT.XTPDoc;
-import AXT.XTPElement;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
 import br.uff.midiacom.ana.interfaces.NCLArea;

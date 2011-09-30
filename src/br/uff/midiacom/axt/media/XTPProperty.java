@@ -1,12 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package br.uff.midiacom.axt.media;
 
-package br.uff.midiacom.axt.Media;
-
-import AXT.XMLElement;
-import AXT.XTPDoc;
 import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.interfaces.NCLProperty;
 import org.xml.sax.Attributes;

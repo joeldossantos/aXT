@@ -1,13 +1,8 @@
-
 package br.uff.midiacom.axt.connector;
 
-import AXT.XMLElement;
-import AXT.XTPDoc;
-import AXT.XTPElement;
-import AXT.XTPXLabeledElement;
-import br.uff.midiacom.ana.NCLParsingException;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.reuse.NCLImport;
+import br.uff.midiacom.axt.XTPElement;
 import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 
