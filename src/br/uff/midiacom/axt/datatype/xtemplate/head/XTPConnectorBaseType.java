@@ -2,11 +2,11 @@ package br.uff.midiacom.axt.datatype.xtemplate.head;
 
 import br.uff.midiacom.ana.reuse.NCLImport;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.XMLElement;
-import br.uff.midiacom.xml.elementList.ElementList;
+import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
-public class XTPConnectorBaseType<T extends XTPConnectorBaseType, I extends NCLImport> extends XMLElement<T> implements XTPElement<T> {
+public class XTPConnectorBaseType<T extends XTPConnectorBaseType, I extends NCLImport> extends Element<T> implements XTPElement<T> {
 
     protected ElementList<I> imports;
 

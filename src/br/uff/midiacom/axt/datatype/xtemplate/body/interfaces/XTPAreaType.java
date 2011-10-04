@@ -4,7 +4,7 @@ import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.interfaces.NCLArea;
 import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
 public class XTPAreaType<T extends XTPAreaType, I extends NCLInterface> extends NCLArea<I> implements XTPLabeledElement<T> {

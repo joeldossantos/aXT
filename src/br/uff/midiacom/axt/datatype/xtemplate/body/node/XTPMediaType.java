@@ -8,7 +8,7 @@ import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPAreaType;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPPropertyType;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
 public class XTPMediaType<T extends XTPMediaType, A extends XTPAreaType, P extends XTPPropertyType, N extends NCLNode, D extends NCLLayoutDescriptor> extends NCLMedia<A, P, N, D, T> implements XTPLabeledElement<T> {

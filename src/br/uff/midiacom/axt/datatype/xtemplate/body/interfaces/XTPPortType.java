@@ -4,7 +4,7 @@ import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.interfaces.NCLPort;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPComponentType;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
 public class XTPPortType<T extends XTPPortType, C extends XTPComponentType> extends NCLPort implements XTPLabeledElement<T> {

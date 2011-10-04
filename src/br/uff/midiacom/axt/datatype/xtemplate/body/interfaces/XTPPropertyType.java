@@ -5,7 +5,7 @@ import br.uff.midiacom.ana.datatype.enums.NCLSystemVariable;
 import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.ana.interfaces.NCLProperty;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
 public class XTPPropertyType<T extends XTPPropertyType, I extends NCLInterface> extends NCLProperty<I> implements XTPLabeledElement<T> {

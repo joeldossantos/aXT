@@ -1,7 +1,7 @@
 package br.uff.midiacom.axt.datatype.auxiliar;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
-import br.uff.midiacom.xml.elementList.ElementList;
+import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
 public class LabeledElementList<T extends XTPLabeledElement> extends ElementList<T> {

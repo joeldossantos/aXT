@@ -1,11 +1,11 @@
 package br.uff.midiacom.axt.datatype.xtemplate.head;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.XMLElement;
-import br.uff.midiacom.xml.elementList.ElementList;
+import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
-public class XTPHeadType<T extends XTPHeadType, E extends XTPExtendsType, D extends XTPDescriptorBaseType, C extends XTPConnectorBaseType> extends XMLElement<T> implements XTPElement<T> {
+public class XTPHeadType<T extends XTPHeadType, E extends XTPExtendsType, D extends XTPDescriptorBaseType, C extends XTPConnectorBaseType> extends Element<T> implements XTPElement<T> {
 
     protected ElementList<E> xtExtends;
     protected D descriptorBase;

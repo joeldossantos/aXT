@@ -4,12 +4,12 @@ import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPLinkType;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPSwitchType;
-import br.uff.midiacom.xml.XMLElement;
-import br.uff.midiacom.xml.elementList.ElementList;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.datatype.elementList.ElementList;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPForEachType<T extends XTPForEachType, I extends NCLInterface, S extends XTPSwitchType, L extends XTPLinkType, V extends XTPVariableType> extends XMLElement<T> implements XTPElement<T> {
+public class XTPForEachType<T extends XTPForEachType, I extends NCLInterface, S extends XTPSwitchType, L extends XTPLinkType, V extends XTPVariableType> extends Element<T> implements XTPElement<T> {
     
     protected StringType select;
     protected ElementList<I> interfaces;

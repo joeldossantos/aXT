@@ -2,11 +2,11 @@ package br.uff.midiacom.axt.datatype.xtemplate.head;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPDocType;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.XMLElement;
-import br.uff.midiacom.xml.reference.DocumentRefType;
+import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.datatype.reference.DocumentRefType;
 
 
-public class XTPExtendsType<T extends XTPExtendsType, D extends XTPDocType> extends XMLElement<T> implements XTPElement<T> {
+public class XTPExtendsType<T extends XTPExtendsType, D extends XTPDocType> extends Element<T> implements XTPElement<T> {
     
     protected DocumentRefType<D> xtemplate;
     protected Boolean overwriteConstraints;

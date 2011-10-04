@@ -4,7 +4,7 @@ import br.uff.midiacom.ana.connector.NCLConnectorParam;
 import br.uff.midiacom.ana.datatype.enums.NCLParamInstance;
 import br.uff.midiacom.ana.link.NCLParam;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
 public class XTPParamType<T extends XTPParamType, C extends NCLConnectorParam> extends NCLParam<T, C> implements XTPElement<T> {

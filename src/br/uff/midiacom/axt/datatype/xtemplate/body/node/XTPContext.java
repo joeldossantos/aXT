@@ -9,7 +9,7 @@ import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPPortType;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPPropertyType;
 import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPLinkType;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
 public class XTPContext<T extends XTPContext, Pt extends XTPPortType, Pp extends XTPPropertyType, N extends NCLNode, L extends XTPLinkType, M extends NCLMeta, MT extends NCLMetadata> extends NCLContext<T, Pt, Pp, N, L, M, MT> implements XTPLabeledElement<T> {

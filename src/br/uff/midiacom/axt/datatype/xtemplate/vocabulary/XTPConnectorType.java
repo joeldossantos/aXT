@@ -1,6 +1,6 @@
 package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
 public class XTPConnectorType<T extends XTPConnectorType> extends XTPVocabularyElement<T> {

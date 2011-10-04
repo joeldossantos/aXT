@@ -2,10 +2,10 @@ package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
 import br.uff.midiacom.axt.datatype.auxiliar.LabeledElementList;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.XMLElement;
+import br.uff.midiacom.xml.Element;
 
 
-public class XTPVocabularyType<T extends XTPVocabularyType, Cp extends XTPComponentType, Cc extends XTPConnectorType> extends XMLElement<T> implements XTPElement<T> {
+public class XTPVocabularyType<T extends XTPVocabularyType, Cp extends XTPComponentType, Cc extends XTPConnectorType> extends Element<T> implements XTPElement<T> {
 
     protected LabeledElementList<Cp> components;
     protected LabeledElementList<Cc> connectors;

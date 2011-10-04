@@ -4,11 +4,11 @@ import br.uff.midiacom.axt.datatype.xtemplate.body.XTPBodyType;
 import br.uff.midiacom.axt.datatype.xtemplate.constraints.XTPConstraintsType;
 import br.uff.midiacom.axt.datatype.xtemplate.head.XTPHeadType;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPVocabularyType;
-import br.uff.midiacom.xml.XMLElement;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPDocType<T extends XTPDocType, H extends XTPHeadType, V extends XTPVocabularyType,B extends XTPBodyType, C extends XTPConstraintsType> extends XMLElement<T> implements XTPElement<T> {
+public class XTPDocType<T extends XTPDocType, H extends XTPHeadType, V extends XTPVocabularyType,B extends XTPBodyType, C extends XTPConstraintsType> extends Element<T> implements XTPElement<T> {
 
     protected StringType id;
     protected StringType name;

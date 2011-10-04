@@ -2,8 +2,8 @@ package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
 import br.uff.midiacom.ana.descriptor.NCLDescriptor;
 import br.uff.midiacom.axt.datatype.auxiliar.LabeledElementList;
-import br.uff.midiacom.xml.reference.IdRefType;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.datatype.reference.IdRefType;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
 public class XTPComponentType<T extends XTPComponentType, D extends NCLDescriptor, P extends XTPComponentPortType> extends XTPVocabularyElement<T> {

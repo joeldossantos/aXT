@@ -1,12 +1,12 @@
 package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
-import br.uff.midiacom.xml.XMLElement;
-import br.uff.midiacom.xml.number.MaxType;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.datatype.number.MaxType;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPVocabularyElement<T extends XTPVocabularyElement> extends XMLElement<T> implements XTPLabeledElement<T> {
+public class XTPVocabularyElement<T extends XTPVocabularyElement> extends Element<T> implements XTPLabeledElement<T> {
 
     protected StringType xlabel;
     protected Integer minOccurs;

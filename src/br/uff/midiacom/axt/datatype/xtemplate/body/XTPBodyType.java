@@ -4,11 +4,11 @@ import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPPortType;
 import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPLinkType;
-import br.uff.midiacom.xml.XMLElement;
-import br.uff.midiacom.xml.elementList.ElementList;
+import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
-public class XTPBodyType<T extends XTPBodyType, P extends XTPPortType, N extends NCLNode, L extends XTPLinkType, V extends XTPVariableType, F extends XTPForEachType> extends XMLElement<T> implements XTPElement<T> {
+public class XTPBodyType<T extends XTPBodyType, P extends XTPPortType, N extends NCLNode, L extends XTPLinkType, V extends XTPVariableType, F extends XTPForEachType> extends Element<T> implements XTPElement<T> {
 
     protected ElementList<P> ports;
     protected ElementList<N> nodes;
@@ -303,7 +303,7 @@ public class XTPBodyType<T extends XTPBodyType, P extends XTPPortType, N extends
     }
 
     @Override
-    public boolean compare(XMLElement other) {
+    public boolean compare(Element other) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

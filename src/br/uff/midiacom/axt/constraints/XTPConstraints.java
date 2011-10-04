@@ -1,7 +1,7 @@
 package br.uff.midiacom.axt.constraints;
 
 import br.uff.midiacom.axt.XTPElement;
-import br.uff.midiacom.xml.elementList.ElementList;
+import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
 public class XTPConstraints<C extends XTPConstraint, T extends XTPConstraints> extends XTPElement<T> {

@@ -4,7 +4,7 @@ import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.link.NCLLink;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPConnectorType;
-import br.uff.midiacom.xml.reference.IdRefType;
+import br.uff.midiacom.xml.datatype.reference.IdRefType;
 
 
 public class XTPLinkType<T extends XTPLinkType, P extends XTPParamType, B extends XTPBindType, C extends NCLCausalConnector> extends NCLLink<T, P, B, C> implements XTPElement<T> {

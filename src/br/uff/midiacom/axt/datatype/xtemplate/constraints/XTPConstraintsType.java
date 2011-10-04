@@ -1,11 +1,11 @@
 package br.uff.midiacom.axt.datatype.xtemplate.constraints;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.XMLElement;
-import br.uff.midiacom.xml.elementList.ElementList;
+import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
-public class XTPConstraintsType<T extends XTPConstraintsType, C extends XTPConstraintType> extends XMLElement<T> implements XTPElement<T> {
+public class XTPConstraintsType<T extends XTPConstraintsType, C extends XTPConstraintType> extends Element<T> implements XTPElement<T> {
 
     protected ElementList<C> constraints;
 

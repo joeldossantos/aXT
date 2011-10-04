@@ -5,7 +5,7 @@ import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.ana.node.NCLSwitch;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPSwitchPortType;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
 public class XTPSwitchType<T extends XTPSwitchType, N extends NCLNode, P extends XTPSwitchPortType, B extends XTPBindRuleType> extends NCLSwitch<N, T, P, B> implements XTPLabeledElement<T> {

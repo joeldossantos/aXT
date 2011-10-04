@@ -6,7 +6,7 @@ import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.ana.link.NCLBind;
 import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.string.StringType;
+import br.uff.midiacom.xml.datatype.string.StringType;
 
 
 public class XTPBindType<T extends XTPBindType, R extends NCLRole, N extends NCLNode, I extends NCLInterface, D extends NCLLayoutDescriptor, P extends XTPParamType> extends NCLBind<T, R, N, I, D, P> implements XTPElement<T> {
