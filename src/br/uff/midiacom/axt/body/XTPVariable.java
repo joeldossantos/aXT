@@ -4,6 +4,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.body.XTPVariablePrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
 public class XTPVariable<T extends XTPVariable, P extends XTPElement, I extends XMLElementImpl> extends XTPVariablePrototype<T, P, I> implements XTPElement<T, P> {
@@ -32,4 +33,9 @@ public class XTPVariable<T extends XTPVariable, P extends XTPElement, I extends 
 //            addError(ex.getMessage());
 //         }
 //    }
+    
+    
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

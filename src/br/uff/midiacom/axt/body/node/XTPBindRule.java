@@ -1,14 +1,14 @@
 package br.uff.midiacom.axt.body.node;
 
-import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.ana.rule.NCLTestRule;
 import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPBindRulePrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
-public class XTPBindRule<T extends XTPBindRule, P extends XTPElement, I extends XMLElementImpl, En extends NCLNode, Er extends NCLTestRule> extends XTPBindRulePrototype<T, P, I, En, Er> implements XTPElement<T, P> {
+public class XTPBindRule<T extends XTPBindRule, P extends XTPElement, I extends XMLElementImpl, En extends XTPNode, Er extends NCLTestRule> extends XTPBindRulePrototype<T, P, I, En, Er> implements XTPElement<T, P> {
 
     
     public XTPBindRule() throws XMLException {
@@ -188,4 +188,10 @@ public class XTPBindRule<T extends XTPBindRule, P extends XTPElement, I extends 
 //
 //        addWarning("Could not find rule in ruleBase with id: " + getRule().getId());
 //    }
+    
+    
+    @Override
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

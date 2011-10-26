@@ -6,6 +6,7 @@ import br.uff.midiacom.axt.XTPXLabeledElement;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPComponentPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
 
@@ -131,4 +132,9 @@ public class XTPComponent<T extends XTPComponent, P extends XTPElement, I extend
 //
 //            return null;
 //        }
+    
+    
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

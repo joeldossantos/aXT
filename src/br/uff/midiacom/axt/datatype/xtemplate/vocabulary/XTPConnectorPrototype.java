@@ -33,4 +33,12 @@ public class XTPConnectorPrototype<T extends XTPConnectorPrototype, P extends XT
     public String parse(int ident) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    
+    @Deprecated
+    public void setId(String id) throws XMLException { }
+    
+    
+    @Deprecated
+    public String getId() { return null; }
 }

@@ -1,16 +1,15 @@
 package br.uff.midiacom.axt.body.node;
 
-import br.uff.midiacom.ana.interfaces.NCLInterface;
-import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.axt.XTPElement;
-import br.uff.midiacom.axt.XTPXLabeledElement;
+import br.uff.midiacom.axt.body.interfaces.XTPInterface;
 import br.uff.midiacom.axt.body.interfaces.XTPSwitchPort;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPSwitchPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
-public class XTPSwitch<T extends XTPSwitch, P extends XTPElement, I extends XMLElementImpl, En extends NCLNode, Ei extends NCLInterface, Ep extends XTPSwitchPort, Eb extends XTPBindRule> extends XTPSwitchPrototype<T, P, I, En, Ei, Ep, Eb> implements XTPXLabeledElement<T, P> {
+public class XTPSwitch<T extends XTPSwitch, P extends XTPElement, I extends XMLElementImpl, En extends XTPNode, Ei extends XTPInterface, Ep extends XTPSwitchPort, Eb extends XTPBindRule> extends XTPSwitchPrototype<T, P, I, En, Ei, Ep, Eb> implements XTPNode<En, P> {
 
     
     public XTPSwitch(String id, String xlabel) throws XMLException {
@@ -225,4 +224,10 @@ public class XTPSwitch<T extends XTPSwitch, P extends XTPElement, I extends XMLE
 //        }
 //
 //    }
+    
+    
+    @Override
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

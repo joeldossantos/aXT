@@ -1,14 +1,13 @@
 package br.uff.midiacom.axt.body.interfaces;
 
-import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.axt.XTPElement;
-import br.uff.midiacom.axt.XTPXLabeledElement;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPAreaPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
-public class XTPArea<T extends XTPArea, P extends XTPElement, I extends XMLElementImpl, Ei extends NCLInterface> extends XTPAreaPrototype<T, P, I, Ei> implements XTPXLabeledElement<T, P> {
+public class XTPArea<T extends XTPArea, P extends XTPElement, I extends XMLElementImpl, Ei extends XTPInterface> extends XTPAreaPrototype<T, P, I, Ei> implements XTPInterface<Ei, P> {
 
     
     public XTPArea(String id, String xlabel) throws XMLException {
@@ -60,4 +59,10 @@ public class XTPArea<T extends XTPArea, P extends XTPElement, I extends XMLEleme
 //            addError(ex.getMessage());
 //        }
 //    }
+    
+    
+    @Override
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

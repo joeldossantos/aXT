@@ -6,6 +6,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPParamPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
 public class XTPParam<T extends XTPParam, P extends XTPElement, I extends XMLElementImpl, Ec extends NCLConnectorParam> extends XTPParamPrototype<T, P, I, Ec> implements XTPElement<T, P> {
@@ -129,4 +130,10 @@ public class XTPParam<T extends XTPParam, P extends XTPElement, I extends XMLEle
 //        }
 //        addWarning("Could not find connectorParam in connector with name: " + getName().getName());
 //    }
+    
+    
+    @Override
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

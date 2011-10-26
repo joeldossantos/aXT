@@ -1,15 +1,14 @@
 package br.uff.midiacom.axt.body.interfaces;
 
-import br.uff.midiacom.ana.datatype.ncl.node.NCLNode;
-import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.axt.XTPElement;
-import br.uff.midiacom.axt.XTPXLabeledElement;
+import br.uff.midiacom.axt.body.node.XTPNode;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPPortPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
-public class XTPPort<T extends XTPPort, P extends XTPElement, I extends XMLElementImpl, En extends NCLNode, Ei extends NCLInterface> extends XTPPortPrototype<T, P, I, En, Ei> implements XTPXLabeledElement<T, P> {
+public class XTPPort<T extends XTPPort, P extends XTPElement, I extends XMLElementImpl, En extends XTPNode, Ei extends XTPInterface> extends XTPPortPrototype<T, P, I, En, Ei> implements XTPInterface<Ei, P> {
 
     
     public XTPPort(String id) throws XMLException {
@@ -261,4 +260,10 @@ public class XTPPort<T extends XTPPort, P extends XTPElement, I extends XMLEleme
 //        addWarning("Could not find interface with id: " + getInterface().getId());
 //        addWarning("Could not find interface with xlabel: " + ((XTPElement)getInterface()).getXLabel());
 //    }
+    
+    
+    @Override
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

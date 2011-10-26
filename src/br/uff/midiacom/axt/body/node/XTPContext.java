@@ -1,20 +1,19 @@
 package br.uff.midiacom.axt.body.node;
 
-import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.ana.meta.NCLMeta;
 import br.uff.midiacom.ana.meta.NCLMetadata;
-import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.axt.XTPElement;
-import br.uff.midiacom.axt.XTPXLabeledElement;
+import br.uff.midiacom.axt.body.interfaces.XTPInterface;
 import br.uff.midiacom.axt.body.interfaces.XTPPort;
 import br.uff.midiacom.axt.body.interfaces.XTPProperty;
 import br.uff.midiacom.axt.body.link.XTPLink;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPContextPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
-public class XTPContext<T extends XTPContext, P extends XTPElement, I extends XMLElementImpl, Ept extends XTPPort, Epp extends XTPProperty, En extends NCLNode, Ei extends NCLInterface, El extends XTPLink, Em extends NCLMeta, Emt extends NCLMetadata> extends XTPContextPrototype<T, P, I, Ept, Epp, En, Ei, El, Em, Emt> implements XTPXLabeledElement<T, P> {
+public class XTPContext<T extends XTPContext, P extends XTPElement, I extends XMLElementImpl, Ept extends XTPPort, Epp extends XTPProperty, En extends XTPNode, Ei extends XTPInterface, El extends XTPLink, Em extends NCLMeta, Emt extends NCLMetadata> extends XTPContextPrototype<T, P, I, Ept, Epp, En, Ei, El, Em, Emt> implements XTPNode<En, P> {
 
     
     public XTPContext(String id, String xlabel) throws XMLException {
@@ -236,4 +235,10 @@ public class XTPContext<T extends XTPContext, P extends XTPElement, I extends XM
 //            }
 //        }
 //    }
+    
+    
+    @Override
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

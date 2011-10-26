@@ -1,15 +1,16 @@
 package br.uff.midiacom.axt.body;
 
-import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.body.interfaces.XTPPort;
 import br.uff.midiacom.axt.body.link.XTPLink;
+import br.uff.midiacom.axt.body.node.XTPNode;
 import br.uff.midiacom.axt.datatype.xtemplate.body.XTPBodyPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
-public class XTPBody<T extends XTPBody, P extends XTPElement, I extends XMLElementImpl, Ep extends XTPPort, En extends NCLNode, El extends XTPLink, Ev extends XTPVariable, Ef extends XTPForEach> extends XTPBodyPrototype<T, P, I, Ep, En, El, Ev, Ef> implements XTPElement<T, P> {
+public class XTPBody<T extends XTPBody, P extends XTPElement, I extends XMLElementImpl, Ep extends XTPPort, En extends XTPNode, El extends XTPLink, Ev extends XTPVariable, Ef extends XTPForEach> extends XTPBodyPrototype<T, P, I, Ep, En, El, Ev, Ef> implements XTPElement<T, P> {
 
     
     public XTPBody () throws XMLException {
@@ -178,4 +179,9 @@ public class XTPBody<T extends XTPBody, P extends XTPElement, I extends XMLEleme
 //        for(FE forEach : forEachs){
 //            forEach.searchForEach(descriptors, connectors, rules);
 //        }
+    
+    
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

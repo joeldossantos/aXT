@@ -1,15 +1,14 @@
 package br.uff.midiacom.axt.body.interfaces;
 
 import br.uff.midiacom.ana.datatype.enums.NCLSystemVariable;
-import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.axt.XTPElement;
-import br.uff.midiacom.axt.XTPXLabeledElement;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPPropertyPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
-public class XTPProperty<T extends XTPProperty, P extends XTPElement, I extends XMLElementImpl, Ei extends NCLInterface> extends XTPPropertyPrototype<T, P, I, Ei> implements XTPXLabeledElement<T, P> {
+public class XTPProperty<T extends XTPProperty, P extends XTPElement, I extends XMLElementImpl, Ei extends XTPInterface> extends XTPPropertyPrototype<T, P, I, Ei> implements XTPInterface<Ei, P> {
 
     
     public XTPProperty(NCLSystemVariable name, String xlabel) throws XMLException {
@@ -101,4 +100,10 @@ public class XTPProperty<T extends XTPProperty, P extends XTPElement, I extends 
 //
 //        addWarning("Could not find selected Element with xlabel"+getSelectedComponentXLabel(select)+"with interface"+getSelectedInterfaceXLabel(select));
 //    }
+    
+    
+    @Override
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

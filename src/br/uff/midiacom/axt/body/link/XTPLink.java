@@ -6,6 +6,7 @@ import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPLinkPrototype;
 import br.uff.midiacom.axt.vocabulary.XTPConnector;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
 public class XTPLink<T extends XTPLink, P extends XTPElement, I extends XMLElementImpl, Ep extends XTPParam, Eb extends XTPBind, Ec extends NCLCausalConnector, Exc extends XTPConnector> extends XTPLinkPrototype<T, P, I, Ep, Eb, Ec, Exc> implements XTPElement<T, P> {
@@ -128,4 +129,10 @@ public class XTPLink<T extends XTPLink, P extends XTPElement, I extends XMLEleme
 //        }
 //        }
 //    }
+    
+    
+    @Override
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

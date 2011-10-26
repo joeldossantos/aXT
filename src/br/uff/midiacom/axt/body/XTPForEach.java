@@ -1,15 +1,16 @@
 package br.uff.midiacom.axt.body;
 
-import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.axt.XTPElement;
+import br.uff.midiacom.axt.body.interfaces.XTPInterface;
 import br.uff.midiacom.axt.body.link.XTPLink;
 import br.uff.midiacom.axt.body.node.XTPSwitch;
 import br.uff.midiacom.axt.datatype.xtemplate.body.XTPForEachPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
-public class XTPForEach<T extends XTPForEach, P extends XTPElement, I extends XMLElementImpl, Ei extends NCLInterface, Es extends XTPSwitch, El extends XTPLink, Ev extends XTPVariable> extends XTPForEachPrototype<T, P, I, Ei, Es, El, Ev> implements XTPElement<T, P> {
+public class XTPForEach<T extends XTPForEach, P extends XTPElement, I extends XMLElementImpl, Ei extends XTPInterface, Es extends XTPSwitch, El extends XTPLink, Ev extends XTPVariable> extends XTPForEachPrototype<T, P, I, Ei, Es, El, Ev> implements XTPElement<T, P> {
 
     
     public XTPForEach(String select) throws XMLException {
@@ -223,4 +224,9 @@ public class XTPForEach<T extends XTPForEach, P extends XTPElement, I extends XM
 //            }
 //        }
 //    }
+    
+    
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

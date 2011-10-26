@@ -6,6 +6,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.head.XTPHeadPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
 public class XTPHead<T extends XTPHead, P extends XTPElement, I extends XMLElementImpl, Ee extends XTPExtends, Ed extends NCLDescriptorBase, Ec extends NCLConnectorBase> extends XTPHeadPrototype<T, P, I, Ee, Ed, Ec> implements XTPElement<T, P> {
@@ -62,6 +63,9 @@ public class XTPHead<T extends XTPHead, P extends XTPElement, I extends XMLEleme
 //        }
 //
 //        }
-}
-
     
+    
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+}

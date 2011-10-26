@@ -5,6 +5,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.head.XTPExtendsPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
 public class XTPExtends<T extends XTPExtends, P extends XTPElement, I extends XMLElementImpl, Ed extends XTPDoc> extends XTPExtendsPrototype<T, P, I, Ed> implements XTPElement<T, P> {
@@ -37,4 +38,9 @@ public class XTPExtends<T extends XTPExtends, P extends XTPElement, I extends XM
 //            addError(ex.getMessage());
 //        }
 //    }
+    
+    
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

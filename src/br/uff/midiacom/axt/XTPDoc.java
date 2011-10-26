@@ -7,6 +7,7 @@ import br.uff.midiacom.axt.head.XTPHead;
 import br.uff.midiacom.axt.vocabulary.XTPVocabulary;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
 public class XTPDoc<T extends XTPDoc, P extends XTPElement, I extends XMLElementImpl, Eh extends XTPHead, Ev extends XTPVocabulary, Eb extends XTPBody, Ec extends XTPConstraints> extends XTPDocPrototype<T, P, I, Eh, Ev, Eb, Ec> implements XTPElement<T, P> {
@@ -120,4 +121,9 @@ public class XTPDoc<T extends XTPDoc, P extends XTPElement, I extends XMLElement
 //            addError(getConstraints().getErrors());
 //        }
 //    }
+    
+    
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -2,18 +2,17 @@ package br.uff.midiacom.axt.body.node;
 
 import br.uff.midiacom.ana.datatype.enums.NCLMimeType;
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
-import br.uff.midiacom.ana.interfaces.NCLInterface;
-import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.axt.XTPElement;
-import br.uff.midiacom.axt.XTPXLabeledElement;
 import br.uff.midiacom.axt.body.interfaces.XTPArea;
+import br.uff.midiacom.axt.body.interfaces.XTPInterface;
 import br.uff.midiacom.axt.body.interfaces.XTPProperty;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPMediaPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
-public class XTPMedia<T extends XTPMedia, P extends XTPElement, I extends XMLElementImpl, Ea extends XTPArea, Ep extends XTPProperty, Ed extends NCLLayoutDescriptor, En extends NCLNode, Ei extends NCLInterface> extends XTPMediaPrototype<T, P, I, Ea, Ep, Ed, En, Ei> implements XTPXLabeledElement<T, P> {
+public class XTPMedia<T extends XTPMedia, P extends XTPElement, I extends XMLElementImpl, Ea extends XTPArea, Ep extends XTPProperty, Ed extends NCLLayoutDescriptor, En extends XTPNode, Ei extends XTPInterface> extends XTPMediaPrototype<T, P, I, Ea, Ep, Ed, En, Ei> implements XTPNode<En, P> {
 
     
     public XTPMedia(String id, NCLMimeType type, String xlabel) throws XMLException {
@@ -160,4 +159,10 @@ public class XTPMedia<T extends XTPMedia, P extends XTPElement, I extends XMLEle
 //        addWarning("Could not find descriptor in descriptorBase with id: " + getDescriptor().getId());
 //        }
 //    }
+    
+    
+    @Override
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

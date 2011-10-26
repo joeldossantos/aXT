@@ -4,6 +4,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPVocabularyPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
 public class XTPVocabulary<T extends XTPVocabulary, P extends XTPElement, I extends XMLElementImpl, Ecp extends XTPComponent, Ecc extends XTPConnector> extends XTPVocabularyPrototype<T, P, I, Ecp, Ecc> implements XTPElement<T, P> {
@@ -68,4 +69,9 @@ public class XTPVocabulary<T extends XTPVocabulary, P extends XTPElement, I exte
 //            connector.searchConnector(connectors);
 //        }
 //    }
+    
+    
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

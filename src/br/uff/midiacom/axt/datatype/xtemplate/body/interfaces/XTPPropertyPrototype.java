@@ -1,15 +1,14 @@
 package br.uff.midiacom.axt.datatype.xtemplate.body.interfaces;
 
 import br.uff.midiacom.ana.datatype.enums.NCLSystemVariable;
-import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.ana.interfaces.NCLProperty;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
+import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPPropertyPrototype<T extends XTPPropertyPrototype, P extends XTPElement, I extends XMLElementImpl, Ei extends NCLInterface> extends NCLProperty<T, P, I, Ei> implements XTPLabeledElement<T, P> {
+public class XTPPropertyPrototype<T extends XTPPropertyPrototype, P extends XTPElement, I extends XMLElementImpl, Ei extends XTPInterface> extends NCLProperty<T, P, I, Ei> implements XTPInterface<Ei, P> {
 
     protected StringType xlabel;
     protected StringType select;

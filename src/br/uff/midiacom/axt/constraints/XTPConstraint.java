@@ -4,6 +4,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.constraints.XTPConstraintPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import org.w3c.dom.Element;
 
 
 public class XTPConstraint<T extends XTPConstraint, P extends XTPElement, I extends XMLElementImpl> extends XTPConstraintPrototype<T, P, I> implements XTPElement<T, P> {
@@ -67,4 +68,9 @@ public class XTPConstraint<T extends XTPConstraint, P extends XTPElement, I exte
 //
 //        addWarning("Could not find selected Element with xlabel"+getSelectedComponentXLabel(select)+"with interface"+getSelectedInterfaceXLabel(select));
 //    }
+    
+    
+    public void load(Element element) throws XMLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
