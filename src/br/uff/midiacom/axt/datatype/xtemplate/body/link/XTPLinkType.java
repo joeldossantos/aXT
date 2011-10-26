@@ -4,45 +4,41 @@ import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.link.NCLLink;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPConnectorType;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.reference.IdRefType;
 
 
-public class XTPLinkType<T extends XTPLinkType, P extends XTPParamType, B extends XTPBindType, C extends NCLCausalConnector> extends NCLLink<T, P, B, C> implements XTPElement<T> {
+public class XTPLinkType<T extends XTPLinkType, P extends XTPElement, I extends XMLElementImpl, Ep extends XTPParamType, Eb extends XTPBindType, Ec extends NCLCausalConnector, Exc extends XTPConnectorType> extends NCLLink<T, P, I, Ep, Eb, Ec> implements XTPElement<T, P> {
 
-    protected IdRefType<XTPConnectorType> xtype;
+    protected IdRefType<Exc> xtype;
     
     
-    public XTPLinkType() {
+    public XTPLinkType() throws XMLException {
         super();
     }
     
     
-    public void setXType(IdRefType<XTPConnectorType> xtype){
+    public void setXType(IdRefType<Exc> xtype){
         this.xtype = xtype;
     }
     
     
-    public IdRefType<XTPConnectorType> getXType(){
+    public IdRefType<Exc> getXType(){
         return xtype;
-    }
-
-
-    @Override
-    public boolean compare(T other) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 
     @Deprecated
     @Override
-    public void setXconnector(C xconnector) {
+    public void setXconnector(Ec xconnector) {
         super.setXconnector(xconnector);
     }
 
 
     @Deprecated
     @Override
-    public C getXconnector() {
+    public Ec getXconnector() {
         return super.getXconnector();
     }
 }

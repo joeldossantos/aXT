@@ -2,27 +2,30 @@ package br.uff.midiacom.axt.datatype.xtemplate.head;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPDocType;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLElementPrototype;
+import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.reference.DocumentRefType;
 
 
-public class XTPExtendsType<T extends XTPExtendsType, D extends XTPDocType> extends Element<T> implements XTPElement<T> {
+public class XTPExtendsType<T extends XTPExtendsType, P extends XTPElement, I extends XMLElementImpl, Ed extends XTPDocType> extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
     
-    protected DocumentRefType<D> xtemplate;
+    protected DocumentRefType<Ed> xtemplate;
     protected Boolean overwriteConstraints;
     
     
-    public XTPExtendsType(D xtemplate) {
+    public XTPExtendsType(Ed xtemplate) throws XMLException {
+        super();
         setXTemplate(xtemplate);
     }
     
     
-    public void setXTemplate(D xtemplate) throws NullPointerException {
-        this.xtemplate = new DocumentRefType<D>(xtemplate);
+    public void setXTemplate(Ed xtemplate) throws XMLException {
+        this.xtemplate = new DocumentRefType<Ed>(xtemplate);
     }
     
     
-    public D getXTemplate() {
+    public Ed getXTemplate() {
         return xtemplate.getElement();
     }
     
@@ -40,5 +43,10 @@ public class XTPExtendsType<T extends XTPExtendsType, D extends XTPDocType> exte
     @Override
     public boolean compare(T other) {
         return xtemplate.getElement().compare(other.getXTemplate());
+    }
+    
+    
+    public String parse(int ident) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -1,24 +1,26 @@
 package br.uff.midiacom.axt.datatype.xtemplate.body.interfaces;
 
-import br.uff.midiacom.ana.NCLInvalidIdentifierException;
 import br.uff.midiacom.ana.interfaces.NCLArea;
 import br.uff.midiacom.ana.interfaces.NCLInterface;
+import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPAreaType<T extends XTPAreaType, I extends NCLInterface> extends NCLArea<I> implements XTPLabeledElement<T> {
+public class XTPAreaType<T extends XTPAreaType, P extends XTPElement, I extends XMLElementImpl, Ei extends NCLInterface> extends NCLArea<T, P, I, Ei> implements XTPLabeledElement<T, P> {
 
     protected StringType xlabel;
     
     
-    public XTPAreaType(String id, String xlabel) throws NCLInvalidIdentifierException, NullPointerException, IllegalArgumentException {
+    public XTPAreaType(String id, String xlabel) throws XMLException {
         super(id);
         setXLabel(xlabel);
     }
 
 
-    public void setXLabel(String xlabel) throws NullPointerException, IllegalArgumentException {
+    public void setXLabel(String xlabel) throws XMLException {
         if(xlabel == null)
             throw new NullPointerException("Null String.");
 
@@ -28,11 +30,5 @@ public class XTPAreaType<T extends XTPAreaType, I extends NCLInterface> extends 
 
     public String getXLabel(){
         return xlabel.getValue();
-    }
-
-
-    @Override
-    public boolean compare(T other) {
-        return getId().equals(other.getId());
     }
 }

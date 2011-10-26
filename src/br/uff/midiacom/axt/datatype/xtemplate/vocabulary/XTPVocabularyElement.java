@@ -1,27 +1,33 @@
 package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
+import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
-import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLElementPrototype;
+import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.number.MaxType;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPVocabularyElement<T extends XTPVocabularyElement> extends Element<T> implements XTPLabeledElement<T> {
+public abstract class XTPVocabularyElement<T extends XTPVocabularyElement, P extends XTPElement, I extends XMLElementImpl> extends XMLElementPrototype<T, P, I> implements XTPLabeledElement<T, P> {
 
     protected StringType xlabel;
     protected Integer minOccurs;
     protected MaxType maxOccurs;
 
-    private Integer defMinOccurs = 1;
-    private MaxType defMaxOccurs = new MaxType("unbounded");
+    private Integer defMinOccurs;
+    private MaxType defMaxOccurs;
 
 
-    public XTPVocabularyElement(String xlabel) throws NullPointerException, IllegalArgumentException {
+    public XTPVocabularyElement(String xlabel) throws XMLException {
+        super();
         setXLabel(xlabel);
+        defMinOccurs = 1;
+        defMaxOccurs = new MaxType("unbounded");
     }
 
 
-    public void setXLabel(String xlabel) throws NullPointerException, IllegalArgumentException {
+    public void setXLabel(String xlabel) throws XMLException {
         if(xlabel == null)
             throw new NullPointerException("Null String.");
 

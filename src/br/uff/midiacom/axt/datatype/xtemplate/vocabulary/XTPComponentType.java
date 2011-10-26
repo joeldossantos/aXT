@@ -1,27 +1,30 @@
 package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
-import br.uff.midiacom.ana.descriptor.NCLDescriptor;
+import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
 import br.uff.midiacom.axt.datatype.auxiliar.LabeledElementList;
+import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.reference.IdRefType;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPComponentType<T extends XTPComponentType, D extends NCLDescriptor, P extends XTPComponentPortType> extends XTPVocabularyElement<T> {
+public class XTPComponentType<T extends XTPComponentType, P extends XTPElement, I extends XMLElementImpl, Ed extends NCLLayoutDescriptor, Ep extends XTPComponentPortPrototype> extends XTPVocabularyElement<T, P, I> {
 
     protected StringType xType;
-    protected IdRefType<D> descriptor;
-    protected LabeledElementList<P> ports;
-    protected LabeledElementList<T> components;
+    protected IdRefType<Ed> descriptor;
+    protected LabeledElementList<Ep, T> ports;
+    protected LabeledElementList<T, T> components;
 
 
-    public XTPComponentType(String xlabel) throws NullPointerException, IllegalArgumentException {
+    public XTPComponentType(String xlabel) throws XMLException {
         super(xlabel);
-        ports = new LabeledElementList<P>();
-        components = new LabeledElementList<T>();
+        ports = new LabeledElementList<Ep, T>();
+        components = new LabeledElementList<T, T>();
     }
     
     
-    public void setXType(String xType){
+    public void setXType(String xType) throws XMLException{
         this.xType = new StringType(xType);
     }
     
@@ -31,42 +34,32 @@ public class XTPComponentType<T extends XTPComponentType, D extends NCLDescripto
     }
     
     
-    public void setDescriptor(IdRefType<D> descriptor){
+    public void setDescriptor(IdRefType<Ed> descriptor){
         this.descriptor = descriptor;
     }
     
     
-    public IdRefType<D> getDescriptor(){
+    public IdRefType<Ed> getDescriptor(){
         return descriptor;
     }
     
     
-    public boolean addComponentPort(P port) {
-        //If the port was inserted, set its parent
-        if(ports.add(port)){
-            port.setParent(this);
-            return true;
-        }
-        return false;
+    public boolean addComponentPort(Ep port) throws XMLException {
+        return ports.add(port, (T) this);
     }
 
 
-    public boolean removeComponentPort(P port) {
-        //If the port was removed, remove its parent
-        if(ports.remove(port)){
-            port.setParent(null);
-            return true;
-        }
-        return false;
+    public boolean removeComponentPort(Ep port) throws XMLException {
+        return ports.remove(port);
     }
 
 
     public boolean removeComponentPort(String xlabel) {
-        return removeComponentPort(ports.get(xlabel));
+        return ports.remove(xlabel);
     }
     
     
-    public boolean hasComponentPort(P port) {
+    public boolean hasComponentPort(Ep port) throws XMLException {
         return ports.contains(port);
     }
     
@@ -81,37 +74,27 @@ public class XTPComponentType<T extends XTPComponentType, D extends NCLDescripto
     }
     
     
-    public LabeledElementList<P> getComponentPorts() {
+    public LabeledElementList<Ep, T> getComponentPorts() {
         return ports;
     }
 
 
-    public boolean addComponent(T component) {
-        //If the component was inserted, set its parent
-        if(components.add(component)){
-            component.setParent(this);
-            return true;
-        }
-        return false;
+    public boolean addComponent(T component) throws XMLException {
+        return components.add(component, (T) this);
     }
 
 
-    public boolean removeComponent(T component) {
-        //If the component was removed, remove its parent
-        if(components.remove(component)){
-            component.setParent(null);
-            return true;
-        }
-        return false;
+    public boolean removeComponent(T component) throws XMLException {
+        return components.remove(component);
     }
 
 
     public boolean removeComponent(String xlabel) {
-        return removeComponent(components.get(xlabel));
+        return components.remove(xlabel);
     }
 
 
-    public boolean hasComponent(T component) {
+    public boolean hasComponent(T component) throws XMLException {
         return components.contains(component);
     }
 
@@ -126,7 +109,12 @@ public class XTPComponentType<T extends XTPComponentType, D extends NCLDescripto
     }
 
 
-    public LabeledElementList<T> getComponents() {
+    public LabeledElementList<T, T> getComponents() {
         return components;
+    }
+    
+    
+    public String parse(int ident) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

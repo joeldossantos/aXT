@@ -1,24 +1,27 @@
 package br.uff.midiacom.axt.datatype.xtemplate.constraints;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLElementPrototype;
+import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPConstraintType<T extends XTPConstraintType> extends Element<T> implements XTPElement<T> {
+public class XTPConstraintType<T extends XTPConstraintType, P extends XTPElement, I extends XMLElementImpl> extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
 
     protected StringType select;
     protected StringType description;
     
     
-    public XTPConstraintType(String select) throws NullPointerException, IllegalArgumentException {
+    public XTPConstraintType(String select) throws XMLException {
+        super();
         setSelect(select);
     }
     
     
-    public void setSelect(String select) throws NullPointerException, IllegalArgumentException {
+    public void setSelect(String select) throws XMLException {
         if(select == null)
-            throw new NullPointerException("Null select String");
+            throw new XMLException("Null select String");
 
         this.select = new StringType(select);
     }
@@ -29,7 +32,7 @@ public class XTPConstraintType<T extends XTPConstraintType> extends Element<T> i
     }
     
     
-    public void setDescription(String description) throws IllegalArgumentException {
+    public void setDescription(String description) throws XMLException {
         this.description = new StringType(description);
     }
     
@@ -40,6 +43,11 @@ public class XTPConstraintType<T extends XTPConstraintType> extends Element<T> i
 
 
     public boolean compare(T other) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
+    public String parse(int ident) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

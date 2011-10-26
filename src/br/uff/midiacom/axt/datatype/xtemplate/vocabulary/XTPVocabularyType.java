@@ -2,47 +2,40 @@ package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
 import br.uff.midiacom.axt.datatype.auxiliar.LabeledElementList;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLElementPrototype;
+import br.uff.midiacom.xml.XMLException;
 
 
-public class XTPVocabularyType<T extends XTPVocabularyType, Cp extends XTPComponentType, Cc extends XTPConnectorType> extends Element<T> implements XTPElement<T> {
+public class XTPVocabularyType<T extends XTPVocabularyType, P extends XTPElement, I extends XMLElementImpl, Ecp extends XTPComponentType, Ecc extends XTPConnectorType> extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
 
-    protected LabeledElementList<Cp> components;
-    protected LabeledElementList<Cc> connectors;
+    protected LabeledElementList<Ecp, T> components;
+    protected LabeledElementList<Ecc, T> connectors;
     
     
-    public XTPVocabularyType() {
-        components = new LabeledElementList<Cp>();
-        connectors = new LabeledElementList<Cc>();
+    public XTPVocabularyType() throws XMLException {
+        super();
+        components = new LabeledElementList<Ecp, T>();
+        connectors = new LabeledElementList<Ecc, T>();
     }
 
 
-    public boolean addComponent(Cp component) {
-        //If the component was inserted, set its parent
-        if(components.add(component)){
-            component.setParent(this);
-            return true;
-        }
-        return false;
+    public boolean addComponent(Ecp component) throws XMLException {
+        return components.add(component, (T) this);
     }
 
 
-    public boolean removeComponent(Cp component) {
-        //If the component was removed, remove its parent
-        if(components.remove(component)){
-            component.setParent(null);
-            return true;
-        }
-        return false;
+    public boolean removeComponent(Ecp component) throws XMLException {
+        return components.remove(component);
     }
 
 
     public boolean removeComponent(String xlabel) {
-        return removeComponent(components.get(xlabel));
+        return components.remove(xlabel);
     }
 
 
-    public boolean hasComponent(Cp component) {
+    public boolean hasComponent(Ecp component) throws XMLException {
         return components.contains(component);
     }
 
@@ -57,37 +50,27 @@ public class XTPVocabularyType<T extends XTPVocabularyType, Cp extends XTPCompon
     }
 
 
-    public LabeledElementList<Cp> getComponents() {
+    public LabeledElementList<Ecp, T> getComponents() {
         return components;
     }
 
 
-    public boolean addConnector(Cc connector) {
-        //If the connector was inserted, set its parent
-        if(connectors.add(connector)){
-            connector.setParent(this);
-            return true;
-        }
-        return false;
+    public boolean addConnector(Ecc connector) throws XMLException {
+        return connectors.add(connector, (T) this);
     }
 
 
-    public boolean removeConnector(Cc connector) {
-        //If the connector was removed, remove its parent
-        if(connectors.remove(connector)){
-            connector.setParent(null);
-            return true;
-        }
-        return false;
+    public boolean removeConnector(Ecc connector) throws XMLException {
+        return connectors.remove(connector);
     }
 
 
     public boolean removeConnector(String xlabel) {
-        return removeConnector(connectors.get(xlabel));
+        return connectors.remove(xlabel);
     }
 
 
-    public boolean hasConnector(Cc connector) {
+    public boolean hasConnector(Ecc connector) throws XMLException {
         return connectors.contains(connector);
     }
 
@@ -102,12 +85,17 @@ public class XTPVocabularyType<T extends XTPVocabularyType, Cp extends XTPCompon
     }
 
 
-    public LabeledElementList<Cc> getConnectors() {
+    public LabeledElementList<Ecc, T> getConnectors() {
         return connectors;
     }
 
 
     public boolean compare(T other) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
+    public String parse(int ident) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

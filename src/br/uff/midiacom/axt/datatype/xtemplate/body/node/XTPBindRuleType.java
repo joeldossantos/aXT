@@ -4,20 +4,22 @@ import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.ana.node.NCLSwitchBindRule;
 import br.uff.midiacom.ana.rule.NCLTestRule;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPBindRuleType<T extends XTPBindRuleType, N extends NCLNode, R extends NCLTestRule> extends NCLSwitchBindRule<T, N, R> implements XTPElement<T> {
+public class XTPBindRuleType<T extends XTPBindRuleType, P extends XTPElement, I extends XMLElementImpl, En extends NCLNode, Er extends NCLTestRule> extends NCLSwitchBindRule<T, P, I, En, Er> implements XTPElement<T, P> {
 
     protected StringType select;
 
 
-    public XTPBindRuleType(){
+    public XTPBindRuleType() throws XMLException{
         super();
     }
 
 
-    public void setSelect(String select) throws NullPointerException, IllegalArgumentException {
+    public void setSelect(String select) throws XMLException {
         this.select = new StringType(select);
     }
 

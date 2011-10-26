@@ -1,25 +1,28 @@
 package br.uff.midiacom.axt.datatype.xtemplate.body.node;
 
-import br.uff.midiacom.ana.NCLInvalidIdentifierException;
+import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.ana.node.NCLNode;
 import br.uff.midiacom.ana.node.NCLSwitch;
+import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPSwitchPortType;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPSwitchType<T extends XTPSwitchType, N extends NCLNode, P extends XTPSwitchPortType, B extends XTPBindRuleType> extends NCLSwitch<N, T, P, B> implements XTPLabeledElement<T> {
+public class XTPSwitchType<T extends XTPSwitchType, P extends XTPElement, I extends XMLElementImpl, En extends NCLNode, Ei extends NCLInterface, Ep extends XTPSwitchPortType, Eb extends XTPBindRuleType> extends NCLSwitch<T, P, I, En, Ei, Ep, Eb> implements XTPLabeledElement<T, P> {
 
     protected StringType xlabel;
     
     
-    public XTPSwitchType(String id, String xlabel) throws NCLInvalidIdentifierException, NullPointerException, IllegalArgumentException {
+    public XTPSwitchType(String id, String xlabel) throws XMLException {
         super(id);
         setXLabel(xlabel);
     }
 
 
-    public void setXLabel(String xlabel) throws NullPointerException, IllegalArgumentException {
+    public void setXLabel(String xlabel) throws XMLException {
         if(xlabel == null)
             throw new NullPointerException("Null String.");
 
@@ -29,11 +32,5 @@ public class XTPSwitchType<T extends XTPSwitchType, N extends NCLNode, P extends
 
     public String getXLabel(){
         return xlabel.getValue();
-    }
-
-
-    @Override
-    public boolean compare(T other) {
-        return getId().equals(other.getId());
     }
 }

@@ -1,23 +1,25 @@
 package br.uff.midiacom.axt.datatype.xtemplate.body;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLElementPrototype;
+import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPVariableType<T extends XTPVariableType> extends Element<T> implements XTPElement<T> {
+public class XTPVariableType<T extends XTPVariableType, P extends XTPElement, I extends XMLElementImpl> extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
 
     protected StringType name;
     protected StringType select;
     
     
-    public XTPVariableType(String name, String select) {
+    public XTPVariableType(String name, String select) throws XMLException {
         setName(name);
         setSelect(select);
     }
     
     
-    public void setName(String name) throws NullPointerException, IllegalArgumentException {
+    public void setName(String name) throws XMLException {
         if(name == null)
             throw new NullPointerException("Null String.");
         
@@ -30,7 +32,7 @@ public class XTPVariableType<T extends XTPVariableType> extends Element<T> imple
     }
 
 
-    public void setSelect(String select) throws NullPointerException, IllegalArgumentException {
+    public void setSelect(String select) throws XMLException {
         if(select == null)
             throw new NullPointerException("Null String.");
 
@@ -45,5 +47,10 @@ public class XTPVariableType<T extends XTPVariableType> extends Element<T> imple
 
     public boolean compare(T other) {
         return name.getValue().equals(other.getName());
+    }
+    
+    
+    public String parse(int ident) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

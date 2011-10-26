@@ -1,23 +1,28 @@
 package br.uff.midiacom.axt.datatype.xtemplate.head;
 
+import br.uff.midiacom.ana.connector.NCLConnectorBase;
+import br.uff.midiacom.ana.descriptor.NCLDescriptorBase;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLElementPrototype;
+import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
-public class XTPHeadType<T extends XTPHeadType, E extends XTPExtendsType, D extends XTPDescriptorBaseType, C extends XTPConnectorBaseType> extends Element<T> implements XTPElement<T> {
+public class XTPHeadType<T extends XTPHeadType, P extends XTPElement, I extends XMLElementImpl, Ee extends XTPExtendsType, Ed extends NCLDescriptorBase, Ec extends NCLConnectorBase> extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
 
-    protected ElementList<E> xtExtends;
-    protected D descriptorBase;
-    protected C connectorBase;
+    protected ElementList<Ee, T> xtExtends;
+    protected Ed descriptorBase;
+    protected Ec connectorBase;
     
     
-    public XTPHeadType() {
-        xtExtends = new ElementList<E>();
+    public XTPHeadType() throws XMLException {
+        super();
+        xtExtends = new ElementList<Ee, T>();
     }
 
 
-    public void setDescriptorBase(D descriptorBase) {
+    public void setDescriptorBase(Ed descriptorBase) {
         //Retira o parentesco do descriptorBase atual
         if(this.descriptorBase != null)
             this.descriptorBase.setParent(null);
@@ -29,12 +34,12 @@ public class XTPHeadType<T extends XTPHeadType, E extends XTPExtendsType, D exte
     }
 
 
-    public D getDescriptorBase() {
+    public Ed getDescriptorBase() {
         return descriptorBase;
     }
 
 
-    public void setConnectorBase(C connectorBase) {
+    public void setConnectorBase(Ec connectorBase) {
         //Retira o parentesco do connectorBase atual
         if(this.connectorBase != null)
             this.connectorBase.setParent(null);
@@ -46,32 +51,22 @@ public class XTPHeadType<T extends XTPHeadType, E extends XTPExtendsType, D exte
     }
 
 
-    public C getConnectorBase() {
+    public Ec getConnectorBase() {
         return connectorBase;
     }
     
     
-    public boolean addExtend(E xtExtend) {
-        //If the extends was inserted, set its parent
-        if(xtExtends.add(xtExtend)){
-            xtExtend.setParent(this);
-            return true;
-        }
-        return false;
+    public boolean addExtend(Ee xtExtend) throws XMLException {
+        return xtExtends.add(xtExtend, (T) this);
     }
     
     
-    public boolean removeExtend(E extend) {
-        //If the extends was removed, remove its parent
-        if(xtExtends.remove(extend)){
-            extend.setParent(null);
-            return true;
-        }
-        return false;
+    public boolean removeExtend(Ee extend) throws XMLException {
+        return xtExtends.remove(extend);
     }
 
 
-    public boolean hasExtend(E extend) {
+    public boolean hasExtend(Ee extend) throws XMLException {
         return xtExtends.contains(extend);
     }
 
@@ -81,13 +76,18 @@ public class XTPHeadType<T extends XTPHeadType, E extends XTPExtendsType, D exte
     }
     
     
-    public ElementList<E> getExtends() {
+    public ElementList<Ee, T> getExtends() {
         return xtExtends;
     }
 
 
     @Override
     public boolean compare(T other) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
+    public String parse(int ident) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

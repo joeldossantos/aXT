@@ -4,27 +4,29 @@ import br.uff.midiacom.axt.datatype.xtemplate.body.XTPBodyType;
 import br.uff.midiacom.axt.datatype.xtemplate.constraints.XTPConstraintsType;
 import br.uff.midiacom.axt.datatype.xtemplate.head.XTPHeadType;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPVocabularyType;
-import br.uff.midiacom.xml.Element;
+import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.xml.XMLElementPrototype;
+import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPDocType<T extends XTPDocType, H extends XTPHeadType, V extends XTPVocabularyType,B extends XTPBodyType, C extends XTPConstraintsType> extends Element<T> implements XTPElement<T> {
+public class XTPDocType<T extends XTPDocType, P extends XTPElement, I extends XMLElementImpl, Eh extends XTPHeadType, Ev extends XTPVocabularyType, Eb extends XTPBodyType, Ec extends XTPConstraintsType> extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
 
     protected StringType id;
     protected StringType name;
     protected StringType description;
-    protected H head;
-    protected B body;
-    protected V vocabulary;
-    protected C constraints;
+    protected Eh head;
+    protected Eb body;
+    protected Ev vocabulary;
+    protected Ec constraints;
     
     
-    public XTPDocType(String id) throws NullPointerException, IllegalArgumentException {
+    public XTPDocType(String id) throws XMLException {
         setId(id);
     }
     
     
-    public void setId(String id) throws NullPointerException, IllegalArgumentException {
+    public void setId(String id) throws XMLException {
         if(id == null)
             throw new NullPointerException("Null id String");
 
@@ -37,7 +39,7 @@ public class XTPDocType<T extends XTPDocType, H extends XTPHeadType, V extends X
     }
 
 
-    public void setName(String name) throws IllegalArgumentException {
+    public void setName(String name) throws XMLException {
         this.name = new StringType(name);
     }
 
@@ -47,7 +49,7 @@ public class XTPDocType<T extends XTPDocType, H extends XTPHeadType, V extends X
     }
 
 
-    public void setDescription(String description) throws IllegalArgumentException {
+    public void setDescription(String description) throws XMLException {
         this.description = new StringType(description);
     }
 
@@ -57,7 +59,7 @@ public class XTPDocType<T extends XTPDocType, H extends XTPHeadType, V extends X
     }
 
 
-    public void setHead(H head) {
+    public void setHead(Eh head) {
         //Retira o parentesco do head atual
         if(this.head != null)
             this.head.setParent(null);
@@ -70,12 +72,12 @@ public class XTPDocType<T extends XTPDocType, H extends XTPHeadType, V extends X
     }
 
 
-    public H getHead() {
+    public Eh getHead() {
         return head;
     }
     
     
-    public void setVocabulary(V vocabulary) {
+    public void setVocabulary(Ev vocabulary) {
         //Retira o parentesco do head atual
         if(this.vocabulary != null)
             this.vocabulary.setParent(null);
@@ -88,12 +90,12 @@ public class XTPDocType<T extends XTPDocType, H extends XTPHeadType, V extends X
     }
 
 
-    public V getVocabulary() {
+    public Ev getVocabulary() {
         return vocabulary;
     }
 
      
-    public void setBody(B body) {
+    public void setBody(Eb body) {
         //Retira o parentesco do body atual
         if(this.body != null)
             this.body.setParent(null);
@@ -106,12 +108,12 @@ public class XTPDocType<T extends XTPDocType, H extends XTPHeadType, V extends X
     }
 
 
-    public B getBody(){
+    public Eb getBody(){
         return body;
     }
 
 
-    public void setConstraints(C constraints) {
+    public void setConstraints(Ec constraints) {
         //Retira o parentesco do body atual
         if(this.constraints != null)
             this.constraints.setParent(null);
@@ -124,13 +126,18 @@ public class XTPDocType<T extends XTPDocType, H extends XTPHeadType, V extends X
     }
 
 
-    public C getConstraints(){
+    public Ec getConstraints(){
         return constraints;
     }
 
     
     @Override
     public boolean compare(XTPDocType other) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
+    public String parse(int ident) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

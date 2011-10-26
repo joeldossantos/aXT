@@ -1,10 +1,12 @@
 package br.uff.midiacom.axt.datatype.xtemplate;
 
+import br.uff.midiacom.xml.XMLException;
 
-public interface XTPLabeledElement<T extends XTPLabeledElement> extends XTPElement<T> {
+
+public interface XTPLabeledElement<T extends XTPLabeledElement, P extends XTPElement> extends XTPElement<T, P> {
 
 
-    public void setXLabel(String xlabel) throws NullPointerException, IllegalArgumentException;
+    public void setXLabel(String xlabel) throws XMLException;
 
 
     public String getXLabel();
