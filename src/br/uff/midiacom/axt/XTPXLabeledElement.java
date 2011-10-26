@@ -1,17 +1,6 @@
 package br.uff.midiacom.axt;
 
 
-public abstract class XTPXLabeledElement extends XTPElement {
+public interface XTPXLabeledElement<T extends XTPXLabeledElement, P extends XTPElement> extends XTPElement<T, P>, br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement<T, P> {
 
-    private String xlabel;
-    
-    
-    public String getXLabel() {
-        return this.xlabel;
-    }
-
-    public void setXLabel(String xlabel){
-        this.xlabel = xlabel;
-    }
-    /**metodos get e set de xlabel, serão usados nos construtores das classe que  herdam de xtemplate xlabeled element**/
 }

@@ -1,19 +1,26 @@
-package br.uff.midiacom.axt.constraints;
+package br.uff.midiacom.axt.body.interfaces;
 
+import br.uff.midiacom.ana.datatype.enums.NCLSystemVariable;
+import br.uff.midiacom.ana.interfaces.NCLInterface;
 import br.uff.midiacom.axt.XTPElement;
-import br.uff.midiacom.axt.datatype.xtemplate.constraints.XTPConstraintPrototype;
+import br.uff.midiacom.axt.XTPXLabeledElement;
+import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPPropertyPrototype;
 import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
 
 
-public class XTPConstraint<T extends XTPConstraint, P extends XTPElement, I extends XMLElementImpl> extends XTPConstraintPrototype<T, P, I> implements XTPElement<T, P> {
+public class XTPProperty<T extends XTPProperty, P extends XTPElement, I extends XMLElementImpl, Ei extends NCLInterface> extends XTPPropertyPrototype<T, P, I, Ei> implements XTPXLabeledElement<T, P> {
 
     
-    public XTPConstraint(String select) throws XMLException {
-        super(select);
+    public XTPProperty(NCLSystemVariable name, String xlabel) throws XMLException {
+        super(name, xlabel);
+    }
+    
+    
+    public XTPProperty(String name, String xlabel) throws XMLException {
+        super(name, xlabel);
     }
 
-    
 //    public String getSelectedComponentXLabel(String select){
 //                    String pxlabel;
 //                    if(select.contains("@xlabel")){
@@ -43,6 +50,33 @@ public class XTPConstraint<T extends XTPConstraint, P extends XTPElement, I exte
 //                        }
 //                    }
 //                    return null;
+//    }
+//   
+//    @Override
+//    public void startElement(String uri, String localName, String qName, Attributes attributes) {
+//        try{
+//            cleanWarnings();
+//            cleanErrors();
+//            for(int i = 0; i < attributes.getLength(); i++){
+//                if(attributes.getLocalName(i).equals("name"))
+//                    setName(attributes.getValue(i));
+//                else if(attributes.getLocalName(i).equals("value"))
+//                    setValue(attributes.getValue(i));
+//                else if(attributes.getLocalName(i).equals("xlabel"))
+//                    setXLabel(attributes.getValue(i));
+//                else if(attributes.getLocalName(i).equals("select"))
+//                    setSelect(attributes.getValue(i));
+//            }
+//        }
+//        catch(Exception ex){
+//            addError(ex.getMessage());
+//        }
+//    }
+//
+//    @Override
+//    public void endDocument(){
+//        if(getSelect()!=null)
+//            SelectedComponentReference();
 //    }
 //    private void SelectedComponentReference(){
 //        XMLElement root = getParent();
