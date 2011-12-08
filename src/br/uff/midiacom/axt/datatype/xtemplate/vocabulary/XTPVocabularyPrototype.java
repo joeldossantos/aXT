@@ -1,22 +1,23 @@
 package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
-import br.uff.midiacom.axt.datatype.auxiliar.LabeledElementList;
+import br.uff.midiacom.axt.datatype.auxiliar.VocabularyElementList;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
 
 
-public class XTPVocabularyPrototype<T extends XTPVocabularyPrototype, P extends XTPElement, I extends XMLElementImpl, Ecp extends XTPComponentPrototype, Ecc extends XTPConnectorPrototype> extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
+public class XTPVocabularyPrototype<T extends XTPVocabularyPrototype, P extends XTPElement, I extends XTPElementImpl, Ecp extends XTPComponentPrototype, Ecc extends XTPConnectorPrototype>
+        extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
 
-    protected LabeledElementList<Ecp, T> components;
-    protected LabeledElementList<Ecc, T> connectors;
+    protected VocabularyElementList<Ecp, T> components;
+    protected VocabularyElementList<Ecc, T> connectors;
     
     
     public XTPVocabularyPrototype() throws XMLException {
         super();
-        components = new LabeledElementList<Ecp, T>();
-        connectors = new LabeledElementList<Ecc, T>();
+        components = new VocabularyElementList<Ecp, T>();
+        connectors = new VocabularyElementList<Ecc, T>();
     }
 
 
@@ -50,7 +51,7 @@ public class XTPVocabularyPrototype<T extends XTPVocabularyPrototype, P extends 
     }
 
 
-    public LabeledElementList<Ecp, T> getComponents() {
+    public VocabularyElementList<Ecp, T> getComponents() {
         return components;
     }
 
@@ -85,7 +86,7 @@ public class XTPVocabularyPrototype<T extends XTPVocabularyPrototype, P extends 
     }
 
 
-    public LabeledElementList<Ecc, T> getConnectors() {
+    public VocabularyElementList<Ecc, T> getConnectors() {
         return connectors;
     }
 

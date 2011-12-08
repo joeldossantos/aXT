@@ -3,13 +3,14 @@ package br.uff.midiacom.axt.datatype.xtemplate.head;
 import br.uff.midiacom.ana.connector.NCLConnectorBase;
 import br.uff.midiacom.ana.descriptor.NCLDescriptorBase;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
-public class XTPHeadPrototype<T extends XTPHeadPrototype, P extends XTPElement, I extends XMLElementImpl, Ee extends XTPExtendsPrototype, Ed extends NCLDescriptorBase, Ec extends NCLConnectorBase> extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
+public class XTPHeadPrototype<T extends XTPHeadPrototype, P extends XTPElement, I extends XTPElementImpl, Ee extends XTPExtendsPrototype, Ed extends NCLDescriptorBase, Ec extends NCLConnectorBase>
+        extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
 
     protected ElementList<Ee, T> xtExtends;
     protected Ed descriptorBase;

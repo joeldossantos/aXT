@@ -1,13 +1,14 @@
 package br.uff.midiacom.axt.datatype.xtemplate.body;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPVariablePrototype<T extends XTPVariablePrototype, P extends XTPElement, I extends XMLElementImpl> extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
+public class XTPVariablePrototype<T extends XTPVariablePrototype, P extends XTPElement, I extends XTPElementImpl>
+        extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
 
     protected StringType name;
     protected StringType select;
@@ -16,6 +17,9 @@ public class XTPVariablePrototype<T extends XTPVariablePrototype, P extends XTPE
     public XTPVariablePrototype(String name, String select) throws XMLException {
         setName(name);
         setSelect(select);
+    }
+    
+    public XTPVariablePrototype() throws XMLException {
     }
     
     
@@ -46,7 +50,7 @@ public class XTPVariablePrototype<T extends XTPVariablePrototype, P extends XTPE
 
 
     public boolean compare(T other) {
-        return name.getValue().equals(other.getName());
+        return getName().equals(other.getName());
     }
     
     

@@ -1,84 +1,66 @@
 package br.uff.midiacom.axt.vocabulary;
 
 import br.uff.midiacom.axt.XTPElement;
-import br.uff.midiacom.axt.XTPXLabeledElement;
+import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPConnectorPrototype;
-import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.datatype.number.MaxType;
 import org.w3c.dom.Element;
 
 
-public class XTPConnector<T extends XTPConnector, P extends XTPElement, I extends XMLElementImpl> extends XTPConnectorPrototype<T, P, I> implements XTPXLabeledElement<T, P> {
+public class XTPConnector<T extends XTPConnector, P extends XTPElement, I extends XTPElementImpl>
+        extends XTPConnectorPrototype<T, P, I> implements XTPElement<T, P> {
 
     
     public XTPConnector(String xlabel, String src) throws XMLException {
         super(xlabel, src);
     }
-
-//    @Override
-//    public void startElement(String uri, String localName, String qName, Attributes attributes) {
-//
-//            if(localName.equals("connector")){
-//                cleanWarnings();
-//                cleanErrors();
-//
-//                for(int i = 0; i < attributes.getLength(); i++){
-//                    if(attributes.getLocalName(i).equals("xlabel"))
-//                        setXLabel(attributes.getValue(i));
-//                    else if(attributes.getLocalName(i).equals("maxOccurs")){
-//
-//                        if(attributes.getValue(i).equals("unbounded"))
-//                            setMaxOccurs(unbounded);
-//                        else
-//                            setMaxOccurs(Integer.parseInt(attributes.getValue(i)));
-//                        }
-//                    else if(attributes.getLocalName(i).equals("minOccurs"))
-//                        setMinOccurs(Integer.parseInt(attributes.getValue(i)));
-//                    else if(attributes.getLocalName(i).equals("src")){
-//                            setSrc(attributes.getValue(i));
-//
-//                        }
-//                        }
-//
-//                }
-//
-//
-//    }
-//
-//    @Override
-//    public void endDocument() {
-//        if(getParent() != null){
-//
-//                //connectorReference();
-//
-//            }
-//    }
-//
-//    public void searchConnector(Iterable<C> connectors) {
-//        String[] uri = this.src.split("#",2);
-//        if(findConnector(connectors)!= null){
-//            setConnector(findConnector(connectors));
-//            return;
-//        }
-//        addWarning("Could not find descriptor in descriptorBase with id:"+uri[1]);
-//
-//    }
-//
-//
-//
-//
-//    public C findConnector(Iterable<C> connectors) {
-//        String[] uri = this.src.split("#",2);
-//        for(C c : connectors){
-//                if(c.getId().equals(uri[1]))
-//                return c;
-//                }
-//
-//            return null;
-//        }
     
     
+    @Override
     public void load(Element element) throws XMLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String att_var;
+
+        try{
+            // set the src (required)
+            if(!(att_var = element.getAttribute("src")).isEmpty())
+                setSrc(att_var);
+            else
+                throw new XMLException("Could not find src attribute.");
+        }
+        catch(XMLException ex){
+            String aux = getSrc();
+            if(aux != null)
+                aux = "(" + aux + ")";
+            else
+                aux = "";
+            
+            throw new XMLException("Connector" + aux + ":\n" + ex.getMessage());
+        }
+        
+        try{
+            // set the xLabel (required)
+            if(!(att_var = element.getAttribute("xlabel")).isEmpty())
+                setXLabel(att_var);
+            else
+                throw new XMLException("Could not find xlabel attribute.");
+        }
+        catch(XMLException ex){
+            String aux = getXLabel();
+            if(aux != null)
+                aux = "(" + aux + ")";
+            else
+                aux = "";
+            
+            throw new XMLException("Connector" + aux + ":\n" + ex.getMessage());
+        }
+        
+        // min
+        if(!(att_var = element.getAttribute("minOccurs")).isEmpty())
+                setMinOccurs(Integer.parseInt(att_var));
+        
+        // max
+        if(!(att_var = element.getAttribute("maxOccurs")).isEmpty())
+                setMaxOccurs(new MaxType(att_var));
     }
 }

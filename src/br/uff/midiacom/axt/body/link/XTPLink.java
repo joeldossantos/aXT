@@ -1,138 +1,100 @@
 package br.uff.midiacom.axt.body.link;
 
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
+import br.uff.midiacom.ana.datatype.enums.NCLParamInstance;
 import br.uff.midiacom.axt.XTPElement;
+import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPLinkPrototype;
 import br.uff.midiacom.axt.vocabulary.XTPConnector;
-import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 
-public class XTPLink<T extends XTPLink, P extends XTPElement, I extends XMLElementImpl, Ep extends XTPParam, Eb extends XTPBind, Ec extends NCLCausalConnector, Exc extends XTPConnector> extends XTPLinkPrototype<T, P, I, Ep, Eb, Ec, Exc> implements XTPElement<T, P> {
+public class XTPLink<T extends XTPLink, P extends XTPElement, I extends XTPElementImpl, Ep extends XTPParam, Eb extends XTPBind, Ec extends NCLCausalConnector, Exc extends XTPConnector>
+        extends XTPLinkPrototype<T, P, I, Ep, Eb, Ec, Exc> implements XTPElement<T, P> {
 
     
     public XTPLink() throws XMLException {
         super();
     }
-   
-    
-//    @Override
-//    public void startElement(String uri, String localName, String qName, Attributes attributes) {
-//        try{
-//            if(localName.equals("link")){
-//                cleanWarnings();
-//                cleanErrors();
-//                for(int i = 0; i < attributes.getLength(); i++){
-//                    if(attributes.getLocalName(i).equals("id"))
-//                        setId(attributes.getValue(i));
-//                    //else if(attributes.getLocalName(i).equals("xconnector"))
-//                        //setXconnector((C) new NCLCausalConnector(attributes.getValue(i)));
-//                        //não é esperado achar um connector não declarado num link de xtemplate
-//                    // permitir a definição de elos com conectores não declarados?
-//                    else if(attributes.getLocalName(i).equals("xtype"))
-//                        setXType( new XTPConnector(attributes.getValue(i)));
-//                }
-//            }
-//            else if(localName.equals("linkParam")){
-//                P child = createLinkParam();
-//                child.startElement(uri, localName, qName, attributes);
-//                addLinkParam(child);
-//            }
-//            else if(localName.equals("bind")){
-//                B child = createBind();
-//                child.startElement(uri, localName, qName, attributes);
-//                addBind(child);
-//            }
-//        }
-//        catch(Exception ex){
-//            addError(ex.getMessage());
-//        }
-//    }
-//
-//
-//    @Override
-//    public void endDocument() {
-//        if(getParent() != null){
-//            if(getXconnector() != null)
-//                connectorReference();
-//        }
-//
-//        if(hasLinkParam()){
-//            Iterable<P> linkParams = this.getLinkParams();
-//            for(P param : linkParams){
-//                param.endDocument();
-//                addWarning(param.getWarnings());
-//                addError(param.getErrors());
-//            }
-//        }
-//        if(hasBind()){
-//            Iterable<B> binds = this.getBinds();
-//            for(B bind : binds){
-//                bind.endDocument();
-//                addWarning(bind.getWarnings());
-//                addError(bind.getErrors());
-//            }
-//        }
-//    }
-//
-//
-//    private Iterable<Cn> getConnectors() {
-//        XMLElement root = (XMLElement) getParent();
-//
-//        while(!(root instanceof XTPDoc)){
-//            root = (XMLElement) root.getParent();
-//            if(root == null){
-//                addWarning("Could not find a root element");
-//                return null;
-//            }
-//        }
-//
-//        if(((XTPDoc) root).getVocabulary() == null){
-//            addWarning("Could not find a vocabulary");
-//            return null;
-//        }
-//        return ((XTPDoc) root).getVocabulary().getConnectors();
-//    }
-//
-//
-//    private void connectorReference() {
-//        //Search for the connector inside the base
-//        Iterable<Cn> connectors = getConnectors();
-//        if(connectors == null){
-//            addWarning("Could not find connector in vocabulary with xlabel: " + getXType().getXLabel());
-//            return;
-//        }
-//
-//        for(Cn connector : connectors){
-//            if(connector.getXLabel().equals(this.getXType().getXLabel())){
-//                setXType(connector);
-//                return;
-//            }
-//        }
-//
-//        addWarning("Could not find connector in vocabulary with id: " + getXType().getXLabel());
-//    }
-//
-//    public void searchLink(Iterable<D> descriptors, Iterable<C> connectors){
-//        connectorReference();
-//        if(this.hasBind()){
-//        Iterable<B> binds = this.getBinds();
-//        for(B bind: binds){
-//          ((XTPBind) bind).bindSearch(descriptors);
-//        }
-//        }
-//        if(this.hasLinkParam()){
-//        Iterable<P> params = this.getLinkParams();
-//        for(P param: params){
-//            ((XTPParam)param).paramSearch();
-//        }
-//        }
-//    }
     
     
     @Override
     public void load(Element element) throws XMLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String att_var;
+        NodeList nl;
+        
+        // set the id
+        if(!(att_var = element.getAttribute("id")).isEmpty())
+                setId(att_var);
+        
+        try{
+            // set the xType (required)
+            if(!(att_var = element.getAttribute("xtype")).isEmpty())
+                setXType(); // procurar pelo id
+            else
+                throw new XMLException("Could not find xtype attribute.");
+        }
+        catch(XMLException ex){
+            String aux = getId();
+            if(aux != null)
+                aux = "(" + aux + ")";
+            else
+                aux = "";
+            
+            throw new XMLException("Link" + aux + ":\n" + ex.getMessage());
+        }
+        
+        try{
+            // create the child nodes
+            nl = element.getChildNodes();
+            for(int i=0; i < nl.getLength(); i++){
+                Node nd = nl.item(i);
+                if(nd instanceof Element){
+                    Element el = (Element) nl.item(i);
+                    
+                    // create the linkParam
+                    if(el.getTagName().equals("area")){
+                        Ep inst = createLinkParam();
+                        addLinkParam(inst);
+                        inst.load(el);
+                    }
+                    // create the bind
+                    if(el.getTagName().equals("property")){
+                        Eb inst = createBind();
+                        addBind(inst);
+                        inst.load(el);
+                    }
+                }
+            }
+        }catch(XMLException ex){
+            throw new XMLException("Link > " + ex.getMessage());
+        }
+    }
+    
+    
+    /**
+     * Function to create the child element <i>linkParam</i>.
+     * This function must be overwritten in classes that extends this one.
+     *
+     * @return
+     *          element representing the child <i>linkParam</i>.
+     */
+    protected Ep createLinkParam() throws XMLException {
+        return (Ep) new XTPParam(NCLParamInstance.LINKPARAM);
+    }
+
+
+    /**
+     * Function to create the child element <i>property</i>.
+     * This function must be overwritten in classes that extends this one.
+     *
+     * @return
+     *          element representing the child <i>property</i>.
+     */
+    protected Eb createBind() throws XMLException {
+        return (Eb) new XTPBind();
     }
 }

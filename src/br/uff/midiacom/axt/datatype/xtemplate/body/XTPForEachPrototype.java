@@ -1,17 +1,18 @@
 package br.uff.midiacom.axt.datatype.xtemplate.body;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
+import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPInterface;
 import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPLinkPrototype;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPSwitchPrototype;
-import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.elementList.ElementList;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPForEachPrototype<T extends XTPForEachPrototype, P extends XTPElement, I extends XMLElementImpl, Ei extends XTPInterface, Es extends XTPSwitchPrototype, El extends XTPLinkPrototype, Ev extends XTPVariablePrototype> extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
+public class XTPForEachPrototype<T extends XTPForEachPrototype, P extends XTPElement, I extends XTPElementImpl, Ei extends XTPInterface, Es extends XTPSwitchPrototype, El extends XTPLinkPrototype, Ev extends XTPVariablePrototype>
+        extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
     
     protected StringType select;
     protected ElementList<Ei, T> interfaces;
@@ -22,6 +23,13 @@ public class XTPForEachPrototype<T extends XTPForEachPrototype, P extends XTPEle
 
     public XTPForEachPrototype(String select) throws XMLException {
         setSelect(select);
+        interfaces = new ElementList<Ei, T>();
+        switches = new ElementList<Es, T>();
+        links = new ElementList<El, T>();
+        variables = new ElementList<Ev, T>();
+    }
+    
+    public XTPForEachPrototype() throws XMLException {
         interfaces = new ElementList<Ei, T>();
         switches = new ElementList<Es, T>();
         links = new ElementList<El, T>();
@@ -43,7 +51,7 @@ public class XTPForEachPrototype<T extends XTPForEachPrototype, P extends XTPEle
 
 
     public boolean compare(T other) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return getSelect().equals(other.getSelect());
     }
     
     

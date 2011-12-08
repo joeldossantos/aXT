@@ -1,12 +1,13 @@
 package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPConnectorPrototype<T extends XTPConnectorPrototype, P extends XTPElement, I extends XMLElementImpl> extends XTPVocabularyElement<T, P, I> {
+public class XTPConnectorPrototype<T extends XTPConnectorPrototype, P extends XTPElement, I extends XTPElementImpl>
+        extends XTPVocabularyElement<T, P, I> {
 
     protected StringType src;
     

@@ -1,233 +1,216 @@
 package br.uff.midiacom.axt.body.node;
 
 import br.uff.midiacom.axt.XTPElement;
+import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.body.interfaces.XTPInterface;
 import br.uff.midiacom.axt.body.interfaces.XTPSwitchPort;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPSwitchPrototype;
-import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPVocabularyElement;
 import br.uff.midiacom.xml.XMLException;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 
-public class XTPSwitch<T extends XTPSwitch, P extends XTPElement, I extends XMLElementImpl, En extends XTPNode, Ei extends XTPInterface, Ep extends XTPSwitchPort, Eb extends XTPBindRule> extends XTPSwitchPrototype<T, P, I, En, Ei, Ep, Eb> implements XTPNode<En, P> {
+public class XTPSwitch<T extends XTPSwitch, P extends XTPElement, I extends XTPElementImpl, En extends XTPNode, Ei extends XTPInterface, Ep extends XTPSwitchPort, Eb extends XTPBindRule>
+        extends XTPSwitchPrototype<T, P, I, En, Ep, Eb> implements XTPNode<En, P, Ei> {
 
     
-    public XTPSwitch(String id, String xlabel) throws XMLException {
+    public XTPSwitch(String id, XTPVocabularyElement xlabel) throws XMLException {
         super(id, xlabel);
     }
-
-//    @Override
-//    public void startElement(String uri, String localName, String qName, Attributes attributes) {
-//        try{
-//            if(localName.equals("switch") && !insideSwitchFlag){
-//                cleanWarnings();
-//                cleanErrors();
-//                insideSwitchFlag = true;
-//                for(int i = 0; i < attributes.getLength(); i++){
-//                    if(attributes.getLocalName(i).equals("id"))
-//                        setId(attributes.getValue(i));
-//                    else if(attributes.getLocalName(i).equals("xlabel"))
-//                        setXLabel(attributes.getValue(i));
-//                    else if(attributes.getLocalName(i).equals("refer"))
-//                        setRefer((S) new XTPSwitch(attributes.getValue(i)));
-//                }
-//            }
-//            else if(localName.equals("bindRule")){
-//                B child = createBindRule();
-//                child.startElement(uri, localName, qName, attributes);
-//                addBind(child);
-//            }
-//            else if(localName.equals("defaultComponent")){
-//                for(int i = 0; i < attributes.getLength(); i++){
-//                    if(attributes.getLocalName(i).equals("component"))
-//                        setDefaultComponent((N) new NCLContext(attributes.getValue(i)));
-//                }
-//            }
-//            else if(localName.equals("switchPort")){
-//                P child = createSwitchPort();
-//                child.startElement(uri, localName, qName, attributes);
-//                addPort(child);
-//            }
-//            else if(localName.equals("media")){
-//                N child = createMedia();
-//                child.startElement(uri, localName, qName, attributes);
-//                addNode(child);
-//            }
-//            else if(localName.equals("context")){
-//                N child = createContext();
-//                child.startElement(uri, localName, qName, attributes);
-//                addNode(child);
-//            }
-//            else if(localName.equals("switch") && insideSwitchFlag){
-//                N child = createSwitch();
-//                child.startElement(uri, localName, qName, attributes);
-//                addNode(child);
-//            }
-//        }
-//        catch(Exception ex){
-//            addError(ex.getMessage());
-//        }
-//    }
-//
-//    
-//@Override
-//    public void endDocument() {
-//        if(getDefaultComponent() != null)
-//            defaultComponentReference();
-//        if(getParent() != null && getRefer() != null)
-//                switchReference();
-//
-//        if(hasBind()){
-//            Iterable<B> binds = this.getBinds();
-//            for(B bind : binds){
-//                bind.endDocument();
-//                addWarning(bind.getWarnings());
-//                addError(bind.getErrors());
-//            }
-//        }
-//        if(hasPort()){
-//            Iterable<P> ports = this.getPorts();
-//            for(P port : ports){
-//                port.endDocument();
-//                addWarning(port.getWarnings());
-//                addError(port.getErrors());
-//            }
-//        }
-//        if(hasNode()){
-//            Iterable<N> nodes = this.getNodes();
-//            for(N node : nodes){
-//                node.endDocument();
-//                addWarning(node.getWarnings());
-//                addError(node.getErrors());
-//            }
-//        }
-//    }
-//    
-//
-//
-//    private void switchReference() {
-//        //Search for the interface inside the node
-//        XMLElement body = (XMLElement) getParent();
-//
-//        while(!(body instanceof XTPBody)){
-//            body = (XMLElement) body.getParent();
-//            if(body == null){
-//                addWarning("Could not find a body");
-//                return;
-//            }
-//        }
-//
-//        setRefer(findSwitch(((XTPBody) body).getNodes()));
-//    }
-//
-//
-//    private S findSwitch(Set<N> nodes) {
-//        for(N n : nodes){
-//            if(n instanceof XTPContext){
-//                if( ((XTPContext) n).hasNode()){
-//                    Set<N> cnodes = ((XTPContext) n).getNodes();
-//                        S s = findSwitch(cnodes);
-//                        if(s != null)
-//                            return (S) s;
-//                }
-//            }
-//            else if(n instanceof XTPSwitch){
-//                if(n.getId().equals(getRefer().getId()))
-//                    return (S) n;
-//                else if( ((XTPSwitch) n).hasNode()){
-//                    Set<N> snodes = ((XTPSwitch) n).getNodes();
-//                    S s = findSwitch(snodes);
-//                    if(s != null)
-//                        return (S) s;
-//                }
-//            }
-//        }
-//
-//        addWarning("Could not find switch with id: " + getRefer().getId());
-//        return null;
-//    }
-//
-//    
-//
-//    private void defaultComponentReference() {
-//        
-//        Iterable<N> nodes = this.getNodes();
-//        for(N node : nodes){
-//            if(node.getId().equals(getDefaultComponent().getId())){
-//                setDefaultComponent(node);
-//                return;
-//            }
-//        }
-//        
-//        XMLElement root = this.getParent();
-//         while(!(root instanceof XTPDoc)){
-//            root = root.getParent();
-//         }
-//         
-//        if(((XTPDoc) root).getVocabulary()!=null){
-//            
-//         
-//            Iterable<Cp> components = (((XTPVocabulary)((XTPDoc) root).getVocabulary())).getComponents();
-//            if(findDefaultComponent(components)!=null){
-//                setDefaultComponent(findDefaultComponent(components));
-//                return;
-//             }
-//
-//        }
-//
-//
-//        addWarning("Could not find node in switch with id: " + getDefaultComponent().getId());
-//    }
-//
-//
-//    private Cp findDefaultComponent(Iterable<Cp> components){
-//
-//        for(Cp component : components){
-//            if(this.getDefaultComponent().getId().equals(component.getXLabel())){
-//                
-//                return component;
-//            }
-//            else if(component.hasComponent()){
-//                Iterable<Cp> ccomp = component.getComponents();
-//                Cp cp = findDefaultComponent(ccomp);
-//                 if(cp != null)
-//                        return (Cp) cp;
-//            }
-//        }
-//
-//        return null;
-//    }
-//    public void searchNodes(Iterable<D> descriptors, Iterable<Cn> connectors, Iterable<R> rules, N nodeS ){
-//        Iterable<N> nodes = ((XTPContext)nodeS).getNodes();
-//        for(N node : nodes){
-//            if(node instanceof XTPMedia)
-//                ((XTPMedia)node).searchMedia(descriptors);
-//            else if(node instanceof XTPContext)
-//                ((XTPContext) node).searchContext(descriptors, connectors, rules);
-//             else if (node instanceof XTPSwitch)
-//                ((XTPSwitch)node).searchSwitch(descriptors, connectors, rules);
-//
-//
-//    }
-//    }
-//    public void searchSwitch(Iterable<D> descriptors, Iterable<Cn> connectors, Iterable<R> rules){
-//        if(this.hasNode()){
-//            searchNodes(descriptors, connectors,rules, (N) this);
-//            }
-//
-//
-//        if(this.hasBind()){
-//            Iterable<B> binds = this.getBinds();
-//            for(B bind: binds){
-//                ((XTPBindRule)bind).searchBindRule(rules);
-//            }
-//        }
-//
-//    }
+    
+    public XTPSwitch() throws XMLException {
+        super();
+    }
     
     
     @Override
     public void load(Element element) throws XMLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String att_var;
+        NodeList nl;
+        
+        try{
+            // set the xLabel (required)
+            if(!(att_var = element.getAttribute("xlabel")).isEmpty())
+                setXLabel(att_var);
+            else
+                throw new XMLException("Could not find xlabel attribute.");
+        }
+        catch(XMLException ex){
+            String aux = getXLabel();
+            if(aux != null)
+                aux = "(" + aux + ")";
+            else
+                aux = "";
+            
+            throw new XMLException("Switch" + aux + ":\n" + ex.getMessage());
+        }
+        
+        // set the id
+        if(!(att_var = element.getAttribute("id")).isEmpty())
+                setId(att_var);
+        
+                
+        try{
+            // create the child nodes (except ports and binds)
+            nl = element.getChildNodes();
+            for(int i=0; i < nl.getLength(); i++){
+                Node nd = nl.item(i);
+                if(nd instanceof Element){
+                    Element el = (Element) nl.item(i);
+
+                    // create the media
+                    if(el.getTagName().equals("media")){
+                        En inst = createMedia();
+                        addNode(inst);
+                        inst.load(el);
+                    }
+                    // create the context
+                    if(el.getTagName().equals("context")){
+                        En inst = createContext();
+                        addNode(inst);
+                        inst.load(el);
+                    }
+                    // create the switch
+                    if(el.getTagName().equals("switch")){
+                        En inst = createSwitch();
+                        addNode(inst);
+                        inst.load(el);
+                    }
+                }
+            }
+
+            // create the child nodes (ports, binds and defaultComponent)
+            nl = element.getChildNodes();
+            for(int i=0; i < nl.getLength(); i++){
+                Node nd = nl.item(i);
+                if(nd instanceof Element){
+                    Element el = (Element) nl.item(i);
+
+                    //create the switchPort
+                    if(el.getTagName().equals("switchPort")){
+                        Ep inst = createSwitchPort();
+                        addPort(inst);
+                        inst.load(el);
+                    }
+                    // create the bindRule
+                    if(el.getTagName().equals("bindRule")){
+                        Eb inst = createBindRule();
+                        addBind(inst);
+                        inst.load(el);
+                    }
+                    // create the defaultComponent
+                    if(el.getTagName().equals("defaultComponent")){
+                        if(!(att_var = el.getAttribute("component")).isEmpty())
+                            setDefaultComponent(nodes.get(att_var));
+                    }
+                }
+            }
+        }
+        catch(XMLException ex){
+            String aux = getId();
+            if(aux != null)
+                aux = "(" + aux + ")";
+            else
+                aux = "";
+            
+            throw new XMLException("Switch" + aux + " > " + ex.getMessage());
+        }
+    }
+    
+    
+    public Ei findInterface(String xlabel) throws XMLException {
+        Ei result;
+        
+        // search as a switchPort
+        result = (Ei) ports.get(xlabel);
+        if(result != null)
+            return result;
+        
+        // search in inner nodes
+        for(En node : nodes){
+            result = (Ei) node.findInterface(xlabel);
+            if(result != null)
+                return result;
+        }
+        
+        return null;
+    }
+    
+    
+    public En findNode(String xlabel) throws XMLException {
+        En result;
+        
+        if(getId().equals(xlabel))
+            return (En) this;
+        
+        for(En node : nodes){
+            result = (En) node.findNode(xlabel);
+            if(result != null)
+                return result;
+        }
+        
+        return null;
+    }
+    
+    
+    /**
+     * Function to create the child element <i>bindRule</i>.
+     * This function must be overwritten in classes that extends this one.
+     *
+     * @return
+     *          element representing the child <i>bindRule</i>.
+     */
+    protected Eb createBindRule() throws XMLException {
+        return (Eb) new XTPBindRule();
+    }
+
+
+    /**
+     * Function to create the child element <i>switchPort</i>.
+     * This function must be overwritten in classes that extends this one.
+     *
+     * @return
+     *          element representing the child <i>switchPort</i>.
+     */
+    protected Ep createSwitchPort() throws XMLException {
+        return (Ep) new XTPSwitchPort();
+    }
+
+
+    /**
+     * Function to create the child element <i>media</i>.
+     * This function must be overwritten in classes that extends this one.
+     *
+     * @return
+     *          element representing the child <i>media</i>.
+     */
+    protected En createMedia() throws XMLException {
+        return (En) new XTPMedia();
+    }
+
+
+    /**
+     * Function to create the child element <i>context</i>.
+     * This function must be overwritten in classes that extends this one.
+     *
+     * @return
+     *          element representing the child <i>context</i>.
+     */
+    protected En createContext() throws XMLException {
+        return (En) new XTPContext();
+    }
+
+
+    /**
+     * Function to create the child element <i>switch</i>.
+     * This function must be overwritten in classes that extends this one.
+     *
+     * @return
+     *          element representing the child <i>switch</i>.
+     */
+    protected En createSwitch() throws XMLException {
+        return (En) new XTPSwitch();
     }
 }

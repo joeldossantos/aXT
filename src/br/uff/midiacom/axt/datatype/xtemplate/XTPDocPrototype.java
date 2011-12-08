@@ -4,15 +4,14 @@ import br.uff.midiacom.axt.datatype.xtemplate.body.XTPBodyPrototype;
 import br.uff.midiacom.axt.datatype.xtemplate.constraints.XTPConstraintsPrototype;
 import br.uff.midiacom.axt.datatype.xtemplate.head.XTPHeadPrototype;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPVocabularyPrototype;
-import br.uff.midiacom.xml.XMLElementImpl;
-import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPDocPrototype<T extends XTPDocPrototype, P extends XTPElement, I extends XMLElementImpl, Eh extends XTPHeadPrototype, Ev extends XTPVocabularyPrototype, Eb extends XTPBodyPrototype, Ec extends XTPConstraintsPrototype> extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
+public class XTPDocPrototype<T extends XTPDocPrototype, P extends XTPElement, I extends XTPElementImpl, Eh extends XTPHeadPrototype, Ev extends XTPVocabularyPrototype, Eb extends XTPBodyPrototype, Ec extends XTPConstraintsPrototype>
+        extends XMLIdentifiableElementPrototype<T, P, I> implements XTPElement<T, P> {
 
-    protected StringType id;
     protected StringType name;
     protected StringType description;
     protected Eh head;
@@ -23,19 +22,6 @@ public class XTPDocPrototype<T extends XTPDocPrototype, P extends XTPElement, I 
     
     public XTPDocPrototype(String id) throws XMLException {
         setId(id);
-    }
-    
-    
-    public void setId(String id) throws XMLException {
-        if(id == null)
-            throw new NullPointerException("Null id String");
-
-        this.id = new StringType(id);
-    }
-
-    
-    public String getId() {
-        return id.getValue();
     }
 
 
@@ -133,7 +119,7 @@ public class XTPDocPrototype<T extends XTPDocPrototype, P extends XTPElement, I 
     
     @Override
     public boolean compare(XTPDocPrototype other) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return getId().equals(other.getId());
     }
     
     

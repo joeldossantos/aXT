@@ -1,46 +1,44 @@
 package br.uff.midiacom.axt.head;
 
+import br.uff.midiacom.ana.datatype.auxiliar.SrcType;
 import br.uff.midiacom.axt.XTPDoc;
 import br.uff.midiacom.axt.XTPElement;
+import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.head.XTPExtendsPrototype;
-import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
 import org.w3c.dom.Element;
 
 
-public class XTPExtends<T extends XTPExtends, P extends XTPElement, I extends XMLElementImpl, Ed extends XTPDoc> extends XTPExtendsPrototype<T, P, I, Ed> implements XTPElement<T, P> {
+public class XTPExtends<T extends XTPExtends, P extends XTPElement, I extends XTPElementImpl, Ed extends XTPDoc>
+        extends XTPExtendsPrototype<T, P, I, Ed> implements XTPElement<T, P> {
 
     
-    public XTPExtends(Ed xtemplate) throws XMLException {
+    public XTPExtends(SrcType xtemplate) throws XMLException {
         super(xtemplate);
     }
-
-
-//   public void startElement(String uri, String localName, String qName, Attributes attributes) {
-//        try{
-//            if(localName.equals("extends")){
-//                cleanWarnings();
-//                cleanErrors();
-//                for(int i = 0; i < attributes.getLength(); i++){
-//                    if(attributes.getLocalName(i).equals("overwriteConstraints")){
-//                        setOverwriteConstraints((attributes.getValue(i)).equals("true"));
-//                    }
-//                    else if(attributes.getLocalName(i).equals("xtemplate")){
-//                        //chamar metodo merge
-//                        //ou criar um contrutor com title
-//
-//                    }
-//                }
-//            }
-//
-//        }
-//        catch(/*NCLInvalidIdentifierException*/Exception ex){
-//            addError(ex.getMessage());
-//        }
-//    }
     
     
+    public XTPExtends() throws XMLException {
+        super();
+    }
+    
+    
+    @Override
     public void load(Element element) throws XMLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String att_var;
+
+        try{
+            // set the documentURI (required)
+            if(!(att_var = element.getAttribute("documentURI")).isEmpty())
+                setXTemplate(new SrcType(att_var));
+            else
+                throw new XMLException("Could not find documentURI attribute.");
+
+            // set the overwriteConstraints (optional)
+            setOverwriteConstraints(!element.getAttribute("overwriteConstraints").isEmpty());
+        }
+        catch(XMLException ex){
+            throw new XMLException("Extends:\n" + ex.getMessage());
+        }
     }
 }

@@ -1,10 +1,11 @@
 package br.uff.midiacom.axt.datatype.xtemplate.body.node;
 
-import br.uff.midiacom.ana.datatype.ncl.node.NCLNode;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
+import br.uff.midiacom.xml.XMLIdentifiableElement;
 
 
-public interface XTPNode<T extends XTPNode, P extends XTPElement> extends NCLNode<T, P>, XTPLabeledElement<T, P> {
+public interface XTPNode<T extends XTPNode, P extends XTPElement>
+        extends XMLIdentifiableElement<T, P>, XTPLabeledElement<T, P> {
     
 }

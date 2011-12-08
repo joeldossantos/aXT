@@ -1,15 +1,16 @@
 package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
+import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPLabeledElement;
-import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.number.MaxType;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public abstract class XTPVocabularyElement<T extends XTPVocabularyElement, P extends XTPElement, I extends XMLElementImpl> extends XMLElementPrototype<T, P, I> implements XTPLabeledElement<T, P> {
+public abstract class XTPVocabularyElement<T extends XTPVocabularyElement, P extends XTPElement, I extends XTPElementImpl>
+        extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
 
     protected StringType xlabel;
     protected Integer minOccurs;
@@ -26,6 +27,12 @@ public abstract class XTPVocabularyElement<T extends XTPVocabularyElement, P ext
         defMaxOccurs = new MaxType("unbounded");
     }
 
+    
+    public XTPVocabularyElement() throws XMLException {
+        super();
+        defMinOccurs = 1;
+        defMaxOccurs = new MaxType("unbounded");
+    }
 
     public void setXLabel(String xlabel) throws XMLException {
         if(xlabel == null)
@@ -75,6 +82,6 @@ public abstract class XTPVocabularyElement<T extends XTPVocabularyElement, P ext
 
     @Override
     public boolean compare(T other) {
-        return xlabel.getValue().equals(other.getXLabel());
+        return getXLabel().equals(other.getXLabel());
     }
 }

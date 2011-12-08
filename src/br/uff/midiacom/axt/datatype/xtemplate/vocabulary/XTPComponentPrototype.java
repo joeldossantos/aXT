@@ -1,26 +1,32 @@
 package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
 import br.uff.midiacom.ana.descriptor.NCLLayoutDescriptor;
-import br.uff.midiacom.axt.datatype.auxiliar.LabeledElementList;
+import br.uff.midiacom.axt.datatype.auxiliar.VocabularyElementList;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
-import br.uff.midiacom.xml.XMLElementImpl;
+import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.xml.XMLException;
-import br.uff.midiacom.xml.datatype.reference.IdRefType;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
-public class XTPComponentPrototype<T extends XTPComponentPrototype, P extends XTPElement, I extends XMLElementImpl, Ed extends NCLLayoutDescriptor, Ep extends XTPComponentPortPrototype> extends XTPVocabularyElement<T, P, I> {
+public class XTPComponentPrototype<T extends XTPComponentPrototype, P extends XTPElement, I extends XTPElementImpl, Ed extends NCLLayoutDescriptor, Ep extends XTPComponentPortPrototype>
+        extends XTPVocabularyElement<T, P, I> {
 
     protected StringType xType;
-    protected IdRefType<Ed> descriptor;
-    protected LabeledElementList<Ep, T> ports;
-    protected LabeledElementList<T, T> components;
+    protected Ed descriptor;
+    protected VocabularyElementList<Ep, T> ports;
+    protected VocabularyElementList<T, T> components;
 
 
     public XTPComponentPrototype(String xlabel) throws XMLException {
         super(xlabel);
-        ports = new LabeledElementList<Ep, T>();
-        components = new LabeledElementList<T, T>();
+        ports = new VocabularyElementList<Ep, T>();
+        components = new VocabularyElementList<T, T>();
+    }
+    
+    public XTPComponentPrototype() throws XMLException {
+        super();
+        ports = new VocabularyElementList<Ep, T>();
+        components = new VocabularyElementList<T, T>();
     }
     
     
@@ -34,12 +40,12 @@ public class XTPComponentPrototype<T extends XTPComponentPrototype, P extends XT
     }
     
     
-    public void setDescriptor(IdRefType<Ed> descriptor){
+    public void setDescriptor(Ed descriptor){
         this.descriptor = descriptor;
     }
     
     
-    public IdRefType<Ed> getDescriptor(){
+    public Ed getDescriptor(){
         return descriptor;
     }
     
@@ -74,7 +80,7 @@ public class XTPComponentPrototype<T extends XTPComponentPrototype, P extends XT
     }
     
     
-    public LabeledElementList<Ep, T> getComponentPorts() {
+    public VocabularyElementList<Ep, T> getComponentPorts() {
         return ports;
     }
 
@@ -109,11 +115,12 @@ public class XTPComponentPrototype<T extends XTPComponentPrototype, P extends XT
     }
 
 
-    public LabeledElementList<T, T> getComponents() {
+    public VocabularyElementList<T, T> getComponents() {
         return components;
     }
     
     
+    @Override
     public String parse(int ident) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
