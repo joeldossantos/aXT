@@ -51,15 +51,15 @@ public class XTPPort<T extends XTPPort, P extends XTPElement, I extends XTPEleme
         
         // set the xLabel
         if(!(att_var = element.getAttribute("xLabel")).isEmpty())
-            setXLabel(att_var);
+            setXLabel(((XTPVocabulary)impl.getDoc().getVocabulary()).findComponent(att_var));
         
         // set the component
         if(!(att_var = element.getAttribute("component")).isEmpty()){
             P aux = (P) getParent();
             while(!(aux instanceof XTPDoc)){
                 aux = (P) aux.getParent();
-//                if((aux = (P) getParent()) == null)
-//                    throw new XMLException("Could not find element " + att_var);
+                if((aux = (P) getParent()) == null)
+                    throw new XMLException("Could not find element " + att_var);
             }
 
             XTPVocabulary voc = (XTPVocabulary) ((XTPDoc) aux).getVocabulary();
@@ -67,12 +67,11 @@ public class XTPPort<T extends XTPPort, P extends XTPElement, I extends XTPEleme
             
             // set the interface (optional)
             if(!(att_var = element.getAttribute("interface")).isEmpty()){
-                En comp = (En) getComponent().find(att_var);
-                if(comp instanceof )
-                
-                if(refEl == null)
+                Ei comp = (Ei) getComponent().findInterface(att_var);
+                if(comp == null)
                     throw new XMLException("Could not find element " + att_var);
-                setInterface(refEl);
+                else
+                    setInterface(comp);
             }
         }
     }

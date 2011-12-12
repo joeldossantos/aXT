@@ -6,6 +6,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPLinkPrototype;
 import br.uff.midiacom.axt.vocabulary.XTPConnector;
+import br.uff.midiacom.axt.vocabulary.XTPVocabulary;
 import br.uff.midiacom.xml.XMLException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -33,7 +34,7 @@ public class XTPLink<T extends XTPLink, P extends XTPElement, I extends XTPEleme
         try{
             // set the xType (required)
             if(!(att_var = element.getAttribute("xtype")).isEmpty())
-                setXType(); // procurar pelo id
+                setXType((Exc)((XTPVocabulary)impl.getDoc().getVocabulary()).findConnector(att_var));
             else
                 throw new XMLException("Could not find xtype attribute.");
         }

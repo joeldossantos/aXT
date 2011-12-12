@@ -36,6 +36,36 @@ public class XTPForEachPrototype<T extends XTPForEachPrototype, P extends XTPEle
         variables = new ElementList<Ev, T>();
     }
 
+    
+    public boolean addPort(Ei port) throws XMLException {
+        return interfaces.add(port, (T) this);
+    }
+    
+    
+    public boolean addArea(Ei area) throws XMLException {
+        return interfaces.add(area, (T) this);
+    }
+    
+    
+    public boolean addProperty(Ei property) throws XMLException {
+        return interfaces.add(property, (T) this);
+    }
+    
+    
+    public boolean addLink(El link) throws XMLException {
+        return links.add(link, (T) this);
+    }
+    
+    
+    public boolean addSwitch(Es Switch) throws XMLException {
+        return switches.add(Switch, (T) this);
+    }
+    
+    
+    public boolean addVariable(Ev variable) throws XMLException {
+        return variables.add(variable, (T) this);
+    }
+    
 
     public void setSelect(String select) throws XMLException {
         if(select == null)

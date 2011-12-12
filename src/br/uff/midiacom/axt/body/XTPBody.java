@@ -98,6 +98,44 @@ public class XTPBody<T extends XTPBody, P extends XTPElement, I extends XTPEleme
     
     
     /**
+     * Searches for an node inside the body and its descendants. The node will be
+     * searched inside contexts and switches.
+     * 
+     * @param id
+     *          id of the node to be found.
+     * @return 
+     *          node or null if no node was found.
+     */
+    public Ep findPort(String id) throws XMLException {
+        for(Ep p : ports){
+            if(p.getComponent().getId().equals(id))
+                return p;
+        }
+        return null;
+    }
+    
+    
+    public En findNode(String id) throws XMLException {
+        En result;
+        
+        // search in the body
+        for(En n : nodes){
+            if(n.getId().equals(id))
+                return n;
+        }
+        
+        // search in inner nodes
+        for(En node : nodes){
+            result = (En) node.findNode(id);
+            if(result != null)
+                return result;
+        }
+        
+        return null;
+    }
+    
+    
+    /**
      * Function to create the child element <i>media</i>.
      * This function must be overwritten in classes that extends this one.
      *
