@@ -31,8 +31,28 @@ public class XTPVocabulary<T extends XTPVocabulary, P extends XTPElement, I exte
     public Ecp findComponent(String xLabel) throws XMLException {
         Ecp result;
         
+        for(Ecp c : components){
+            result = (Ecp) c.findComponent(xLabel);
+            if(result != null)
+                return result;
+        }
+        return null;
+    }
+    
+    
+    /**
+     * Searches for a connector inside the vocabulary.
+     * 
+     * @param xLabel
+     *          xLabel of the connector to be found.
+     * @return 
+     *          connector or null if no connector was found.
+     */
+    public Ecc findConnector(String xLabel){
+        Ecc result;
+        
         // search in the vocabulary
-        result = components.get(xLabel);
+        result = connectors.get(xLabel);
         if(result != null)
             return result;
         

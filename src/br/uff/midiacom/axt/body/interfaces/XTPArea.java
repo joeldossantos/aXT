@@ -5,6 +5,8 @@ import br.uff.midiacom.ana.datatype.auxiliar.TimeType;
 import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPAreaPrototype;
+import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPVocabularyElement;
+import br.uff.midiacom.axt.vocabulary.XTPVocabulary;
 import br.uff.midiacom.xml.XMLException;
 import br.uff.midiacom.xml.datatype.array.ArrayType;
 import org.w3c.dom.Element;
@@ -14,7 +16,7 @@ public class XTPArea<T extends XTPArea, P extends XTPElement, I extends XTPEleme
         extends XTPAreaPrototype<T, P, I, Ei> implements XTPInterface<Ei, P> {
 
     
-    public XTPArea(String id, String xlabel) throws XMLException {
+    public XTPArea(String id, XTPVocabularyElement xlabel) throws XMLException {
         super(id, xlabel);
     }
     
@@ -27,24 +29,14 @@ public class XTPArea<T extends XTPArea, P extends XTPElement, I extends XTPEleme
     @Override
     public void load(Element element) throws XMLException {
         String att_var;
-        
-        try{
-            // set the xLabel (required)
-            if(!(att_var = element.getAttribute("xlabel")).isEmpty())
-                setXLabel(att_var);
-            else
-                throw new XMLException("Could not find xlabel attribute.");
-        }
-        catch(XMLException ex){
-            String aux = getXLabel();
-            if(aux != null)
-                aux = "(" + aux + ")";
-            else
-                aux = "";
-            
-            throw new XMLException("Area" + aux + ":\n" + ex.getMessage());
-        }
-        
+
+
+        // set the xLabel (required)
+        if(!(att_var = element.getAttribute("xlabel")).isEmpty())
+            setXLabel(((XTPVocabulary)impl.getDoc().getVocabulary()).findComponent(att_var));
+        else
+            throw new XMLException("Could not find xlabel attribute.");
+
 
         try{
             // set the id (required)

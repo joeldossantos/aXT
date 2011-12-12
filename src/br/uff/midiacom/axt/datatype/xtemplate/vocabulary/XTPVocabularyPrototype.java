@@ -89,8 +89,8 @@ public class XTPVocabularyPrototype<T extends XTPVocabularyPrototype, P extends 
     public VocabularyElementList<Ecc, T> getConnectors() {
         return connectors;
     }
-
-
+    
+    
     public boolean compare(T other) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
