@@ -11,6 +11,7 @@ import br.uff.midiacom.axt.body.interfaces.XTPInterface;
 import br.uff.midiacom.axt.body.interfaces.XTPProperty;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPMediaPrototype;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPVocabularyElement;
+import br.uff.midiacom.axt.vocabulary.XTPVocabulary;
 import br.uff.midiacom.xml.XMLException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -36,22 +37,11 @@ public class XTPMedia<T extends XTPMedia, P extends XTPElement, I extends XTPEle
         String att_var;
         NodeList nl;
         
-        try{
-            // set the xLabel (required)
-            if(!(att_var = element.getAttribute("xlabel")).isEmpty())
-                setXLabel(att_var);
-            else
-                throw new XMLException("Could not find xlabel attribute.");
-        }
-        catch(XMLException ex){
-            String aux = getXLabel();
-            if(aux != null)
-                aux = "(" + aux + ")";
-            else
-                aux = "";
-            
-            throw new XMLException("Media" + aux + ":\n" + ex.getMessage());
-        }
+        // set the xLabel (required)
+        if(!(att_var = element.getAttribute("xlabel")).isEmpty())
+            setXLabel(((XTPVocabulary)impl.getDoc().getVocabulary()).findComponent(att_var));
+        else
+            throw new XMLException("Could not find xlabel attribute.");
         
         // set the id
         if(!(att_var = element.getAttribute("id")).isEmpty())
