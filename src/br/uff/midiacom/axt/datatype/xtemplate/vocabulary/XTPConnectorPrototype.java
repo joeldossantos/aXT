@@ -1,33 +1,33 @@
 package br.uff.midiacom.axt.datatype.xtemplate.vocabulary;
 
+import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.xml.XMLException;
-import br.uff.midiacom.xml.datatype.string.StringType;
 
 
 public class XTPConnectorPrototype<T extends XTPConnectorPrototype, P extends XTPElement, I extends XTPElementImpl>
         extends XTPVocabularyElement<T, P, I> {
 
-    protected StringType src;
+    protected NCLCausalConnector src;
     
     
-    public XTPConnectorPrototype(String xlabel, String src) throws XMLException {
+    public XTPConnectorPrototype(String xlabel, NCLCausalConnector src) throws XMLException {
         super(xlabel);
         setSrc(src);
     }
     
     
-    public void setSrc(String src) throws XMLException {
+    public void setSrc(NCLCausalConnector src) throws XMLException {
         if(src == null)
-            throw new NullPointerException("Null String");
+            throw new NullPointerException("Null connector");
 
-        this.src = new StringType(src);
+        this.src = src;
     }
 
 
-    public String getSrc(){
-        return src.getValue();
+    public NCLCausalConnector getSrc(){
+        return src;
     }
     
     

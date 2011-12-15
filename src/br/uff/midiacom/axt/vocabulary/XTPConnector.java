@@ -1,5 +1,7 @@
 package br.uff.midiacom.axt.vocabulary;
 
+import br.uff.midiacom.ana.connector.NCLCausalConnector;
+import br.uff.midiacom.axt.ReferenceManager;
 import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPConnectorPrototype;
@@ -12,7 +14,7 @@ public class XTPConnector<T extends XTPConnector, P extends XTPElement, I extend
         extends XTPConnectorPrototype<T, P, I> implements XTPElement<T, P> {
 
     
-    public XTPConnector(String xlabel, String src) throws XMLException {
+    public XTPConnector(String xlabel, NCLCausalConnector src) throws XMLException {
         super(xlabel, src);
     }
     
@@ -24,12 +26,12 @@ public class XTPConnector<T extends XTPConnector, P extends XTPElement, I extend
         try{
             // set the src (required)
             if(!(att_var = element.getAttribute("src")).isEmpty())
-                setSrc(att_var);
+                setSrc(ReferenceManager.getInstance().findConnectorReference(impl.getDoc(), att_var));
             else
                 throw new XMLException("Could not find src attribute.");
         }
         catch(XMLException ex){
-            String aux = getSrc();
+            String aux = getXLabel();
             if(aux != null)
                 aux = "(" + aux + ")";
             else

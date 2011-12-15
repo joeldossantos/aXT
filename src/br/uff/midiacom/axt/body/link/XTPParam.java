@@ -30,7 +30,7 @@ public class XTPParam<T extends XTPParam, P extends XTPElement, I extends XTPEle
             if(paramType.equals(NCLParamInstance.BINDPARAM) && (aux = (P) aux.getParent()) == null)
                 throw new XMLException("Could not find element " + att_var);
 
-            Ec par = (Ec) ((XTPLink) aux).getXType().getConnectorParams().get(att_var);
+            Ec par = (Ec) ((XTPLink) aux).getXType().getSrc().getConnectorParams().get(att_var);
             if(par == null)
                 throw new XMLException("Could not find element " + att_var);
 

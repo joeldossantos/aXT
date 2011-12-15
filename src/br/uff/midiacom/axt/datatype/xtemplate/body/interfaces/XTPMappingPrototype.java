@@ -1,13 +1,13 @@
 package br.uff.midiacom.axt.datatype.xtemplate.body.interfaces;
 
-import br.uff.midiacom.ana.datatype.ncl.node.NCLNode;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
+import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPNode;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
 
 
-public class XTPMappingPrototype<T extends XTPMappingPrototype, P extends XTPElement, I extends XTPElementImpl, En extends NCLNode, Ei extends XTPInterface>
+public class XTPMappingPrototype<T extends XTPMappingPrototype, P extends XTPElement, I extends XTPElementImpl, En extends XTPNode, Ei extends XTPInterface>
         extends XMLElementPrototype<T, P, I> implements XTPElement<T, P> {
 
     protected En component;

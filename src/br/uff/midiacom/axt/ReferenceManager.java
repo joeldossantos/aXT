@@ -37,23 +37,21 @@
  *******************************************************************************/
 package br.uff.midiacom.axt;
 
+import br.uff.midiacom.ana.NCLDoc;
+import br.uff.midiacom.ana.NCLElement;
+import br.uff.midiacom.ana.NCLHead;
 import br.uff.midiacom.ana.connector.NCLCausalConnector;
 import br.uff.midiacom.ana.connector.NCLConnectorBase;
-import br.uff.midiacom.ana.connector.NCLConnectorParam;
 import br.uff.midiacom.ana.datatype.auxiliar.PostReferenceElement;
 import br.uff.midiacom.ana.descriptor.NCLDescriptor;
 import br.uff.midiacom.ana.descriptor.NCLDescriptorBase;
-import br.uff.midiacom.ana.interfaces.NCLProperty;
-import br.uff.midiacom.ana.node.NCLNode;
-import br.uff.midiacom.ana.region.NCLRegion;
-import br.uff.midiacom.ana.region.NCLRegionBase;
+import br.uff.midiacom.ana.reuse.NCLImport;
 import br.uff.midiacom.ana.rule.NCLRuleBase;
 import br.uff.midiacom.ana.rule.NCLTestRule;
-import br.uff.midiacom.ana.transition.NCLTransition;
-import br.uff.midiacom.ana.transition.NCLTransitionBase;
 import br.uff.midiacom.axt.head.XTPHead;
 import br.uff.midiacom.xml.XMLException;
-import br.uff.midiacom.xml.datatype.elementList.IdentifiableElementList;
+import br.uff.midiacom.xml.datatype.elementList.ElementList;
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -71,190 +69,164 @@ public class ReferenceManager {
     }
     
     
-//    public NCLRegion findRegionReference(XTPDoc doc, String id) throws XMLException {
-//        NCLRegion result = null;
-//        NCLHead head = (NCLHead) doc.getHead();
-//        
-//        if(head == null)
-//            throw new NCLParsingException("Could not find document head element");
-//
-//        if(!head.hasRegionBase())
-//            throw new NCLParsingException("Could not find regionBase element");
-//        
-//        IdentifiableElementList<NCLRegionBase, NCLHead> list = head.getRegionBases();
-//
-//        for(NCLRegionBase base : list)
-//            result = (NCLRegion) base.findRegion(id);
-//
-//        if(result == null)
-//            throw new NCLParsingException("Could not find region in regionBase with id: " + id);
-//        
-//        return result;
-//    }
-//    
-//    
-//    public NCLProperty findPropertyReference(NCLDoc doc, String name) throws XMLException {
-//        NCLBody body = (NCLBody) doc.getBody();
-//        
-//        if(body == null)
-//            throw new NCLParsingException("Could not find document body element");
-//
-//        NCLProperty result = (NCLProperty) body.findInterface(name);
-//        
-//        if(result == null)
-//            throw new NCLParsingException("Could not find property in body with name: " + name);
-//        
-//        return result;
-//    }
-//    
-//    
-//    public NCLDescriptor findDescriptorReference(NCLDoc doc, Integer focusIndex) throws XMLException {
-//        NCLHead head = (NCLHead) doc.getHead();
-//        
-//        if(head == null)
-//            throw new NCLParsingException("Could not find document head element");
-//        
-//        NCLDescriptorBase base = (NCLDescriptorBase) head.getDescriptorBase();
-//        if(base == null)
-//            throw new NCLParsingException("Could not find document descriptorBase element");
-//
-//        NCLDescriptor result = (NCLDescriptor) base.findDescriptor(focusIndex);
-//
-//        if(result == null)
-//            throw new NCLParsingException("Could not find descriptor in descriptorBase with focusIndex: " + focusIndex);
-//        
-//        return result;
-//    }
-//    
-//    
-    public NCLDescriptor findDescriptorReference(XTPDoc doc, String id) throws XMLException {
-        XTPHead head = (XTPHead) doc.getHead();
+    public NCLImport getImport(String reference, ElementList<NCLImport,NCLElement> imports) throws XMLException {
+        String alias = getAlias(reference);
         
-        if(head == null)
+        for(NCLImport importBase : imports){
+            if(importBase.getAlias().equals(alias))
+                return importBase;
+        }
+        
+        return null;
+    }
+    
+    
+    public String getAlias(String reference) throws XMLException {
+        int index = reference.indexOf("#");
+        if(index == -1)
+            throw new XTPParsingException("The referred src does not have an alias");
+        else
+            return reference.substring(index);
+    }
+    
+    
+    public String getId(String reference) throws XMLException {
+        int index = reference.indexOf("#");
+        if(index == -1)
+            return reference;
+        else if(index == reference.length()-1)
+            throw new XTPParsingException("The referred src does not have an id");
+        else
+            return reference.substring(index+1, reference.length());
+    }
+    
+    
+    public NCLDescriptor findDescriptorReference(XTPDoc doc, String id) throws XMLException {
+        XTPHead xtphead;
+        NCLImport imp;
+        NCLDoc ncldoc;
+        NCLHead nclhead;
+        NCLDescriptorBase base, nclbase;
+        NCLDescriptor result = null;
+        
+        // get the xtemplate head
+        xtphead = (XTPHead) doc.getHead();
+        if(xtphead == null)
             throw new XTPParsingException("Could not find document head element");
         
-        NCLDescriptorBase base = (NCLDescriptorBase) head.getDescriptorBase();
+        // get the xtemplate base
+        base = (NCLDescriptorBase) xtphead.getDescriptorBase();
         if(base == null)
             throw new XTPParsingException("Could not find document descriptorBase element");
 
-        NCLDescriptor result = (NCLDescriptor) base.findDescriptor(id);
+        // get the imported bases
+        imp = getImport(id, base.getImportBases());
+        if(imp == null)
+            throw new XTPParsingException("Could not find importBase");
+        
+        // get the imported document src
+        String src = imp.getDocumentURI().parse();
+        ncldoc = new NCLDoc();
+        ncldoc.loadXML(new File(src));
 
+        nclhead = (NCLHead) ncldoc.getHead();
+        if(nclhead == null)
+            throw new XTPParsingException("Could not find NCL head");
+
+        nclbase = (NCLDescriptorBase) nclhead.getDescriptorBase();
+        if(nclbase == null)
+            throw new XTPParsingException("Could not find NCL descriptorBase");
+
+        result = (NCLDescriptor) nclbase.findDescriptor(getId(id));
         if(result == null)
-            throw new XTPParsingException("Could not find descriptor in descriptorBase with id: " + id);
+            throw new XTPParsingException("Could not find descriptor with id: " + id);
         
         return result;
     }
-//
-//
-//    public NCLTransition findTransitionReference(NCLDoc doc, String id) throws XMLException {
-//        NCLHead head = (NCLHead) doc.getHead();
-//        
-//        if(head == null)
-//            throw new NCLParsingException("Could not find document head element");
-//        
-//        NCLTransitionBase base = (NCLTransitionBase) head.getTransitionBase();
-//        if(base == null)
-//            throw new NCLParsingException("Could not find document transitionBase element");
-//
-//        NCLTransition result = (NCLTransition) base.getTransitions().get(id);
-//
-//        if(result == null)
-//            throw new NCLParsingException("Could not find transition in transitionBase with id: " + id);
-//        
-//        return result;
-//    }
-//    
-//    
+    
+    
     public NCLTestRule findRuleReference(XTPDoc doc, String id) throws XMLException {
-        XTPHead head = (XTPHead) doc.getHead();
+        XTPHead xtphead;
+        NCLImport imp;
+        NCLDoc ncldoc;
+        NCLHead nclhead;
+        NCLDescriptorBase base;
+        NCLRuleBase nclbase;
+        NCLTestRule result = null;
         
-        if(head == null)
+        xtphead = (XTPHead) doc.getHead();
+        if(xtphead == null)
             throw new XTPParsingException("Could not find document head element");
         
-        NCLRuleBase base = (NCLRuleBase) head.getRuleBase();
+        base = (NCLDescriptorBase) xtphead.getDescriptorBase();
         if(base == null)
-            throw new XTPParsingException("Could not find document ruleBase element");
+            throw new XTPParsingException("Could not find document descriptorBase element");
 
-        NCLTestRule result = (NCLTestRule) base.findRule(id);
+        // get the imported bases
+        imp = getImport(id, base.getImportBases());
+        if(imp == null)
+            throw new XTPParsingException("Could not find importBase");
+        
+        // get the imported document src
+        String src = imp.getDocumentURI().parse();
+        ncldoc = new NCLDoc();
+        ncldoc.loadXML(new File(src));
 
+        nclhead = (NCLHead) ncldoc.getHead();
+        if(nclhead == null)
+            throw new XTPParsingException("Could not find NCL head");
+
+        nclbase = (NCLRuleBase) nclhead.getRuleBase();
+        if(nclbase == null)
+            throw new XTPParsingException("Could not find NCL descriptorBase");
+
+        result = (NCLTestRule) nclbase.findRule(getId(id));
         if(result == null)
-            throw new XTPParsingException("Could not find rule in ruleBase with id: " + id);
+            throw new XTPParsingException("Could not find descriptor with id: " + id);
         
         return result;
     }
-//    
-//    
-//    public NCLConnectorParam findParamReference(NCLDoc doc, String name) throws XMLException {
-//        NCLHead head = (NCLHead) doc.getHead();
-//        
-//        if(head == null)
-//            throw new NCLParsingException("Could not find document head element");
-//        
-//        NCLConnectorBase base = (NCLConnectorBase) head.getConnectorBase();
-//        if(base == null)
-//            throw new NCLParsingException("Could not find document connectorBase element");
-//        
-//        IdentifiableElementList<NCLCausalConnector, NCLConnectorBase> list = base.getCausalConnectors();
-//        NCLConnectorParam result = null;
-//        
-//        for(NCLCausalConnector conn : list)
-//            result = (NCLConnectorParam) conn.getConnectorParams().get(name);
-//
-//        if(result == null)
-//            throw new NCLParsingException("Could not find connectorParam in connectorBase with name: " + name);
-//        
-//        return result;
-//    }
-//
-//
-//    public NCLCausalConnector findConnectorReference(NCLDoc doc, String id) throws XMLException {
-//        NCLHead head = (NCLHead) doc.getHead();
-//        
-//        if(head == null)
-//            throw new NCLParsingException("Could not find document head element");
-//        
-//        NCLConnectorBase base = (NCLConnectorBase) head.getConnectorBase();
-//        if(base == null)
-//            throw new NCLParsingException("Could not find document connectorBase element");
-//
-//        NCLCausalConnector result = (NCLCausalConnector) base.getCausalConnectors().get(id);
-//
-//        if(result == null)
-//            throw new NCLParsingException("Could not find connector in connectorBase with id: " + id);
-//        
-//        return result;
-//    }
-//    
-//    
-//    public NCLNode findNodeReference(NCLDoc doc, String id) throws XMLException {
-//        NCLBody body = (NCLBody) doc.getBody();
-//        
-//        if(body == null)
-//            throw new NCLParsingException("Could not find document body element");
-//
-//        NCLNode result = body.findNode(id);
-//
-//        if(result == null)
-//            throw new NCLParsingException("Could not find node in ruleBase with id: " + id);
-//        
-//        return result;
-//    }
-//    
-//    
-//    public void waitReference(PostReferenceElement element) {
-//        for(PostReferenceElement ref : references){
-//            if(ref.getId().equals(element.getId())){
-//                references.remove(ref);
-//                break;
-//            }
-//        }
-//        
-//        references.add(element);
-//    }
-//    
-//    
-//    public void fixReferences() throws XMLException {
-//        for(PostReferenceElement el : references)
-//            el.fixReference();
-//    }
+
+
+    public NCLCausalConnector findConnectorReference(XTPDoc doc, String src) throws XMLException {
+        XTPHead xtphead;
+        NCLImport imp;
+        NCLDoc ncldoc;
+        NCLHead nclhead;
+        NCLDescriptorBase base;
+        NCLConnectorBase nclbase;
+        NCLCausalConnector result = null;
+        
+        xtphead = (XTPHead) doc.getHead();
+        if(xtphead == null)
+            throw new XTPParsingException("Could not find document head element");
+        
+        base = (NCLDescriptorBase) xtphead.getDescriptorBase();
+        if(base == null)
+            throw new XTPParsingException("Could not find document descriptorBase element");
+
+        // get the imported bases
+        imp = getImport(src, base.getImportBases());
+        if(imp == null)
+            throw new XTPParsingException("Could not find importBase");
+        
+        // get the imported document src
+        String docsrc = imp.getDocumentURI().parse();
+        ncldoc = new NCLDoc();
+        ncldoc.loadXML(new File(docsrc));
+
+        nclhead = (NCLHead) ncldoc.getHead();
+        if(nclhead == null)
+            throw new XTPParsingException("Could not find NCL head");
+
+        nclbase = (NCLConnectorBase) nclhead.getConnectorBase();
+        if(nclbase == null)
+            throw new XTPParsingException("Could not find NCL descriptorBase");
+
+        result = (NCLCausalConnector) nclbase.getCausalConnectors().get(getId(src));
+        if(result == null)
+            throw new XTPParsingException("Could not find connector in connectorBase with id: " + src);
+        
+        return result;
+    }
 }

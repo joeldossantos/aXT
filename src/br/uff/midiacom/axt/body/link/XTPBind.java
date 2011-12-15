@@ -8,6 +8,7 @@ import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.body.interfaces.XTPInterface;
 import br.uff.midiacom.axt.body.node.XTPNode;
 import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPBindPrototype;
+import br.uff.midiacom.axt.vocabulary.XTPConnector;
 import br.uff.midiacom.xml.XMLException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -34,11 +35,11 @@ public class XTPBind<T extends XTPBind, P extends XTPElement, I extends XTPEleme
                 if((aux = (P) getParent()) == null)
                     throw new XMLException("Could not find element " + att_var);
 
-                NCLCausalConnector conn = (NCLCausalConnector) ((XTPLink) aux).getXType();
+                XTPConnector conn = (XTPConnector) ((XTPLink) aux).getXType();
                 if(conn == null)
                     throw new XMLException("Could not find element " + att_var);
 
-                Er rol = (Er) conn.findRole(att_var);
+                Er rol = (Er) conn.getSrc().findRole(att_var);
                 if(rol == null)
                     throw new XMLException("Could not find element " + att_var);
                 setRole(rol);

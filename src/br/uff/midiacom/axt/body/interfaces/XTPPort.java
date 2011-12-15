@@ -55,14 +55,7 @@ public class XTPPort<T extends XTPPort, P extends XTPElement, I extends XTPEleme
         
         // set the component
         if(!(att_var = element.getAttribute("component")).isEmpty()){
-            P aux = (P) getParent();
-            while(!(aux instanceof XTPDoc)){
-                aux = (P) aux.getParent();
-                if((aux = (P) getParent()) == null)
-                    throw new XMLException("Could not find element " + att_var);
-            }
-
-            XTPVocabulary voc = (XTPVocabulary) ((XTPDoc) aux).getVocabulary();
+            XTPVocabulary voc = (XTPVocabulary) impl.getDoc().getVocabulary();
             setComponent((En)voc.findComponent(att_var));
             
             // set the interface (optional)

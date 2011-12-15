@@ -1,11 +1,7 @@
 package br.uff.midiacom.axt.body.interfaces;
 
-import br.uff.midiacom.ana.datatype.ncl.node.NCLNode;
-import br.uff.midiacom.ana.interfaces.NCLMapping;
-import br.uff.midiacom.axt.XTPDoc;
 import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.XTPElementImpl;
-import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPMappingPrototype;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPSwitchPortPrototype;
 import br.uff.midiacom.axt.vocabulary.XTPVocabulary;
 import br.uff.midiacom.xml.XMLException;
@@ -14,7 +10,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
-public class XTPSwitchPort<T extends XTPSwitchPort, P extends XTPElement, I extends XTPElementImpl, Em extends NCLMapping, Ei extends XTPInterface>
+public class XTPSwitchPort<T extends XTPSwitchPort, P extends XTPElement, I extends XTPElementImpl, Em extends XTPMapping, Ei extends XTPInterface>
         extends XTPSwitchPortPrototype<T, P, I, Em, Ei> implements XTPInterface<Ei, P> {
 
 

@@ -1,6 +1,5 @@
 package br.uff.midiacom.axt.datatype.xtemplate.body.interfaces;
 
-import br.uff.midiacom.ana.datatype.ncl.interfaces.NCLMappingPrototype;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPVocabularyElement;
@@ -9,7 +8,7 @@ import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
-public class XTPSwitchPortPrototype<T extends XTPSwitchPortPrototype, P extends XTPElement, I extends XTPElementImpl, Em extends NCLMappingPrototype, Ei extends XTPInterface>
+public class XTPSwitchPortPrototype<T extends XTPSwitchPortPrototype, P extends XTPElement, I extends XTPElementImpl, Em extends XTPMappingPrototype, Ei extends XTPInterface>
         extends XMLIdentifiableElementPrototype<Ei, P, I> implements XTPInterface<Ei, P> {
 
     protected XTPVocabularyElement xlabel;
