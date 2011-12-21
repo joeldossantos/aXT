@@ -6,6 +6,7 @@ import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
@@ -16,22 +17,32 @@ public class XTPHeadPrototype<T extends XTPHeadPrototype, P extends XTPElement, 
     protected Ed descriptorBase;
     protected Ec connectorBase;
     
+    protected String descBaseAlias;
+    protected String conBaseAlias;
+    protected String descBaseURI;
+    protected String conBaseURI;
     
     public XTPHeadPrototype() throws XMLException {
         super();
         xtExtends = new ElementList<Ee, T>();
     }
 
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>();
+    }
+    
 
     public void setDescriptorBase(Ed descriptorBase) {
         //Retira o parentesco do descriptorBase atual
-        if(this.descriptorBase != null)
-            this.descriptorBase.setParent(null);
+//        if(this.descriptorBase != null)
+//            this.descriptorBase.setParent(null);
 
         this.descriptorBase = descriptorBase;
         //Se descriptorBase existe, atribui este como seu parente
-        if(this.descriptorBase != null)
-            this.descriptorBase.setParent(this);
+//        if(this.descriptorBase != null)
+//            this.descriptorBase.setParent(this);
     }
 
 
@@ -42,13 +53,13 @@ public class XTPHeadPrototype<T extends XTPHeadPrototype, P extends XTPElement, 
 
     public void setConnectorBase(Ec connectorBase) {
         //Retira o parentesco do connectorBase atual
-        if(this.connectorBase != null)
-            this.connectorBase.setParent(null);
+//        if(this.connectorBase != null)
+//            this.connectorBase.setParent(null);
 
         this.connectorBase = connectorBase;
         //Se connectorBase existe, atribui este como seu parente
-        if(this.connectorBase != null)
-            this.connectorBase.setParent(this);
+//        if(this.connectorBase != null)
+//            this.connectorBase.setParent(this);
     }
 
 

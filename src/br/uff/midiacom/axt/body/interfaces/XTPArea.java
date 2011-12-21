@@ -27,13 +27,19 @@ public class XTPArea<T extends XTPArea, P extends XTPElement, I extends XTPEleme
     
     
     @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>(this);
+    }
+    
+    
+    @Override
     public void load(Element element) throws XMLException {
         String att_var;
 
 
         // set the xLabel (required)
         if(!(att_var = element.getAttribute("xlabel")).isEmpty())
-            setXLabel(((XTPVocabulary)impl.getDoc().getVocabulary()).findComponent(att_var));
+            setXLabel(((XTPVocabulary)impl.getDoc().getVocabulary()).findPort(att_var));
         else
             throw new XMLException("Could not find xlabel attribute.");
 

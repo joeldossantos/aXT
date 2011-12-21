@@ -6,6 +6,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPConnectorPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.number.MaxType;
 import org.w3c.dom.Element;
 
@@ -16,6 +17,17 @@ public class XTPConnector<T extends XTPConnector, P extends XTPElement, I extend
     
     public XTPConnector(String xlabel, NCLCausalConnector src) throws XMLException {
         super(xlabel, src);
+    }
+    
+    
+    public XTPConnector() throws XMLException {
+        super();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>(this);
     }
     
     

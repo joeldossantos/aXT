@@ -23,6 +23,12 @@ public class XTPDocPrototype<T extends XTPDocPrototype, P extends XTPElement, I 
     public XTPDocPrototype(String id) throws XMLException {
         setId(id);
     }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>();
+    }
 
 
     public void setName(String name) throws XMLException {

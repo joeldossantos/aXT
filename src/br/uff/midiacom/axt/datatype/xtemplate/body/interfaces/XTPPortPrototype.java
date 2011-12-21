@@ -27,6 +27,12 @@ public class XTPPortPrototype<T extends XTPPortPrototype, P extends XTPElement, 
     public XTPPortPrototype() throws XMLException {
         super();
     }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>();
+    }
 
 
     public void setXLabel(XTPVocabularyElement xlabel) throws XMLException {

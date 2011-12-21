@@ -36,6 +36,12 @@ public class XTPPropertyPrototype<T extends XTPPropertyPrototype, P extends XTPE
     }
     
     
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>();
+    }
+    
+    
     /**
      * Determina o nome da propriedade sem seguir os valores padrão especificados na norma.
      * O nome, entretando pode estar na forma shared.xxx

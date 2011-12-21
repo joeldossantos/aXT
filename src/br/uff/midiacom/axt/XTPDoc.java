@@ -1,21 +1,20 @@
 package br.uff.midiacom.axt;
 
+import br.uff.midiacom.ana.NCLParsingException;
 import br.uff.midiacom.axt.body.XTPBody;
-import br.uff.midiacom.axt.body.XTPForEach;
-import br.uff.midiacom.axt.body.XTPVariable;
-import br.uff.midiacom.axt.body.interfaces.XTPPort;
-import br.uff.midiacom.axt.body.link.XTPLink;
-import br.uff.midiacom.axt.body.node.XTPNode;
-import br.uff.midiacom.axt.constraints.XTPConstraint;
 import br.uff.midiacom.axt.constraints.XTPConstraints;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPDocPrototype;
 import br.uff.midiacom.axt.head.XTPHead;
-import br.uff.midiacom.axt.vocabulary.XTPComponent;
-import br.uff.midiacom.axt.vocabulary.XTPConnector;
 import br.uff.midiacom.axt.vocabulary.XTPVocabulary;
-import br.uff.midiacom.xml.XMLElementImpl;
 import br.uff.midiacom.xml.XMLException;
+import java.io.File;
+import java.io.IOException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 
 public class XTPDoc<T extends XTPDoc, P extends XTPElement, I extends XTPElementImpl, Eh extends XTPHead, Ev extends XTPVocabulary, Eb extends XTPBody, Ec extends XTPConstraints>
@@ -26,6 +25,36 @@ public class XTPDoc<T extends XTPDoc, P extends XTPElement, I extends XTPElement
         super(id);
     }
     
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>(this);
+    }
+    
+    
+    /**
+     * Loads the objects structure representing an NCL document from an XML file.
+     *
+     * @param xmlFile
+     *          file with the NCL document content.
+     * @throws NCLParsingException
+     *          if an error occur while parsing the document.
+     */
+    public void load(File xmlFile) throws XMLException {
+        try{
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder parser = factory.newDocumentBuilder();
+            Document doc = parser.parse(xmlFile);
+            ReferenceManager.getInstance().setBaseSrc(xmlFile.getParent());
+            load(doc.getDocumentElement());
+        }catch(SAXException e){
+            throw new NCLParsingException(e.fillInStackTrace());
+        }catch(ParserConfigurationException e){
+            throw new NCLParsingException(e.fillInStackTrace());
+        }catch(IOException e){
+            throw new NCLParsingException(e.fillInStackTrace());
+        }
+    }
     
     @Override
     public void load(Element element) throws XMLException {
@@ -65,6 +94,13 @@ public class XTPDoc<T extends XTPDoc, P extends XTPElement, I extends XTPElement
                 setHead(inst);
                 inst.load(el);
             }
+            // create the vocabulary
+            el = (Element) element.getElementsByTagName("vocabulary").item(0);
+            if(el != null){
+                Ev inst = createVocabulary();
+                setVocabulary(inst);
+                inst.load(el);
+            }
             // create the body
             el = (Element) element.getElementsByTagName("body").item(0);
             if(el != null){
@@ -77,13 +113,6 @@ public class XTPDoc<T extends XTPDoc, P extends XTPElement, I extends XTPElement
             if(el != null){
                 Ec inst = createConstraints();
                 setConstraints(inst);
-                inst.load(el);
-            }
-            // create the vocabulary
-            el = (Element) element.getElementsByTagName("vocabulary").item(0);
-            if(el != null){
-                Ev inst = createVocabulary();
-                setVocabulary(inst);
                 inst.load(el);
             }
         }catch(XMLException ex){

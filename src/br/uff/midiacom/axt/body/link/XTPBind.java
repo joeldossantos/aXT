@@ -10,6 +10,7 @@ import br.uff.midiacom.axt.body.node.XTPNode;
 import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPBindPrototype;
 import br.uff.midiacom.axt.vocabulary.XTPConnector;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -21,6 +22,12 @@ public class XTPBind<T extends XTPBind, P extends XTPElement, I extends XTPEleme
     
     public XTPBind() throws XMLException {
         super();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>(this);
     }
     
     

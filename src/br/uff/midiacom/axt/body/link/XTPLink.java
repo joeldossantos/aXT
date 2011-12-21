@@ -23,6 +23,12 @@ public class XTPLink<T extends XTPLink, P extends XTPElement, I extends XTPEleme
     
     
     @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>(this);
+    }
+    
+    
+    @Override
     public void load(Element element) throws XMLException {
         String att_var;
         NodeList nl;

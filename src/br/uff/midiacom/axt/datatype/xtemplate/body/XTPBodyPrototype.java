@@ -7,6 +7,7 @@ import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPLinkPrototype;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPNode;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
@@ -27,6 +28,12 @@ public class XTPBodyPrototype<T extends XTPBodyPrototype, P extends XTPElement, 
         links = new ElementList<El, T>();
         variables = new ElementList<Ev, T>();
         forEachs = new ElementList<Ef, T>();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>();
     }
     
     

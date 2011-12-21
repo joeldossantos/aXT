@@ -7,6 +7,7 @@ import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPLinkPrototype;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPSwitchPrototype;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.elementList.ElementList;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
@@ -34,6 +35,12 @@ public class XTPForEachPrototype<T extends XTPForEachPrototype, P extends XTPEle
         switches = new ElementList<Es, T>();
         links = new ElementList<El, T>();
         variables = new ElementList<Ev, T>();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>();
     }
 
     

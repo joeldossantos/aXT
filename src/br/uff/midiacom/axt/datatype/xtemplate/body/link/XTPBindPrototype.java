@@ -8,6 +8,7 @@ import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPInterface;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPNode;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.elementList.ElementList;
 import br.uff.midiacom.xml.datatype.string.StringType;
 import java.util.Iterator;
@@ -24,6 +25,12 @@ public class XTPBindPrototype<T extends XTPBindPrototype, P extends XTPElement, 
     public XTPBindPrototype() throws XMLException {
         super();
         bindParams = new ElementList<Ep, T>();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>();
     }
 
 

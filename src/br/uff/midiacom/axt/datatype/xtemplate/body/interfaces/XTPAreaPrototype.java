@@ -43,6 +43,12 @@ public class XTPAreaPrototype<T extends XTPAreaPrototype, P extends XTPElement, 
     public XTPAreaPrototype() throws XMLException {
         super();
     }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>();
+    }
 
 
     public void setXLabel(XTPVocabularyElement xlabel) throws XMLException {

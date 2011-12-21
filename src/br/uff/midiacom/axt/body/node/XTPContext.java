@@ -32,6 +32,12 @@ public class XTPContext<T extends XTPContext, P extends XTPElement, I extends XT
     
     
     @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>(this);
+    }
+    
+    
+    @Override
     public void load(Element element) throws XMLException {
         String att_var;
         NodeList nl;

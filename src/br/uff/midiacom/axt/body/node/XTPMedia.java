@@ -33,6 +33,12 @@ public class XTPMedia<T extends XTPMedia, P extends XTPElement, I extends XTPEle
     
     
     @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>(this);
+    }
+    
+    
+    @Override
     public void load(Element element) throws XMLException {
         String att_var;
         NodeList nl;
