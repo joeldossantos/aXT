@@ -6,6 +6,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPParamPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import org.w3c.dom.Element;
 
 
@@ -15,6 +16,12 @@ public class XTPParam<T extends XTPParam, P extends XTPElement, I extends XTPEle
     
     public XTPParam(NCLParamInstance paramType) throws XMLException{
         super(paramType);
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>(this);
     }
     
     

@@ -10,6 +10,7 @@ import br.uff.midiacom.axt.body.link.XTPLink;
 import br.uff.midiacom.axt.body.node.XTPSwitch;
 import br.uff.midiacom.axt.datatype.xtemplate.body.XTPForEachPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -26,6 +27,12 @@ public class XTPForEach<T extends XTPForEach, P extends XTPElement, I extends XT
     
     public XTPForEach() throws XMLException {
         super();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>(this);
     }
     
     

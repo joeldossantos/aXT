@@ -6,6 +6,7 @@ import br.uff.midiacom.axt.body.node.XTPNode;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPMappingPrototype;
 import br.uff.midiacom.axt.vocabulary.XTPVocabulary;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import org.w3c.dom.Element;
 
 
@@ -16,6 +17,12 @@ public class XTPMapping<T extends XTPMapping, P extends XTPElement, I extends XT
     
     public XTPMapping() throws XMLException {
         super();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>(this);
     }
     
     

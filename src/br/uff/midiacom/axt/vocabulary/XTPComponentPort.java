@@ -4,6 +4,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPComponentPortPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.number.MaxType;
 import org.w3c.dom.Element;
 
@@ -19,6 +20,12 @@ public class XTPComponentPort<T extends XTPComponentPort, P extends XTPElement, 
     
     public XTPComponentPort() throws XMLException{
         super();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>(this);
     }
     
     

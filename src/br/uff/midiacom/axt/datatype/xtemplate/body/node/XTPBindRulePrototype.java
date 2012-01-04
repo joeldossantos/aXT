@@ -5,6 +5,7 @@ import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
@@ -18,6 +19,12 @@ public class XTPBindRulePrototype<T extends XTPBindRulePrototype, P extends XTPE
 
     public XTPBindRulePrototype() throws XMLException{
         super();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>();
     }
 
 

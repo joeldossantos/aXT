@@ -4,6 +4,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.body.XTPVariablePrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import org.w3c.dom.Element;
 
 
@@ -18,6 +19,12 @@ public class XTPVariable<T extends XTPVariable, P extends XTPElement, I extends 
     
     public XTPVariable() throws XMLException {
         super();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>(this);
     }
     
     

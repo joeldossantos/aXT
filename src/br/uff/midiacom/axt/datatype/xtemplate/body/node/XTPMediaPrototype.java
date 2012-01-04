@@ -44,6 +44,12 @@ public class XTPMediaPrototype<T extends XTPMediaPrototype, P extends XTPElement
         properties = new LabeledElementList<Ep, T>();
     }
 
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>();
+    }
+    
 
     public void setXLabel(XTPVocabularyElement xlabel) throws XMLException {
         if(xlabel == null)

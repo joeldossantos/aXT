@@ -1,8 +1,8 @@
 package br.uff.midiacom.axt.body.interfaces;
 
-import br.uff.midiacom.axt.XTPDoc;
 import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.XTPElementImpl;
+import br.uff.midiacom.axt.body.XTPBody;
 import br.uff.midiacom.axt.body.node.XTPNode;
 import br.uff.midiacom.axt.datatype.xtemplate.body.interfaces.XTPPortPrototype;
 import br.uff.midiacom.axt.vocabulary.XTPVocabulary;
@@ -21,6 +21,12 @@ public class XTPPort<T extends XTPPort, P extends XTPElement, I extends XTPEleme
     
     public XTPPort() throws XMLException {
         super();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>(this);
     }
     
     
@@ -51,12 +57,12 @@ public class XTPPort<T extends XTPPort, P extends XTPElement, I extends XTPEleme
         
         // set the xLabel
         if(!(att_var = element.getAttribute("xLabel")).isEmpty())
-            setXLabel(((XTPVocabulary)impl.getDoc().getVocabulary()).findComponent(att_var));
+            setXLabel(((XTPVocabulary)impl.getDoc().getVocabulary()).findPort(att_var));
         
         // set the component
         if(!(att_var = element.getAttribute("component")).isEmpty()){
-            XTPVocabulary voc = (XTPVocabulary) impl.getDoc().getVocabulary();
-            setComponent((En)voc.findComponent(att_var));
+            XTPBody body = (XTPBody) impl.getDoc().getBody();
+            setComponent((En)body.findNode(att_var));
             
             // set the interface (optional)
             if(!(att_var = element.getAttribute("interface")).isEmpty()){

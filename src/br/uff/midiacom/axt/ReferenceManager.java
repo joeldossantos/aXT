@@ -59,6 +59,7 @@ public class ReferenceManager {
 
     private static ReferenceManager instance = new ReferenceManager();
     private ArrayList<PostReferenceElement> references = new ArrayList<PostReferenceElement>();
+    private String baseSrc;
     
     
     private ReferenceManager() {}
@@ -66,6 +67,11 @@ public class ReferenceManager {
     
     public static ReferenceManager getInstance() {
         return instance;
+    }
+    
+    
+    public void setBaseSrc(String baseSrc) {
+        this.baseSrc = baseSrc;
     }
     
     
@@ -86,7 +92,7 @@ public class ReferenceManager {
         if(index == -1)
             throw new XTPParsingException("The referred src does not have an alias");
         else
-            return reference.substring(index);
+            return reference.substring(0, index);
     }
     
     
@@ -127,7 +133,8 @@ public class ReferenceManager {
         // get the imported document src
         String src = imp.getDocumentURI().parse();
         ncldoc = new NCLDoc();
-        ncldoc.loadXML(new File(src));
+        String path = baseSrc + File.separator + src;
+        ncldoc.loadXML(new File(path));
 
         nclhead = (NCLHead) ncldoc.getHead();
         if(nclhead == null)
@@ -170,7 +177,8 @@ public class ReferenceManager {
         // get the imported document src
         String src = imp.getDocumentURI().parse();
         ncldoc = new NCLDoc();
-        ncldoc.loadXML(new File(src));
+        String path = baseSrc + File.separator + src;
+        ncldoc.loadXML(new File(path));
 
         nclhead = (NCLHead) ncldoc.getHead();
         if(nclhead == null)
@@ -193,15 +201,14 @@ public class ReferenceManager {
         NCLImport imp;
         NCLDoc ncldoc;
         NCLHead nclhead;
-        NCLDescriptorBase base;
-        NCLConnectorBase nclbase;
+        NCLConnectorBase base, nclbase;
         NCLCausalConnector result = null;
         
         xtphead = (XTPHead) doc.getHead();
         if(xtphead == null)
             throw new XTPParsingException("Could not find document head element");
         
-        base = (NCLDescriptorBase) xtphead.getDescriptorBase();
+        base = (NCLConnectorBase) xtphead.getConnectorBase();
         if(base == null)
             throw new XTPParsingException("Could not find document descriptorBase element");
 
@@ -213,7 +220,8 @@ public class ReferenceManager {
         // get the imported document src
         String docsrc = imp.getDocumentURI().parse();
         ncldoc = new NCLDoc();
-        ncldoc.loadXML(new File(docsrc));
+        String path = baseSrc + File.separator + docsrc;
+        ncldoc.loadXML(new File(path));
 
         nclhead = (NCLHead) ncldoc.getHead();
         if(nclhead == null)

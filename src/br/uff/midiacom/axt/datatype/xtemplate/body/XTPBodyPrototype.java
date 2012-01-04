@@ -7,6 +7,7 @@ import br.uff.midiacom.axt.datatype.xtemplate.body.link.XTPLinkPrototype;
 import br.uff.midiacom.axt.datatype.xtemplate.body.node.XTPNode;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.elementList.ElementList;
 
 
@@ -27,6 +28,12 @@ public class XTPBodyPrototype<T extends XTPBodyPrototype, P extends XTPElement, 
         links = new ElementList<El, T>();
         variables = new ElementList<Ev, T>();
         forEachs = new ElementList<Ef, T>();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>();
     }
     
     
@@ -99,6 +106,40 @@ public class XTPBodyPrototype<T extends XTPBodyPrototype, P extends XTPElement, 
     public boolean addVariable(Ev variable) throws XMLException {
         return variables.add(variable, (T) this);
     }
+    
+    
+    /**
+     * Retorna as portas do contexto.
+     *
+     * @return
+     *          lista contendo as portas do contexto.
+     */
+    public ElementList<Ep, T> getPorts() {
+        return ports;
+    }
+    
+    
+    /**
+     * Retorna os nós do contexto.
+     *
+     * @return
+     *          lista contendo os nós do contexto.
+     */
+    public ElementList<En, T> getNodes() {
+        return nodes;
+    }
+    
+    
+    /**
+     * Retorna os links do contexto.
+     *
+     * @return
+     *          lista contendo os links do contexto.
+     */
+    public ElementList<El, T> getLinks() {
+        return links;
+    }
+    
     
     public String parse(int ident) {
         throw new UnsupportedOperationException("Not supported yet.");

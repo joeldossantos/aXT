@@ -25,6 +25,12 @@ public class XTPLinkPrototype<T extends XTPLinkPrototype, P extends XTPElement, 
     }
     
     
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>();
+    }
+    
+    
     public void setXType(Exc xtype){
         this.xtype = xtype;
     }

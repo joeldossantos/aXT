@@ -6,6 +6,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.head.XTPExtendsPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import org.w3c.dom.Element;
 
 
@@ -20,6 +21,12 @@ public class XTPExtends<T extends XTPExtends, P extends XTPElement, I extends XT
     
     public XTPExtends() throws XMLException {
         super();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>(this);
     }
     
     

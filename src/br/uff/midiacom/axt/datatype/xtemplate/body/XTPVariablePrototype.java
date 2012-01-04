@@ -4,6 +4,7 @@ import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
 
@@ -23,6 +24,12 @@ public class XTPVariablePrototype<T extends XTPVariablePrototype, P extends XTPE
     }
     
     
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>();
+    }
+    
+    
     public void setName(String name) throws XMLException {
         if(name == null)
             throw new NullPointerException("Null String.");
@@ -32,7 +39,10 @@ public class XTPVariablePrototype<T extends XTPVariablePrototype, P extends XTPE
     
     
     public String getName() {
-        return name.getValue();
+        if(name != null)
+            return name.getValue();
+        else
+            return null;
     }
 
 

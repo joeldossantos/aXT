@@ -36,6 +36,12 @@ public class XTPSwitchPrototype<T extends XTPSwitchPrototype, P extends XTPEleme
         binds = new ElementList<Eb, T>();
         nodes = new LabeledElementList<En, T>();
     }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>();
+    }
 
 
     public void setXLabel(XTPVocabularyElement xlabel) throws XMLException {
