@@ -39,7 +39,10 @@ public class XTPVariablePrototype<T extends XTPVariablePrototype, P extends XTPE
     
     
     public String getName() {
-        return name.getValue();
+        if(name != null)
+            return name.getValue();
+        else
+            return null;
     }
 
 

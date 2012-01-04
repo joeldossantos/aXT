@@ -51,7 +51,10 @@ public class XTPPortPrototype<T extends XTPPortPrototype, P extends XTPElement, 
 
 
     public String getSelect() {
-        return select.getValue();
+        if (select != null)
+            return select.getValue();
+        else
+            return null;
     }
 
 

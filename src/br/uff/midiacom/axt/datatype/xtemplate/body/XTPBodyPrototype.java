@@ -107,6 +107,40 @@ public class XTPBodyPrototype<T extends XTPBodyPrototype, P extends XTPElement, 
         return variables.add(variable, (T) this);
     }
     
+    
+    /**
+     * Retorna as portas do contexto.
+     *
+     * @return
+     *          lista contendo as portas do contexto.
+     */
+    public ElementList<Ep, T> getPorts() {
+        return ports;
+    }
+    
+    
+    /**
+     * Retorna os nós do contexto.
+     *
+     * @return
+     *          lista contendo os nós do contexto.
+     */
+    public ElementList<En, T> getNodes() {
+        return nodes;
+    }
+    
+    
+    /**
+     * Retorna os links do contexto.
+     *
+     * @return
+     *          lista contendo os links do contexto.
+     */
+    public ElementList<El, T> getLinks() {
+        return links;
+    }
+    
+    
     public String parse(int ident) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

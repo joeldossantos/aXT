@@ -36,7 +36,10 @@ public class XTPComponentPrototype<T extends XTPComponentPrototype, P extends XT
     
     
     public String getXType() {
-        return xType.getValue();
+        if(xType != null)
+            return xType.getValue();
+        else
+            return null;
     }
     
     

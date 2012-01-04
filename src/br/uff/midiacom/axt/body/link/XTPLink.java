@@ -63,13 +63,13 @@ public class XTPLink<T extends XTPLink, P extends XTPElement, I extends XTPEleme
                     Element el = (Element) nl.item(i);
                     
                     // create the linkParam
-                    if(el.getTagName().equals("area")){
+                    if(el.getTagName().equals("linkParam")){
                         Ep inst = createLinkParam();
                         addLinkParam(inst);
                         inst.load(el);
                     }
                     // create the bind
-                    if(el.getTagName().equals("property")){
+                    else if(el.getTagName().equals("bind")){
                         Eb inst = createBind();
                         addBind(inst);
                         inst.load(el);
