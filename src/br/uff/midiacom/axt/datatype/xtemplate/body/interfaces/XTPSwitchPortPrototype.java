@@ -28,6 +28,12 @@ public class XTPSwitchPortPrototype<T extends XTPSwitchPortPrototype, P extends 
     }
     
     
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>();
+    }
+    
+    
     public void setXLabel(XTPVocabularyElement xlabel) throws XMLException {
         if(xlabel == null)
             throw new NullPointerException("Null String.");

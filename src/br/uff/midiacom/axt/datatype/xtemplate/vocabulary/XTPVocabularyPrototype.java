@@ -5,6 +5,7 @@ import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 
 
 public class XTPVocabularyPrototype<T extends XTPVocabularyPrototype, P extends XTPElement, I extends XTPElementImpl, Ecp extends XTPComponentPrototype, Ecc extends XTPConnectorPrototype>
@@ -18,6 +19,12 @@ public class XTPVocabularyPrototype<T extends XTPVocabularyPrototype, P extends 
         super();
         components = new VocabularyElementList<Ecp, T>();
         connectors = new VocabularyElementList<Ecc, T>();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>();
     }
 
 

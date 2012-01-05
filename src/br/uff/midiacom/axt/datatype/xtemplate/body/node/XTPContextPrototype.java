@@ -49,6 +49,12 @@ public class XTPContextPrototype<T extends XTPContextPrototype, P extends XTPEle
         metas = new ElementList<Em, T>();
         metadatas = new ElementList<Emt, T>();
     }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>();
+    }
 
 
     public void setXLabel(XTPVocabularyElement xlabel) throws XMLException {

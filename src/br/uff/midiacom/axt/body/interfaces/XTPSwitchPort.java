@@ -25,13 +25,19 @@ public class XTPSwitchPort<T extends XTPSwitchPort, P extends XTPElement, I exte
     
     
     @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<T, P>(this);
+    }
+    
+    
+    @Override
     public void load(Element element) throws XMLException {
         String att_var;
         NodeList nl;
         
         // set the xLabel (required)
         if(!(att_var = element.getAttribute("xLabel")).isEmpty())
-            setXLabel(((XTPVocabulary)impl.getDoc().getVocabulary()).findComponent(att_var));
+            setXLabel(((XTPVocabulary)impl.getDoc().getVocabulary()).findPort(att_var));
         else
             throw new XMLException("Could not find xLabel attribute.");
         

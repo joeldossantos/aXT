@@ -10,6 +10,7 @@ import br.uff.midiacom.axt.body.node.XTPNode;
 import br.uff.midiacom.axt.body.node.XTPSwitch;
 import br.uff.midiacom.axt.datatype.xtemplate.body.XTPBodyPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -21,6 +22,12 @@ public class XTPBody<T extends XTPBody, P extends XTPElement, I extends XTPEleme
     
     public XTPBody () throws XMLException {
         super();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>(this);
     }
     
     
@@ -43,13 +50,13 @@ public class XTPBody<T extends XTPBody, P extends XTPElement, I extends XTPEleme
                         inst.load(el);
                     }
                     // create the context
-                    if(el.getTagName().equals("context")){
+                    else if(el.getTagName().equals("context")){
                         En inst = createContext();
                         addNode(inst);
                         inst.load(el);
                     }
                     // create the switch
-                    if(el.getTagName().equals("switch")){
+                    else if(el.getTagName().equals("switch")){
                         En inst = createSwitch();
                         addNode(inst);
                         inst.load(el);
@@ -71,19 +78,19 @@ public class XTPBody<T extends XTPBody, P extends XTPElement, I extends XTPEleme
                         inst.load(el);
                     }
                     // create the link
-                    if(el.getTagName().equals("link")){
+                    else if(el.getTagName().equals("link")){
                         El inst = createLink();
                         addLink(inst);
                         inst.load(el);
                     }
                     // create the variable
-                    if(el.getTagName().equals("variable")){
+                    else if(el.getTagName().equals("variable")){
                         Ev inst = createVariable();
                         addVariable(inst);
                         inst.load(el);
                     }
                     // create the for each
-                    if(el.getTagName().equals("forEach")){
+                    else if(el.getTagName().equals("forEach")){
                         Ef inst = createForEach();
                         addForEach(inst);
                         inst.load(el);
@@ -98,13 +105,12 @@ public class XTPBody<T extends XTPBody, P extends XTPElement, I extends XTPEleme
     
     
     /**
-     * Searches for an node inside the body and its descendants. The node will be
-     * searched inside contexts and switches.
+     * Searches for a port inside the body.
      * 
-     * @param id
-     *          id of the node to be found.
+     * @param xlabel
+     *          xlabel of the port to be found.
      * @return 
-     *          node or null if no node was found.
+     *          port or null if no port was found.
      */
     public Ep findPort(String id) throws XMLException {
         for(Ep p : ports){
@@ -115,18 +121,20 @@ public class XTPBody<T extends XTPBody, P extends XTPElement, I extends XTPEleme
     }
     
     
-    public En findNode(String id) throws XMLException {
+    /**
+     * Searches for a node inside the body and its descendants. The node will be
+     * searched inside contexts and switches.
+     * 
+     * @param xlabel
+     *          xlabel of the node to be found.
+     * @return 
+     *          node or null if no node was found.
+     */
+    public En findNode(String xlabel) throws XMLException {
         En result;
         
-        // search in the body
-        for(En n : nodes){
-            if(n.getId().equals(id))
-                return n;
-        }
-        
-        // search in inner nodes
         for(En node : nodes){
-            result = (En) node.findNode(id);
+            result = (En) node.findNode(xlabel);
             if(result != null)
                 return result;
         }

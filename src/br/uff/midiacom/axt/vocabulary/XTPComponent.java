@@ -6,6 +6,7 @@ import br.uff.midiacom.axt.XTPElement;
 import br.uff.midiacom.axt.XTPElementImpl;
 import br.uff.midiacom.axt.datatype.xtemplate.vocabulary.XTPComponentPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.number.MaxType;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -24,6 +25,12 @@ public class XTPComponent<T extends XTPComponent, P extends XTPElement, I extend
     
     public XTPComponent() throws XMLException {
         super();
+    }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>(this);
     }
     
     
@@ -128,9 +135,8 @@ public class XTPComponent<T extends XTPComponent, P extends XTPElement, I extend
         T result;
         
         // search in the component
-        result = components.get(xLabel);
-        if(result != null)
-            return result;
+        if(getXLabel().equals(xLabel))
+            return (T) this;
         
         // search in inner components
         for(T c : components){
@@ -149,7 +155,7 @@ public class XTPComponent<T extends XTPComponent, P extends XTPElement, I extend
      * @return 
      *          componentPort or null if no componentPort was found.
      */
-    public Ep findComponentPort(String id) throws XMLException {
+    public Ep findPort(String id) throws XMLException {
         Ep result;
         
         // search in the component
@@ -159,7 +165,7 @@ public class XTPComponent<T extends XTPComponent, P extends XTPElement, I extend
         
         // search in inner components
         for(T c : components){
-            result = (Ep) c.findComponentPort(id);
+            result = (Ep) c.findPort(id);
             if(result != null)
                 return result;
         }

@@ -4,6 +4,7 @@ import br.uff.midiacom.axt.datatype.xtemplate.XTPElement;
 import br.uff.midiacom.axt.datatype.xtemplate.XTPElementImpl;
 import br.uff.midiacom.xml.XMLElementPrototype;
 import br.uff.midiacom.xml.XMLException;
+import br.uff.midiacom.xml.XMLIdentifiableElementPrototype;
 import br.uff.midiacom.xml.datatype.number.MaxType;
 import br.uff.midiacom.xml.datatype.string.StringType;
 
@@ -32,6 +33,13 @@ public abstract class XTPVocabularyElement<T extends XTPVocabularyElement, P ext
         defMinOccurs = 1;
         defMaxOccurs = new MaxType("unbounded");
     }
+    
+    
+    @Override
+    protected void createImpl() throws XMLException {
+        impl = (I) new XTPElementImpl<XMLIdentifiableElementPrototype, P>();
+    }
+    
 
     public void setXLabel(String xlabel) throws XMLException {
         if(xlabel == null)
@@ -42,7 +50,9 @@ public abstract class XTPVocabularyElement<T extends XTPVocabularyElement, P ext
 
 
     public String getXLabel(){
-        return xlabel.getValue();
+        if(xlabel != null)
+            return xlabel.getValue();
+        return null;
     }
 
 
@@ -81,6 +91,15 @@ public abstract class XTPVocabularyElement<T extends XTPVocabularyElement, P ext
 
     @Override
     public boolean compare(T other) {
-        return getXLabel().equals(other.getXLabel());
+        boolean comp = true;
+
+        String this_el, other_el;
+
+        // Compara pelo role
+        if(getXLabel() == null) this_el = ""; else this_el = getXLabel();
+        if(other.getXLabel() == null) other_el = ""; else other_el = other.getXLabel();
+        comp &= this_el.equals(other_el);
+        
+        return comp;
     }
 }
